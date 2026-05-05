@@ -4,11 +4,7 @@
 <title>Zakayo Maloloi Malogo — Web Developer</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
-* {
-margin:0;
-padding:0;
-box-sizing:border-box;
-}
+* { margin:0; padding:0; box-sizing:border-box; }
 body {
 background-color:#1a1a2e;
 color:white;
@@ -29,7 +25,7 @@ nav a {
 color:white;
 margin:10px;
 text-decoration:none;
-font-size:18px;
+font-size:16px;
 }
 nav a:hover {
 background-color:white;
@@ -39,7 +35,7 @@ border-radius:5px;
 }
 .hero {
 text-align:center;
-padding:50px 20px;
+padding:60px 20px;
 background:linear-gradient(135deg,#1a1a2e,#0f3460);
 }
 .hero img {
@@ -48,7 +44,7 @@ height:200px;
 border-radius:50%;
 border:5px solid #e94560;
 object-fit:cover;
-animation:zungusha 2s ease-in-out;
+animation:zungusha 1s ease-in-out;
 }
 @keyframes zungusha {
 from { transform:scale(0); opacity:0; }
@@ -58,11 +54,6 @@ to { transform:scale(1); opacity:1; }
 color:#e94560;
 font-size:45px;
 margin:20px 0;
-animation:ingia 1s ease-in-out;
-}
-@keyframes ingia {
-from { transform:translateY(-50px); opacity:0; }
-to { transform:translateY(0); opacity:1; }
 }
 .hero p {
 font-size:20px;
@@ -70,7 +61,7 @@ color:#aaa;
 }
 .saa-box {
 background-color:#0f3460;
-padding:15px;
+padding:15px 30px;
 border-radius:15px;
 display:inline-block;
 margin:20px;
@@ -86,14 +77,14 @@ text-align:center;
 }
 .sehemu h2 {
 color:#e94560;
-font-size:35px;
+font-size:32px;
 margin-bottom:20px;
 border-bottom:3px solid #e94560;
 padding-bottom:10px;
 }
 .kadi {
 background-color:#0f3460;
-padding:20px;
+padding:25px;
 border-radius:15px;
 margin:15px 0;
 text-align:left;
@@ -106,17 +97,18 @@ transform:translateX(10px);
 display:flex;
 justify-content:space-between;
 margin-bottom:5px;
+font-size:16px;
 }
 .bar {
 background-color:#1a1a2e;
 border-radius:10px;
 height:15px;
+margin-bottom:15px;
 }
 .bar-jaza {
 height:15px;
 border-radius:10px;
 background-color:#e94560;
-transition:width 2s;
 }
 button {
 background-color:#e94560;
@@ -156,24 +148,56 @@ font-weight:bold;
 margin:10px;
 }
 #maelezo {
-background-color:#0f3460;
+background-color:#1a1a2e;
 padding:20px;
 border-radius:15px;
 margin:15px 0;
 }
+.btn-whatsapp {
+background-color:#25D366;
+color:white;
+padding:15px 30px;
+border-radius:10px;
+text-decoration:none;
+font-size:18px;
+margin:10px;
+display:inline-block;
+transition:all 0.3s;
+}
+.btn-whatsapp:hover {
+background-color:white;
+color:#25D366;
+transform:scale(1.05);
+}
+.btn-email {
+background-color:#e94560;
+color:white;
+padding:15px 30px;
+border-radius:10px;
+text-decoration:none;
+font-size:18px;
+margin:10px;
+display:inline-block;
+transition:all 0.3s;
+}
+.btn-email:hover {
+background-color:white;
+color:#e94560;
+transform:scale(1.05);
+}
 .footer {
 background-color:#0f3460;
 text-align:center;
-padding:20px;
+padding:30px;
 margin-top:40px;
+}
+.footer p {
 color:#aaa;
+margin:5px;
 }
 .light-mode {
 background-color:#f0f0f0;
 color:#1a1a2e;
-}
-.light-mode nav {
-background-color:#e94560;
 }
 .light-mode .kadi {
 background-color:white;
@@ -182,14 +206,16 @@ box-shadow:0 2px 10px rgba(0,0,0,0.1);
 }
 .light-mode .saa-box {
 background-color:white;
-box-shadow:0 2px 10px rgba(0,0,0,0.1);
+color:#e94560;
 }
 .light-mode .hero {
 background:linear-gradient(135deg,#f0f0f0,#e0e0e0);
 }
 .light-mode .footer {
 background-color:#ddd;
-color:#333;
+}
+.light-mode #maelezo {
+background-color:#f0f0f0;
 }
 </style>
 </head>
@@ -198,6 +224,8 @@ color:#333;
 <nav>
     <div>
         <a href="index.html">🏠 Nyumbani</a>
+        <a href="portfolio.html">💼 Portfolio</a>
+        <a href="game.html">🎮 Mchezo</a>
         <a href="contact.html">📧 Wasiliana</a>
     </div>
     <button onclick="badilishaMuonekano()" style="padding:8px 15px;font-size:14px;">
@@ -206,7 +234,7 @@ color:#333;
 </nav>
 
 <div class="hero">
-    <img src="IMG 1234.jpg" alt="Zakayo">
+    <img src="IMG 1234.JPG" alt="Zakayo Maloloi Malogo">
     <h1>Zakayo Maloloi Malogo</h1>
     <p>🌍 Web Developer | Tanzania</p>
     <br>
@@ -222,7 +250,9 @@ color:#333;
     <h2>🎓 Elimu Yangu</h2>
     <div class="kadi">
         <p>📚 Ninajifunza HTML, CSS, na JavaScript</p>
+        <br>
         <p>💻 Natumia VS Code na GitHub</p>
+        <br>
         <p>🌐 Nimetengeneza tovuti zangu mwenyewe</p>
     </div>
 
@@ -234,14 +264,12 @@ color:#333;
         <div class="bar">
             <div class="bar-jaza" style="width:90%"></div>
         </div>
-        <br>
         <div class="ujuzi-jina">
             <span>CSS</span><span>80%</span>
         </div>
         <div class="bar">
             <div class="bar-jaza" style="width:80%"></div>
         </div>
-        <br>
         <div class="ujuzi-jina">
             <span>JavaScript</span><span>70%</span>
         </div>
@@ -253,8 +281,11 @@ color:#333;
     <h2>🎯 Malengo Yangu</h2>
     <div class="kadi">
         <p>✅ Kuwa web developer wa kitaalamu</p>
+        <br>
         <p>✅ Kutengeneza tovuti za biashara</p>
+        <br>
         <p>✅ Kujifunza React na Node.js</p>
+        <br>
         <p>✅ Kupata kazi nzuri ya teknolojia</p>
     </div>
 
@@ -263,18 +294,19 @@ color:#333;
         <input id="nambari1" type="number" placeholder="Nambari 1">
         <input id="nambari2" type="number" placeholder="Nambari 2">
         <br>
-        <button onclick="hesabu('jumlisha')">➕</button>
-        <button onclick="hesabu('toa')">➖</button>
-        <button onclick="hesabu('zidisha')">✖️</button>
-        <button onclick="hesabu('gawanya')">➗</button>
+        <button onclick="hesabu('jumlisha')">➕ Jumlisha</button>
+        <button onclick="hesabu('toa')">➖ Toa</button>
+        <button onclick="hesabu('zidisha')">✖️ Zidisha</button>
+        <button onclick="hesabu('gawanya')">➗ Gawanya</button>
         <p id="jibu"></p>
     </div>
 
     <h2>💬 Ujumbe</h2>
     <div class="kadi" style="text-align:center">
         <p id="ujumbe">Karibu kwenye tovuti yangu!</p>
-        <button onclick="badilisha()">Badilisha Ujumbe</button>
-        <button onclick="salamu()">Salamu!</button>
+        <br>
+        <button onclick="badilisha()">✏️ Badilisha Ujumbe</button>
+        <button onclick="salamu()">👋 Salamu!</button>
     </div>
 
     <h2>📖 Habari Zaidi</h2>
@@ -282,20 +314,35 @@ color:#333;
         <button onclick="onyesha()">📖 Soma Zaidi</button>
         <div id="maelezo" style="display:none;margin-top:15px">
             <p>Ninajifunza coding kwa bidii kila siku.</p>
+            <br>
             <p>Ndoto yangu ni kuwa web developer maarufu Tanzania!</p>
+            <br>
             <p>Ninapenda muziki, michezo, na teknolojia.</p>
         </div>
     </div>
 
-    <br>
-    <a href="contact.html" style="background-color:#e94560;color:white;padding:15px 30px;border-radius:10px;text-decoration:none;font-size:18px;">
-        📧 Wasiliana Nami
-    </a>
+    <h2>📞 Wasiliana Nami</h2>
+    <div class="kadi" style="text-align:center">
+        <p style="font-size:18px;margin-bottom:20px">Nipigie simu au niandikia — niko tayari kukusaidia!</p>
+        <a href="https://wa.me/255718996785" class="btn-whatsapp">
+            📱 WhatsApp — 0718996785
+        </a>
+        <br><br>
+        <a href="mailto:zakayomalogo@gmail.com" class="btn-email">
+            📧 zakayomalogo@gmail.com
+        </a>
+        <br><br>
+        <a href="contact.html" class="btn-email">
+            ✉️ Tuma Ujumbe
+        </a>
+    </div>
 </div>
 
 <div class="footer">
-    <p>© 2026 Zakayo Maloloi Malogo — Web Developer Tanzania</p>
+    <p>© 2026 <strong>Zakayo Maloloi Malogo</strong> — Web Developer Tanzania</p>
     <p>📱 0718996785 | 📧 zakayomalogo@gmail.com</p>
+    <br>
+    <p>Imetengenezwa kwa ❤️ na HTML, CSS na JavaScript</p>
 </div>
 
 <script>
@@ -304,9 +351,8 @@ function salamu() {
 }
 
 function badilisha() {
-    var ujumbe = document.getElementById("ujumbe");
-    ujumbe.innerHTML = "Asante kwa kutembelea tovuti yangu! 🎉";
-    ujumbe.style.color = "#e94560";
+    document.getElementById("ujumbe").innerHTML =
+    "Asante kwa kutembelea tovuti yangu! 🎉";
 }
 
 function hesabu(aina) {
@@ -317,7 +363,7 @@ function hesabu(aina) {
     else if (aina == 'toa') jibu = n1 - n2;
     else if (aina == 'zidisha') jibu = n1 * n2;
     else if (aina == 'gawanya') {
-        if (n2 == 0) jibu = "Haiwezekani!";
+        if (n2 == 0) jibu = "Haiwezekani kugawanya na sifuri!";
         else jibu = n1 / n2;
     }
     document.getElementById("jibu").innerHTML = "Jibu: " + jibu;
@@ -347,7 +393,8 @@ function onyeshaSaa() {
     if (saa < 10) saa = "0" + saa;
     if (dakika < 10) dakika = "0" + dakika;
     if (sekunde < 10) sekunde = "0" + sekunde;
-    document.getElementById("saa").innerHTML = "⏰ " + saa + ":" + dakika + ":" + sekunde;
+    document.getElementById("saa").innerHTML =
+    "⏰ " + saa + ":" + dakika + ":" + sekunde;
 }
 
 setInterval(onyeshaSaa, 1000);
