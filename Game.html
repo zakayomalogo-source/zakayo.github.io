@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Mchezo wa Zakayo</title>
+<title>Zakayo Maloloi Malogo — Web Developer</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
 * { margin:0; padding:0; box-sizing:border-box; }
@@ -9,19 +9,23 @@ body {
 background-color:#1a1a2e;
 color:white;
 font-family:Arial;
-text-align:center;
-padding:20px;
+transition:all 0.3s;
 }
 nav {
 background-color:#e94560;
-padding:15px;
-margin:-20px -20px 30px -20px;
+padding:15px 30px;
+position:sticky;
+top:0;
+display:flex;
+justify-content:space-between;
+align-items:center;
+z-index:100;
 }
 nav a {
 color:white;
-margin:15px;
+margin:10px;
 text-decoration:none;
-font-size:18px;
+font-size:16px;
 }
 nav a:hover {
 background-color:white;
@@ -29,33 +33,92 @@ color:#e94560;
 padding:5px 10px;
 border-radius:5px;
 }
-h1 { color:#e94560; font-size:40px; margin:20px 0; }
-h2 { color:#e94560; font-size:25px; margin:15px 0; }
-.sanduku {
-background-color:#0f3460;
-padding:30px;
-border-radius:20px;
-max-width:500px;
-margin:20px auto;
-}
-input {
-padding:15px;
-font-size:20px;
-border-radius:10px;
-border:none;
-width:150px;
+.hero {
 text-align:center;
-margin:10px;
+padding:60px 20px;
+background:linear-gradient(135deg,#1a1a2e,#0f3460);
+}
+.hero img {
+width:200px;
+height:200px;
+border-radius:50%;
+border:5px solid #e94560;
+object-fit:cover;
+animation:zungusha 1s ease-in-out;
+}
+@keyframes zungusha {
+from { transform:scale(0); opacity:0; }
+to { transform:scale(1); opacity:1; }
+}
+.hero h1 {
+color:#e94560;
+font-size:45px;
+margin:20px 0;
+}
+.hero p {
+font-size:20px;
+color:#aaa;
+}
+.saa-box {
+background-color:#0f3460;
+padding:15px 30px;
+border-radius:15px;
+display:inline-block;
+margin:20px;
+font-size:40px;
+color:#e94560;
+font-weight:bold;
+}
+.sehemu {
+padding:40px 20px;
+max-width:800px;
+margin:0 auto;
+text-align:center;
+}
+.sehemu h2 {
+color:#e94560;
+font-size:32px;
+margin-bottom:20px;
+border-bottom:3px solid #e94560;
+padding-bottom:10px;
+}
+.kadi {
+background-color:#0f3460;
+padding:25px;
+border-radius:15px;
+margin:15px 0;
+text-align:left;
+transition:transform 0.3s;
+}
+.kadi:hover {
+transform:translateX(10px);
+}
+.ujuzi-jina {
+display:flex;
+justify-content:space-between;
+margin-bottom:5px;
+font-size:16px;
+}
+.bar {
+background-color:#1a1a2e;
+border-radius:10px;
+height:15px;
+margin-bottom:15px;
+}
+.bar-jaza {
+height:15px;
+border-radius:10px;
+background-color:#e94560;
 }
 button {
 background-color:#e94560;
 color:white;
-padding:15px 30px;
+padding:12px 25px;
 border:none;
 border-radius:10px;
-font-size:20px;
+font-size:18px;
 cursor:pointer;
-margin:10px;
+margin:8px;
 transition:all 0.3s;
 }
 button:hover {
@@ -63,141 +126,279 @@ background-color:white;
 color:#e94560;
 transform:scale(1.05);
 }
+input {
+padding:10px;
+margin:8px;
+border-radius:10px;
+border:none;
+font-size:16px;
+width:140px;
+text-align:center;
+}
 #jibu {
 font-size:25px;
-font-weight:bold;
-margin:20px;
-padding:15px;
-border-radius:10px;
-}
-#majaribio {
-font-size:20px;
-color:#aaa;
-margin:10px;
-}
-#rekodi {
-font-size:18px;
 color:yellow;
+font-weight:bold;
 margin:10px;
 }
-.kushinda {
-background-color:#27ae60;
-color:white;
-animation:flash 0.5s;
+#ujumbe {
+font-size:20px;
+color:yellow;
+font-weight:bold;
+margin:10px;
 }
-.kukosa {
+#maelezo {
+background-color:#1a1a2e;
+padding:20px;
+border-radius:15px;
+margin:15px 0;
+}
+.btn-whatsapp {
+background-color:#25D366;
+color:white;
+padding:15px 30px;
+border-radius:10px;
+text-decoration:none;
+font-size:18px;
+margin:10px;
+display:inline-block;
+transition:all 0.3s;
+}
+.btn-whatsapp:hover {
+background-color:white;
+color:#25D366;
+transform:scale(1.05);
+}
+.btn-email {
 background-color:#e94560;
 color:white;
+padding:15px 30px;
+border-radius:10px;
+text-decoration:none;
+font-size:18px;
+margin:10px;
+display:inline-block;
+transition:all 0.3s;
 }
-@keyframes flash {
-0% { transform:scale(1); }
-50% { transform:scale(1.1); }
-100% { transform:scale(1); }
+.btn-email:hover {
+background-color:white;
+color:#e94560;
+transform:scale(1.05);
 }
 .footer {
+background-color:#0f3460;
+text-align:center;
+padding:30px;
 margin-top:40px;
+}
+.footer p {
 color:#aaa;
-font-size:14px;
+margin:5px;
+}
+.light-mode {
+background-color:#f0f0f0;
+color:#1a1a2e;
+}
+.light-mode .kadi {
+background-color:white;
+color:#1a1a2e;
+box-shadow:0 2px 10px rgba(0,0,0,0.1);
+}
+.light-mode .saa-box {
+background-color:white;
+color:#e94560;
+}
+.light-mode .hero {
+background:linear-gradient(135deg,#f0f0f0,#e0e0e0);
+}
+.light-mode .footer {
+background-color:#ddd;
+}
+.light-mode #maelezo {
+background-color:#f0f0f0;
 }
 </style>
 </head>
-<body>
+<body id="mwili">
 
 <nav>
-    <a href="index.html">🏠 Nyumbani</a>
-    <a href="contact.html">📧 Wasiliana</a>
-    <a href="game.html">🎮 Mchezo</a>
+    <div>
+        <a href="index.html">🏠 Nyumbani</a>
+        <a href="portfolio.html">💼 Portfolio</a>
+        <a href="game.html">🎮 Mchezo</a>
+        <a href="contact.html">📧 Wasiliana</a>
+    </div>
+    <button onclick="badilishaMuonekano()" style="padding:8px 15px;font-size:14px;">
+        🌙 Dark/Light
+    </button>
 </nav>
 
-<h1>🎮 Mchezo wa Nadhani Nambari</h1>
-
-<div class="sanduku">
-    <h2>Nachagua nambari kati ya 1 na 100</h2>
-    <p style="color:#aaa;margin:10px">Jaribu kuipata kwa majaribio machache!</p>
-    
+<div class="hero">
+    <img src="IMG 1234.JPG" alt="Zakayo Maloloi Malogo">
+    <h1>Zakayo Maloloi Malogo</h1>
+    <p>🌍 Web Developer | Tanzania</p>
     <br>
-    <input type="number" id="jibu-mtumiaji" placeholder="Nambari?" min="1" max="100">
-    <br>
-    <button onclick="jaribu()">🎯 Jaribu!</button>
-    <button onclick="anzaMchezo()">🔄 Mchezo Mpya</button>
-    
-    <div id="jibu"></div>
-    <div id="majaribio"></div>
-    <div id="rekodi"></div>
+    <div class="saa-box" id="saa"></div>
 </div>
 
-<div class="sanduku">
-    <h2>📊 Takwimu Zako</h2>
-    <p id="michezo-yote">Michezo Yote: 0</p>
-    <p id="michezo-kushinda">Umeshinda: 0</p>
-    <p id="wastani">Wastani wa Majaribio: -</p>
+<div class="sehemu">
+    <h2>👤 Kuhusu Mimi</h2>
+    <div class="kadi">
+        <p>Ninatoka Tanzania. Ninapenda teknolojia na ubunifu. Ninajifunza web development kwa bidii kila siku na ndoto yangu ni kuwa web developer maarufu Afrika!</p>
+    </div>
+
+    <h2>🎓 Elimu Yangu</h2>
+    <div class="kadi">
+        <p>📚 Ninajifunza HTML, CSS, na JavaScript</p>
+        <br>
+        <p>💻 Natumia VS Code na GitHub</p>
+        <br>
+        <p>🌐 Nimetengeneza tovuti zangu mwenyewe</p>
+    </div>
+
+    <h2>💪 Ujuzi Wangu</h2>
+    <div class="kadi">
+        <div class="ujuzi-jina">
+            <span>HTML</span><span>90%</span>
+        </div>
+        <div class="bar">
+            <div class="bar-jaza" style="width:90%"></div>
+        </div>
+        <div class="ujuzi-jina">
+            <span>CSS</span><span>80%</span>
+        </div>
+        <div class="bar">
+            <div class="bar-jaza" style="width:80%"></div>
+        </div>
+        <div class="ujuzi-jina">
+            <span>JavaScript</span><span>70%</span>
+        </div>
+        <div class="bar">
+            <div class="bar-jaza" style="width:70%"></div>
+        </div>
+    </div>
+
+    <h2>🎯 Malengo Yangu</h2>
+    <div class="kadi">
+        <p>✅ Kuwa web developer wa kitaalamu</p>
+        <br>
+        <p>✅ Kutengeneza tovuti za biashara</p>
+        <br>
+        <p>✅ Kujifunza React na Node.js</p>
+        <br>
+        <p>✅ Kupata kazi nzuri ya teknolojia</p>
+    </div>
+
+    <h2>🔢 Kikokotoo Changu</h2>
+    <div class="kadi" style="text-align:center">
+        <input id="nambari1" type="number" placeholder="Nambari 1">
+        <input id="nambari2" type="number" placeholder="Nambari 2">
+        <br>
+        <button onclick="hesabu('jumlisha')">➕ Jumlisha</button>
+        <button onclick="hesabu('toa')">➖ Toa</button>
+        <button onclick="hesabu('zidisha')">✖️ Zidisha</button>
+        <button onclick="hesabu('gawanya')">➗ Gawanya</button>
+        <p id="jibu"></p>
+    </div>
+
+    <h2>💬 Ujumbe</h2>
+    <div class="kadi" style="text-align:center">
+        <p id="ujumbe">Karibu kwenye tovuti yangu!</p>
+        <br>
+        <button onclick="badilisha()">✏️ Badilisha Ujumbe</button>
+        <button onclick="salamu()">👋 Salamu!</button>
+    </div>
+
+    <h2>📖 Habari Zaidi</h2>
+    <div class="kadi" style="text-align:center">
+        <button onclick="onyesha()">📖 Soma Zaidi</button>
+        <div id="maelezo" style="display:none;margin-top:15px">
+            <p>Ninajifunza coding kwa bidii kila siku.</p>
+            <br>
+            <p>Ndoto yangu ni kuwa web developer maarufu Tanzania!</p>
+            <br>
+            <p>Ninapenda muziki, michezo, na teknolojia.</p>
+        </div>
+    </div>
+
+    <h2>📞 Wasiliana Nami</h2>
+    <div class="kadi" style="text-align:center">
+        <p style="font-size:18px;margin-bottom:20px">Nipigie simu au niandikia — niko tayari kukusaidia!</p>
+        <a href="https://wa.me/255718996785" class="btn-whatsapp">
+            📱 WhatsApp — 0718996785
+        </a>
+        <br><br>
+        <a href="mailto:zakayomalogo@gmail.com" class="btn-email">
+            📧 zakayomalogo@gmail.com
+        </a>
+        <br><br>
+        <a href="contact.html" class="btn-email">
+            ✉️ Tuma Ujumbe
+        </a>
+    </div>
 </div>
 
 <div class="footer">
-    <p>© 2026 Zakayo Maloloi Malogo</p>
+    <p>© 2026 <strong>Zakayo Maloloi Malogo</strong> — Web Developer Tanzania</p>
+    <p>📱 0718996785 | 📧 zakayomalogo@gmail.com</p>
+    <br>
+    <p>Imetengenezwa kwa ❤️ na HTML, CSS na JavaScript</p>
 </div>
 
 <script>
-var nambariSiri;
-var majaribio;
-var rekodiNzuri = 999;
-var michezoYote = 0;
-var michezoKushinda = 0;
-var jumlaMapajaribio = 0;
-
-function anzaMchezo() {
-    nambariSiri = Math.floor(Math.random() * 100) + 1;
-    majaribio = 0;
-    document.getElementById("jibu").innerHTML = "";
-    document.getElementById("jibu").className = "";
-    document.getElementById("majaribio").innerHTML = "Majaribio: 0";
-    document.getElementById("jibu-mtumiaji").value = "";
-    document.getElementById("rekodi").innerHTML = rekodiNzuri < 999 ? "🏆 Rekodi Yako Bora: " + rekodiNzuri : "";
-    michezoYote++;
-    document.getElementById("michezo-yote").innerHTML = "Michezo Yote: " + michezoYote;
+function salamu() {
+    alert("Habari! Mimi ni Zakayo — Web Developer kutoka Tanzania!");
 }
 
-function jaribu() {
-    var nadhani = Number(document.getElementById("jibu-mtumiaji").value);
-    var jibuDiv = document.getElementById("jibu");
-    
-    if (!nadhani || nadhani < 1 || nadhani > 100) {
-        jibuDiv.innerHTML = "⚠️ Ingiza nambari kati ya 1 na 100!";
-        jibuDiv.className = "kukosa";
-        return;
+function badilisha() {
+    document.getElementById("ujumbe").innerHTML =
+    "Asante kwa kutembelea tovuti yangu! 🎉";
+}
+
+function hesabu(aina) {
+    var n1 = Number(document.getElementById("nambari1").value);
+    var n2 = Number(document.getElementById("nambari2").value);
+    var jibu;
+    if (aina == 'jumlisha') jibu = n1 + n2;
+    else if (aina == 'toa') jibu = n1 - n2;
+    else if (aina == 'zidisha') jibu = n1 * n2;
+    else if (aina == 'gawanya') {
+        if (n2 == 0) jibu = "Haiwezekani kugawanya na sifuri!";
+        else jibu = n1 / n2;
     }
-    
-    majaribio++;
-    document.getElementById("majaribio").innerHTML = "Majaribio: " + majaribio;
-    
-    if (nadhani == nambariSiri) {
-        jibuDiv.innerHTML = "🎉 UMESHINDA! Nambari ilikuwa " + nambariSiri + "! Ulichukua majaribio " + majaribio + "!";
-        jibuDiv.className = "kushinda";
-        michezoKushinda++;
-        jumlaMapajaribio += majaribio;
-        if (majaribio < rekodiNzuri) {
-            rekodiNzuri = majaribio;
-        }
-        document.getElementById("rekodi").innerHTML = "🏆 Rekodi Yako Bora: " + rekodiNzuri + " majaribio!";
-        document.getElementById("michezo-kushinda").innerHTML = "Umeshinda: " + michezoKushinda;
-        document.getElementById("wastani").innerHTML = "Wastani wa Majaribio: " + Math.round(jumlaMapajaribio/michezoKushinda);
-    } else if (nadhani < nambariSiri) {
-        jibuDiv.innerHTML = "📈 Nambari yangu ni KUBWA zaidi! Jaribu tena!";
-        jibuDiv.className = "kukosa";
+    document.getElementById("jibu").innerHTML = "Jibu: " + jibu;
+}
+
+function onyesha() {
+    var sehemu = document.getElementById("maelezo");
+    var btn = document.querySelector("button[onclick='onyesha()']");
+    if (sehemu.style.display == "none") {
+        sehemu.style.display = "block";
+        btn.innerHTML = "📖 Funga";
     } else {
-        jibuDiv.innerHTML = "📉 Nambari yangu ni NDOGO zaidi! Jaribu tena!";
-        jibuDiv.className = "kukosa";
+        sehemu.style.display = "none";
+        btn.innerHTML = "📖 Soma Zaidi";
     }
-    
-    document.getElementById("jibu-mtumiaji").value = "";
-    document.getElementById("jibu-mtumiaji").focus();
 }
 
-document.getElementById("jibu-mtumiaji").addEventListener("keypress", function(e) {
-    if (e.key === "Enter") jaribu();
-});
+function badilishaMuonekano() {
+    document.getElementById("mwili").classList.toggle("light-mode");
+}
 
-anzaMchezo();
+function onyeshaSaa() {
+    var sasa = new Date();
+    var saa = sasa.getHours();
+    var dakika = sasa.getMinutes();
+    var sekunde = sasa.getSeconds();
+    if (saa < 10) saa = "0" + saa;
+    if (dakika < 10) dakika = "0" + dakika;
+    if (sekunde < 10) sekunde = "0" + sekunde;
+    document.getElementById("saa").innerHTML =
+    "⏰ " + saa + ":" + dakika + ":" + sekunde;
+}
+
+setInterval(onyeshaSaa, 1000);
+onyeshaSaa();
 </script>
 </body>
 </html>
