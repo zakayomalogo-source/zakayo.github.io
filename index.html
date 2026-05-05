@@ -72,6 +72,20 @@ font-size:22px;
 color:yellow;
 font-weight:bold;
 }
+#jibu {
+font-size:25px;
+color:yellow;
+font-weight:bold;
+}
+input {
+padding:10px;
+margin:10px;
+border-radius:10px;
+border:none;
+font-size:18px;
+width:150px;
+text-align:center;
+}
 </style>
 </head>
 <body>
@@ -101,23 +115,55 @@ font-weight:bold;
     <li>JavaScript</li>
 </ul>
 
-<br><br>
+<br>
 <p id="ujumbe">Karibu kwenye tovuti yangu!</p>
 <button onclick="badilisha()">Badilisha Ujumbe</button>
 
-<br><br>
+<br>
 <button onclick="salamu()">Bonyeza Mimi!</button>
 
 <br><br>
+<h3>Kikokotoo Changu 🔢</h3>
+<input id="nambari1" type="number" placeholder="Nambari 1">
+<input id="nambari2" type="number" placeholder="Nambari 2">
+<br>
+<button onclick="hesabu('jumlisha')">➕ Jumlisha</button>
+<button onclick="hesabu('toa')">➖ Toa</button>
+<button onclick="hesabu('zidisha')">✖️ Zidisha</button>
+<button onclick="hesabu('gawanya')">➗ Gawanya</button>
+<p id="jibu"></p>
+
+<br>
 <a href="contact.html">📧 Wasiliana Nami</a>
 
 <script>
 function salamu() {
     alert("Habari! Mimi ni Zakayo!");
 }
+
 function badilisha() {
     document.getElementById("ujumbe").innerHTML =
     "Umebonyeza kitufe — JavaScript inafanya kazi!";
+}
+
+function hesabu(aina) {
+    var n1 = Number(document.getElementById("nambari1").value);
+    var n2 = Number(document.getElementById("nambari2").value);
+    var jibu;
+    if (aina == 'jumlisha') {
+        jibu = n1 + n2;
+    } else if (aina == 'toa') {
+        jibu = n1 - n2;
+    } else if (aina == 'zidisha') {
+        jibu = n1 * n2;
+    } else if (aina == 'gawanya') {
+        if (n2 == 0) {
+            jibu = "Haiwezekani kugawanya na sifuri!";
+        } else {
+            jibu = n1 / n2;
+        }
+    }
+    document.getElementById("jibu").innerHTML = "Jibu ni: " + jibu;
 }
 </script>
 </body>
