@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Wasiliana Na Zakayo</title>
+<style>
+body {
+  background-color:#1a1a2e;
+  color:white;
+  font-family:Arial;
+  text-align:center;
+}
+h1 {
+  color:#e94560;
+  font-size:50px;
+}
+input, textarea {
+  width:300px;
+  padding:10px;
+  margin:10px;
+  border-radius:10px;
+  border:none;
+  font-size:16px;
+}
+button {
+  background-color:#e94560;
+  color:white;
+  padding:15px 30px;
+  border:none;
+  border-radius:10px;
+  font-size:20px;
+}
+a {
+  color:#e94560;
+  font-size:18px;
+}
+</style>
+</head>
+<body>
+<h1>Wasiliana Na Mimi</h1>
+<p>Niandikia ujumbe wowote!</p>
+
+<form id="contactForm">
+  <input type="text" id="jina" placeholder="Jina lako" required><br>
+  <input type="email" id="email" placeholder="Email yako" required><br>
+  <textarea id="ujumbe" placeholder="Ujumbe wako hapa..." required></textarea><br>
+  <button type="submit">Tuma Ujumbe</button>
+</form>
+
+<script>
+document.getElementById("contactForm").addEventListener("submit", async function(e) {
+  e.preventDefault();
+  const jina = document.getElementById("jina").value;
+  const email = document.getElementById("email").value;
+  const ujumbe = document.getElementById("ujumbe").value;
+
+  const response = await fetch("http://localhost:3000/tuma", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ jina, email, ujumbe })
+  });
+
+  const data = await response.text();
+  alert(data);
+});
+</script>
+</body>
+</html>
