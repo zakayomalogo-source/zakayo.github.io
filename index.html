@@ -1,19 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Zakayo Maloloi Malogo — Web Developer</title>
+<title>Portfolio — Zakayo Maloloi Malogo</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
-* {
-margin:0;
-padding:0;
-box-sizing:border-box;
-}
+* { margin:0; padding:0; box-sizing:border-box; }
 body {
 background-color:#1a1a2e;
 color:white;
 font-family:Arial;
-transition:all 0.3s;
 }
 nav {
 background-color:#e94560;
@@ -39,319 +34,252 @@ border-radius:5px;
 }
 .hero {
 text-align:center;
-padding:50px 20px;
+padding:60px 20px;
 background:linear-gradient(135deg,#1a1a2e,#0f3460);
-}
-.hero img {
-width:200px;
-height:200px;
-border-radius:50%;
-border:5px solid #e94560;
-object-fit:cover;
-animation:zungusha 2s ease-in-out;
-}
-@keyframes zungusha {
-from { transform:scale(0); opacity:0; }
-to { transform:scale(1); opacity:1; }
 }
 .hero h1 {
 color:#e94560;
 font-size:45px;
-margin:20px 0;
-animation:ingia 1s ease-in-out;
-}
-@keyframes ingia {
-from { transform:translateY(-50px); opacity:0; }
-to { transform:translateY(0); opacity:1; }
+margin-bottom:15px;
 }
 .hero p {
 font-size:20px;
 color:#aaa;
 }
-.saa-box {
-background-color:#0f3460;
-padding:15px;
-border-radius:15px;
-display:inline-block;
-margin:20px;
-font-size:40px;
-color:#e94560;
-font-weight:bold;
-}
 .sehemu {
-padding:40px 20px;
-max-width:800px;
+padding:50px 20px;
+max-width:1000px;
 margin:0 auto;
-text-align:center;
 }
 .sehemu h2 {
 color:#e94560;
 font-size:35px;
-margin-bottom:20px;
+text-align:center;
+margin-bottom:30px;
 border-bottom:3px solid #e94560;
 padding-bottom:10px;
 }
-.kadi {
+.miradi {
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+gap:20px;
+margin:20px 0;
+}
+.mradi {
 background-color:#0f3460;
-padding:20px;
 border-radius:15px;
-margin:15px 0;
-text-align:left;
+overflow:hidden;
 transition:transform 0.3s;
 }
-.kadi:hover {
-transform:translateX(10px);
+.mradi:hover {
+transform:translateY(-10px);
+box-shadow:0 10px 30px rgba(233,69,96,0.3);
 }
-.ujuzi-jina {
+.mradi-picha {
+background:linear-gradient(135deg,#e94560,#0f3460);
+height:150px;
 display:flex;
-justify-content:space-between;
-margin-bottom:5px;
+align-items:center;
+justify-content:center;
+font-size:60px;
 }
-.bar {
-background-color:#1a1a2e;
-border-radius:10px;
-height:15px;
+.mradi-maelezo {
+padding:20px;
 }
-.bar-jaza {
-height:15px;
-border-radius:10px;
-background-color:#e94560;
-transition:width 2s;
+.mradi-maelezo h3 {
+color:#e94560;
+font-size:22px;
+margin-bottom:10px;
 }
-button {
+.mradi-maelezo p {
+color:#aaa;
+font-size:16px;
+margin-bottom:15px;
+}
+.tag {
+display:inline-block;
 background-color:#e94560;
 color:white;
-padding:12px 25px;
-border:none;
+padding:3px 10px;
+border-radius:15px;
+font-size:12px;
+margin:3px;
+}
+.btn {
+display:inline-block;
+background-color:#e94560;
+color:white;
+padding:10px 20px;
 border-radius:10px;
-font-size:18px;
-cursor:pointer;
-margin:8px;
+text-decoration:none;
+font-size:16px;
+margin-top:10px;
 transition:all 0.3s;
 }
-button:hover {
+.btn:hover {
 background-color:white;
 color:#e94560;
-transform:scale(1.05);
 }
-input {
-padding:10px;
-margin:8px;
-border-radius:10px;
-border:none;
-font-size:16px;
-width:140px;
-text-align:center;
+.huduma {
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+gap:20px;
+margin:20px 0;
 }
-#jibu {
-font-size:25px;
-color:yellow;
-font-weight:bold;
-margin:10px;
-}
-#ujumbe {
-font-size:20px;
-color:yellow;
-font-weight:bold;
-margin:10px;
-}
-#maelezo {
+.huduma-kadi {
 background-color:#0f3460;
-padding:20px;
+padding:30px 20px;
 border-radius:15px;
-margin:15px 0;
+text-align:center;
+transition:transform 0.3s;
+}
+.huduma-kadi:hover {
+transform:translateY(-5px);
+}
+.huduma-kadi .ikoni {
+font-size:50px;
+margin-bottom:15px;
+}
+.huduma-kadi h3 {
+color:#e94560;
+margin-bottom:10px;
+}
+.huduma-kadi p {
+color:#aaa;
+font-size:15px;
 }
 .footer {
 background-color:#0f3460;
 text-align:center;
-padding:20px;
+padding:30px;
 margin-top:40px;
+}
+.footer p {
 color:#aaa;
+margin:5px;
 }
-.light-mode {
-background-color:#f0f0f0;
-color:#1a1a2e;
-}
-.light-mode nav {
-background-color:#e94560;
-}
-.light-mode .kadi {
-background-color:white;
-color:#1a1a2e;
-box-shadow:0 2px 10px rgba(0,0,0,0.1);
-}
-.light-mode .saa-box {
-background-color:white;
-box-shadow:0 2px 10px rgba(0,0,0,0.1);
-}
-.light-mode .hero {
-background:linear-gradient(135deg,#f0f0f0,#e0e0e0);
-}
-.light-mode .footer {
-background-color:#ddd;
-color:#333;
+.footer a {
+color:#e94560;
+text-decoration:none;
 }
 </style>
 </head>
-<body id="mwili">
+<body>
 
 <nav>
     <div>
         <a href="index.html">🏠 Nyumbani</a>
+        <a href="portfolio.html">💼 Portfolio</a>
+        <a href="game.html">🎮 Mchezo</a>
         <a href="contact.html">📧 Wasiliana</a>
     </div>
-    <button onclick="badilishaMuonekano()" style="padding:8px 15px;font-size:14px;">
-        🌙 Dark/Light
-    </button>
 </nav>
 
 <div class="hero">
-    <img src="IMG 1234.jpg" alt="Zakayo">
-    <h1>Zakayo Maloloi Malogo</h1>
-    <p>🌍 Web Developer | Tanzania</p>
-    <br>
-    <div class="saa-box" id="saa"></div>
+    <h1>💼 Portfolio Yangu</h1>
+    <p>Miradi niliyotengeneza — kutoka sifuri hadi tovuti za kweli!</p>
 </div>
 
 <div class="sehemu">
-    <h2>👤 Kuhusu Mimi</h2>
-    <div class="kadi">
-        <p>Ninatoka Tanzania. Ninapenda teknolojia na ubunifu. Ninajifunza web development kwa bidii kila siku na ndoto yangu ni kuwa web developer maarufu Afrika!</p>
+    <h2>🚀 Miradi Yangu</h2>
+    <div class="miradi">
+
+        <div class="mradi">
+            <div class="mradi-picha">🌐</div>
+            <div class="mradi-maelezo">
+                <h3>Tovuti Yangu Ya Kibinafsi</h3>
+                <p>Tovuti yangu ya kwanza niliyoijenga kutoka sifuri — ina picha, CSS ya kisasa, JavaScript, na kikokotoo!</p>
+                <span class="tag">HTML</span>
+                <span class="tag">CSS</span>
+                <span class="tag">JavaScript</span>
+                <br>
+                <a href="index.html" class="btn">🔗 Angalia</a>
+            </div>
+        </div>
+
+        <div class="mradi">
+            <div class="mradi-picha">📧</div>
+            <div class="mradi-maelezo">
+                <h3>Kurasa ya Mawasiliano</h3>
+                <p>Kurasa nzuri ya mawasiliano yenye fomu inayotuma ujumbe wa kweli kwa email kupitia Formspree!</p>
+                <span class="tag">HTML</span>
+                <span class="tag">CSS</span>
+                <span class="tag">Formspree</span>
+                <br>
+                <a href="contact.html" class="btn">🔗 Angalia</a>
+            </div>
+        </div>
+
+        <div class="mradi">
+            <div class="mradi-picha">🎮</div>
+            <div class="mradi-maelezo">
+                <h3>Mchezo wa Nadhani Nambari</h3>
+                <p>Mchezo wa JavaScript — kompyuta inachagua nambari ya siri nawe unajaribu kuipata!</p>
+                <span class="tag">JavaScript</span>
+                <span class="tag">Logic</span>
+                <span class="tag">DOM</span>
+                <br>
+                <a href="game.html" class="btn">🔗 Cheza</a>
+            </div>
+        </div>
+
+        <div class="mradi">
+            <div class="mradi-picha">🔢</div>
+            <div class="mradi-maelezo">
+                <h3>Kikokotoo cha JavaScript</h3>
+                <p>Kikokotoo kinachofanya hesabu za jumlisha, toa, zidisha na gawanya kwa kutumia JavaScript!</p>
+                <span class="tag">JavaScript</span>
+                <span class="tag">Math</span>
+                <span class="tag">Functions</span>
+                <br>
+                <a href="index.html" class="btn">🔗 Angalia</a>
+            </div>
+        </div>
+
     </div>
 
-    <h2>🎓 Elimu Yangu</h2>
-    <div class="kadi">
-        <p>📚 Ninajifunza HTML, CSS, na JavaScript</p>
-        <p>💻 Natumia VS Code na GitHub</p>
-        <p>🌐 Nimetengeneza tovuti zangu mwenyewe</p>
+    <h2>🛠️ Huduma Ninazotoa</h2>
+    <div class="huduma">
+        <div class="huduma-kadi">
+            <div class="ikoni">🌐</div>
+            <h3>Utengenezaji wa Tovuti</h3>
+            <p>Natengeneza tovuti nzuri za kibinafsi na biashara kwa bei nafuu!</p>
+        </div>
+        <div class="huduma-kadi">
+            <div class="ikoni">🎨</div>
+            <h3>Muundo wa Kisasa</h3>
+            <p>Naunda muonekano wa kisasa unaovutia wageni wengi kwenye tovuti yako!</p>
+        </div>
+        <div class="huduma-kadi">
+            <div class="ikoni">📱</div>
+            <h3>Mobile Friendly</h3>
+            <p>Tovuti zangu zote zinafanya kazi vizuri kwenye simu na kompyuta!</p>
+        </div>
+        <div class="huduma-kadi">
+            <div class="ikoni">⚡</div>
+            <h3>JavaScript</h3>
+            <p>Naongeza uhai kwenye tovuti yako — vitufe, animations, na zaidi!</p>
+        </div>
     </div>
 
-    <h2>💪 Ujuzi Wangu</h2>
-    <div class="kadi">
-        <div class="ujuzi-jina">
-            <span>HTML</span><span>90%</span>
-        </div>
-        <div class="bar">
-            <div class="bar-jaza" style="width:90%"></div>
-        </div>
+    <h2>📞 Wasiliana Nami</h2>
+    <div style="text-align:center;background-color:#0f3460;padding:30px;border-radius:15px;">
+        <p style="font-size:20px;margin:10px">Unahitaji tovuti? Nipigie simu au niandikia!</p>
         <br>
-        <div class="ujuzi-jina">
-            <span>CSS</span><span>80%</span>
-        </div>
-        <div class="bar">
-            <div class="bar-jaza" style="width:80%"></div>
-        </div>
-        <br>
-        <div class="ujuzi-jina">
-            <span>JavaScript</span><span>70%</span>
-        </div>
-        <div class="bar">
-            <div class="bar-jaza" style="width:70%"></div>
-        </div>
+        <a href="https://wa.me/255718996785" class="btn">📱 WhatsApp — 0718996785</a>
+        <br><br>
+        <a href="mailto:zakayomalogo@gmail.com" class="btn">📧 zakayomalogo@gmail.com</a>
+        <br><br>
+        <a href="contact.html" class="btn">✉️ Tuma Ujumbe</a>
     </div>
-
-    <h2>🎯 Malengo Yangu</h2>
-    <div class="kadi">
-        <p>✅ Kuwa web developer wa kitaalamu</p>
-        <p>✅ Kutengeneza tovuti za biashara</p>
-        <p>✅ Kujifunza React na Node.js</p>
-        <p>✅ Kupata kazi nzuri ya teknolojia</p>
-    </div>
-
-    <h2>🔢 Kikokotoo Changu</h2>
-    <div class="kadi" style="text-align:center">
-        <input id="nambari1" type="number" placeholder="Nambari 1">
-        <input id="nambari2" type="number" placeholder="Nambari 2">
-        <br>
-        <button onclick="hesabu('jumlisha')">➕</button>
-        <button onclick="hesabu('toa')">➖</button>
-        <button onclick="hesabu('zidisha')">✖️</button>
-        <button onclick="hesabu('gawanya')">➗</button>
-        <p id="jibu"></p>
-    </div>
-
-    <h2>💬 Ujumbe</h2>
-    <div class="kadi" style="text-align:center">
-        <p id="ujumbe">Karibu kwenye tovuti yangu!</p>
-        <button onclick="badilisha()">Badilisha Ujumbe</button>
-        <button onclick="salamu()">Salamu!</button>
-    </div>
-
-    <h2>📖 Habari Zaidi</h2>
-    <div class="kadi" style="text-align:center">
-        <button onclick="onyesha()">📖 Soma Zaidi</button>
-        <div id="maelezo" style="display:none;margin-top:15px">
-            <p>Ninajifunza coding kwa bidii kila siku.</p>
-            <p>Ndoto yangu ni kuwa web developer maarufu Tanzania!</p>
-            <p>Ninapenda muziki, michezo, na teknolojia.</p>
-        </div>
-    </div>
-
-    <br>
-    <a href="contact.html" style="background-color:#e94560;color:white;padding:15px 30px;border-radius:10px;text-decoration:none;font-size:18px;">
-        📧 Wasiliana Nami
-    </a>
 </div>
 
 <div class="footer">
-    <p>© 2026 Zakayo Maloloi Malogo — Web Developer Tanzania</p>
+    <p>© 2026 <strong>Zakayo Maloloi Malogo</strong> — Web Developer Tanzania</p>
     <p>📱 0718996785 | 📧 zakayomalogo@gmail.com</p>
+    <br>
+    <p>Imetengenezwa kwa ❤️ na HTML, CSS, na JavaScript</p>
 </div>
 
-<script>
-function salamu() {
-    alert("Habari! Mimi ni Zakayo — Web Developer kutoka Tanzania!");
-}
-
-function badilisha() {
-    var ujumbe = document.getElementById("ujumbe");
-    ujumbe.innerHTML = "Asante kwa kutembelea tovuti yangu! 🎉";
-    ujumbe.style.color = "#e94560";
-}
-
-function hesabu(aina) {
-    var n1 = Number(document.getElementById("nambari1").value);
-    var n2 = Number(document.getElementById("nambari2").value);
-    var jibu;
-    if (aina == 'jumlisha') jibu = n1 + n2;
-    else if (aina == 'toa') jibu = n1 - n2;
-    else if (aina == 'zidisha') jibu = n1 * n2;
-    else if (aina == 'gawanya') {
-        if (n2 == 0) jibu = "Haiwezekani!";
-        else jibu = n1 / n2;
-    }
-    document.getElementById("jibu").innerHTML = "Jibu: " + jibu;
-}
-
-function onyesha() {
-    var sehemu = document.getElementById("maelezo");
-    var btn = document.querySelector("button[onclick='onyesha()']");
-    if (sehemu.style.display == "none") {
-        sehemu.style.display = "block";
-        btn.innerHTML = "📖 Funga";
-    } else {
-        sehemu.style.display = "none";
-        btn.innerHTML = "📖 Soma Zaidi";
-    }
-}
-
-function badilishaMuonekano() {
-    document.getElementById("mwili").classList.toggle("light-mode");
-}
-
-function onyeshaSaa() {
-    var sasa = new Date();
-    var saa = sasa.getHours();
-    var dakika = sasa.getMinutes();
-    var sekunde = sasa.getSeconds();
-    if (saa < 10) saa = "0" + saa;
-    if (dakika < 10) dakika = "0" + dakika;
-    if (sekunde < 10) sekunde = "0" + sekunde;
-    document.getElementById("saa").innerHTML = "⏰ " + saa + ":" + dakika + ":" + sekunde;
-}
-
-setInterval(onyeshaSaa, 1000);
-onyeshaSaa();
-</script>
 </body>
 </html>
