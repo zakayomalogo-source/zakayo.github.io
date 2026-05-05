@@ -86,6 +86,13 @@ font-size:18px;
 width:150px;
 text-align:center;
 }
+#maelezo {
+background-color:#0f3460;
+padding:20px;
+border-radius:15px;
+margin:20px auto;
+width:80%;
+}
 </style>
 </head>
 <body>
@@ -134,6 +141,15 @@ text-align:center;
 <p id="jibu"></p>
 
 <br>
+<h3>Habari Zangu Zaidi</h3>
+<button onclick="onyesha()">📖 Soma Zaidi</button>
+<div id="maelezo" style="display:none">
+    <p>Ninajifunza coding kwa bidii kila siku.</p>
+    <p>Ndoto yangu ni kuwa web developer maarufu Tanzania!</p>
+    <p>Ninapenda muziki, michezo, na teknolojia.</p>
+</div>
+
+<br>
 <a href="contact.html">📧 Wasiliana Nami</a>
 
 <script>
@@ -164,6 +180,17 @@ function hesabu(aina) {
         }
     }
     document.getElementById("jibu").innerHTML = "Jibu ni: " + jibu;
+}
+
+function onyesha() {
+    var sehemu = document.getElementById("maelezo");
+    if (sehemu.style.display == "none") {
+        sehemu.style.display = "block";
+        document.querySelector("button[onclick='onyesha()']").innerHTML = "📖 Funga";
+    } else {
+        sehemu.style.display = "none";
+        document.querySelector("button[onclick='onyesha()']").innerHTML = "📖 Soma Zaidi";
+    }
 }
 </script>
 </body>
