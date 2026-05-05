@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Mchezo wa Zakayo</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+background-color:#1a1a2e;
+color:white;
+font-family:Arial;
+text-align:center;
+padding:20px;
+}
+nav {
+background-color:#e94560;
+padding:15px;
+margin:-20px -20px 30px -20px;
+}
+nav a {
+color:white;
+margin:15px;
+text-decoration:none;
+font-size:18px;
+}
+nav a:hover {
+background-color:white;
+color:#e94560;
+padding:5px 10px;
+border-radius:5px;
+}
+h1 { color:#e94560; font-size:40px; margin:20px 0; }
+h2 { color:#e94560; font-size:25px; margin:15px 0; }
+.sanduku {
+background-color:#0f3460;
+padding:30px;
+border-radius:20px;
+max-width:500px;
+margin:20px auto;
+}
+input {
+padding:15px;
+font-size:20px;
+border-radius:10px;
+border:none;
+width:150px;
+text-align:center;
+margin:10px;
+}
+button {
+background-color:#e94560;
+color:white;
+padding:15px 30px;
+border:none;
+border-radius:10px;
+font-size:20px;
+cursor:pointer;
+margin:10px;
+transition:all 0.3s;
+}
+button:hover {
+background-color:white;
+color:#e94560;
+transform:scale(1.05);
+}
+#jibu {
+font-size:25px;
+font-weight:bold;
+margin:20px;
+padding:15px;
+border-radius:10px;
+}
+#majaribio {
+font-size:20px;
+color:#aaa;
+margin:10px;
+}
+#rekodi {
+font-size:18px;
+color:yellow;
+margin:10px;
+}
+.kushinda {
+background-color:#27ae60;
+color:white;
+animation:flash 0.5s;
+}
+.kukosa {
+background-color:#e94560;
+color:white;
+}
+@keyframes flash {
+0% { transform:scale(1); }
+50% { transform:scale(1.1); }
+100% { transform:scale(1); }
+}
+.footer {
+margin-top:40px;
+color:#aaa;
+font-size:14px;
+}
+</style>
+</head>
+<body>
+
+<nav>
+    <a href="index.html">🏠 Nyumbani</a>
+    <a href="contact.html">📧 Wasiliana</a>
+    <a href="game.html">🎮 Mchezo</a>
+</nav>
+
+<h1>🎮 Mchezo wa Nadhani Nambari</h1>
+
+<div class="sanduku">
+    <h2>Nachagua nambari kati ya 1 na 100</h2>
+    <p style="color:#aaa;margin:10px">Jaribu kuipata kwa majaribio machache!</p>
+    
+    <br>
+    <input type="number" id="jibu-mtumiaji" placeholder="Nambari?" min="1" max="100">
+    <br>
+    <button onclick="jaribu()">🎯 Jaribu!</button>
+    <button onclick="anzaMchezo()">🔄 Mchezo Mpya</button>
+    
+    <div id="jibu"></div>
+    <div id="majaribio"></div>
+    <div id="rekodi"></div>
+</div>
+
+<div class="sanduku">
+    <h2>📊 Takwimu Zako</h2>
+    <p id="michezo-yote">Michezo Yote: 0</p>
+    <p id="michezo-kushinda">Umeshinda: 0</p>
+    <p id="wastani">Wastani wa Majaribio: -</p>
+</div>
+
+<div class="footer">
+    <p>© 2026 Zakayo Maloloi Malogo</p>
+</div>
+
+<script>
+var nambariSiri;
+var majaribio;
+var rekodiNzuri = 999;
+var michezoYote = 0;
+var michezoKushinda = 0;
+var jumlaMapajaribio = 0;
+
+function anzaMchezo() {
+    nambariSiri = Math.floor(Math.random() * 100) + 1;
+    majaribio = 0;
+    document.getElementById("jibu").innerHTML = "";
+    document.getElementById("jibu").className = "";
+    document.getElementById("majaribio").innerHTML = "Majaribio: 0";
+    document.getElementById("jibu-mtumiaji").value = "";
+    document.getElementById("rekodi").innerHTML = rekodiNzuri < 999 ? "🏆 Rekodi Yako Bora: " + rekodiNzuri : "";
+    michezoYote++;
+    document.getElementById("michezo-yote").innerHTML = "Michezo Yote: " + michezoYote;
+}
+
+function jaribu() {
+    var nadhani = Number(document.getElementById("jibu-mtumiaji").value);
+    var jibuDiv = document.getElementById("jibu");
+    
+    if (!nadhani || nadhani < 1 || nadhani > 100) {
+        jibuDiv.innerHTML = "⚠️ Ingiza nambari kati ya 1 na 100!";
+        jibuDiv.className = "kukosa";
+        return;
+    }
+    
+    majaribio++;
+    document.getElementById("majaribio").innerHTML = "Majaribio: " + majaribio;
+    
+    if (nadhani == nambariSiri) {
+        jibuDiv.innerHTML = "🎉 UMESHINDA! Nambari ilikuwa " + nambariSiri + "! Ulichukua majaribio " + majaribio + "!";
+        jibuDiv.className = "kushinda";
+        michezoKushinda++;
+        jumlaMapajaribio += majaribio;
+        if (majaribio < rekodiNzuri) {
+            rekodiNzuri = majaribio;
+        }
+        document.getElementById("rekodi").innerHTML = "🏆 Rekodi Yako Bora: " + rekodiNzuri + " majaribio!";
+        document.getElementById("michezo-kushinda").innerHTML = "Umeshinda: " + michezoKushinda;
+        document.getElementById("wastani").innerHTML = "Wastani wa Majaribio: " + Math.round(jumlaMapajaribio/michezoKushinda);
+    } else if (nadhani < nambariSiri) {
+        jibuDiv.innerHTML = "📈 Nambari yangu ni KUBWA zaidi! Jaribu tena!";
+        jibuDiv.className = "kukosa";
+    } else {
+        jibuDiv.innerHTML = "📉 Nambari yangu ni NDOGO zaidi! Jaribu tena!";
+        jibuDiv.className = "kukosa";
+    }
+    
+    document.getElementById("jibu-mtumiaji").value = "";
+    document.getElementById("jibu-mtumiaji").focus();
+}
+
+document.getElementById("jibu-mtumiaji").addEventListener("keypress", function(e) {
+    if (e.key === "Enter") jaribu();
+});
+
+anzaMchezo();
+</script>
+</body>
+</html>
