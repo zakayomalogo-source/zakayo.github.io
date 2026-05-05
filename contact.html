@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Zakayo Maloloi Malogo</title>
+<title>Wasiliana Na Zakayo</title>
 <style>
 body {
 background-color:#1a1a2e;
@@ -13,16 +13,25 @@ h1 {
 color:#e94560;
 font-size:50px;
 }
-h2,h3,h4 {
-color:#0f3460;
-background-color:white;
-padding:10px;
-border-radius:10px;
+h3 {
+color:#e94560;
 }
-img {
-width:200px;
-border-radius:100px;
-border:5px solid #e94560;
+input {
+width:300px;
+padding:10px;
+margin:10px;
+border-radius:10px;
+border:none;
+font-size:16px;
+}
+textarea {
+width:300px;
+height:150px;
+padding:10px;
+margin:10px;
+border-radius:10px;
+border:none;
+font-size:16px;
 }
 button {
 background-color:#e94560;
@@ -34,47 +43,42 @@ font-size:20px;
 }
 a {
 color:#e94560;
-font-size:20px;
-}
-ul {
-text-align:left;
-display:inline-block;
+font-size:18px;
+display:block;
+margin:10px;
 }
 </style>
 </head>
 <body>
-<img src="IMG 1234.jpg">
-<h1>zakayo maloloi malogo</h1>
-<p>Mimi ni mwanafunzi wa coding</p>
+<h1>Wasiliana Na Mimi</h1>
+<p>Niandikia ujumbe wowote!</p>
 
-<h2>Kuhusu Mimi</h2>
-<p>Ninatoka Tanzania. Ninapenda teknolojia.</p>
-
-<h3>Elimu Yangu</h3>
-<p>Ninajifunza web development kila siku.</p>
-
-<h4>Malengo Yangu</h4>
-<p>Nataka kuwa web developer maarufu.</p>
-
-<h3>Ujuzi Wangu</h3>
-<ul>
-<li>HTML</li>
-<li>CSS</li>
-<li>JavaScript</li>
-</ul>
+<br>
+<input type="text" placeholder="Jina lako">
+<br>
+<input type="email" placeholder="Email yako">
+<br>
+<textarea placeholder="Ujumbe wako hapa..."></textarea>
+<br>
+<button onclick="tuma()">Tuma Ujumbe</button>
 
 <br><br>
-<a href="contact.html">📧 Wasiliana Nami</a>
+<h3>Au Wasiliana Moja Kwa Moja:</h3>
 
-<br><br>
-<a href="https://www.google.com">Nenda Google</a>
+<a href="https://wa.me/255718996785">
+📱 Piga WhatsApp — 0718996785
+</a>
 
-<br><br>
-<button onclick="salamu()">Bonyeza Mimi!</button>
+<a href="mailto:zakayomalogo@gmail.com">
+📧 Tuma Email — zakayomalogo@gmail.com
+</a>
+
+<br>
+<a href="index.html">← Rudi Nyumbani</a>
 
 <script>
-function salamu() {
-alert("Habari! Mimi ni Zakayo!");
+function tuma() {
+alert("Asante! Ujumbe wako umepokelewa!");
 }
 </script>
 </body>
