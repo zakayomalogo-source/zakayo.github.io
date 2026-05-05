@@ -1,67 +1,110 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Wasiliana Na Zakayo</title>
+<title>Zakayo Maloloi Malogo</title>
 <style>
 body {
-  background-color:#1a1a2e;
-  color:white;
-  font-family:Arial;
-  text-align:center;
+background-color:#1a1a2e;
+color:white;
+font-family:Arial;
+text-align:center;
+margin:0;
+padding:0;
+}
+nav {
+background-color:#e94560;
+padding:15px;
+position:sticky;
+top:0;
+}
+nav a {
+color:white;
+margin:20px;
+text-decoration:none;
+font-size:18px;
+}
+nav a:hover {
+background-color:white;
+color:#e94560;
+padding:5px 10px;
+border-radius:5px;
 }
 h1 {
-  color:#e94560;
-  font-size:50px;
+color:#e94560;
+font-size:50px;
 }
-input, textarea {
-  width:300px;
-  padding:10px;
-  margin:10px;
-  border-radius:10px;
-  border:none;
-  font-size:16px;
+h2,h3,h4 {
+color:#e94560;
+}
+img {
+width:200px;
+border-radius:100px;
+border:5px solid #e94560;
+margin-top:20px;
 }
 button {
-  background-color:#e94560;
-  color:white;
-  padding:15px 30px;
-  border:none;
-  border-radius:10px;
-  font-size:20px;
+background-color:#e94560;
+color:white;
+padding:15px 30px;
+border:none;
+border-radius:10px;
+font-size:20px;
+cursor:pointer;
+}
+button:hover {
+background-color:white;
+color:#e94560;
 }
 a {
-  color:#e94560;
-  font-size:18px;
+color:#e94560;
+font-size:18px;
+}
+ul {
+text-align:left;
+display:inline-block;
+}
+p {
+font-size:18px;
 }
 </style>
 </head>
 <body>
-<h1>Wasiliana Na Mimi</h1>
-<p>Niandikia ujumbe wowote!</p>
 
-<form id="contactForm">
-  <input type="text" id="jina" placeholder="Jina lako" required><br>
-  <input type="email" id="email" placeholder="Email yako" required><br>
-  <textarea id="ujumbe" placeholder="Ujumbe wako hapa..." required></textarea><br>
-  <button type="submit">Tuma Ujumbe</button>
-</form>
+<nav>
+    <a href="index.html">🏠 Nyumbani</a>
+    <a href="contact.html">📧 Wasiliana</a>
+</nav>
+
+<img src="IMG 1234.jpg">
+<h1>zakayo maloloi malogo</h1>
+<p>Mimi ni mwanafunzi wa coding</p>
+
+<h2>Kuhusu Mimi</h2>
+<p>Ninatoka Tanzania. Ninapenda teknolojia.</p>
+
+<h3>Elimu Yangu</h3>
+<p>Ninajifunza web development kila siku.</p>
+
+<h4>Malengo Yangu</h4>
+<p>Nataka kuwa web developer maarufu.</p>
+
+<h3>Ujuzi Wangu</h3>
+<ul>
+    <li>HTML</li>
+    <li>CSS</li>
+    <li>JavaScript</li>
+</ul>
+
+<br><br>
+<a href="contact.html">📧 Wasiliana Nami</a>
+
+<br><br>
+<button onclick="salamu()">Bonyeza Mimi!</button>
 
 <script>
-document.getElementById("contactForm").addEventListener("submit", async function(e) {
-  e.preventDefault();
-  const jina = document.getElementById("jina").value;
-  const email = document.getElementById("email").value;
-  const ujumbe = document.getElementById("ujumbe").value;
-
-  const response = await fetch("http://localhost:3000/tuma", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ jina, email, ujumbe })
-  });
-
-  const data = await response.text();
-  alert(data);
-});
+function salamu() {
+    alert("Habari! Mimi ni Zakayo!");
+}
 </script>
 </body>
 </html>
