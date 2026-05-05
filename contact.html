@@ -1,33 +1,285 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Wasiliana Na Zakayo</title>
+<title>Portfolio — Zakayo Maloloi Malogo</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
-body { background-color:#1a1a2e; color:white; font-family:Arial; text-align:center; }
-h1 { color:#e94560; font-size:50px; }
-h3 { color:#e94560; }
-input { width:300px; padding:10px; margin:10px; border-radius:10px; border:none; font-size:16px; display:block; margin:10px auto; }
-textarea { width:300px; height:150px; padding:10px; margin:10px auto; border-radius:10px; border:none; font-size:16px; display:block; }
-button { background-color:#e94560; color:white; padding:15px 30px; border:none; border-radius:10px; font-size:20px; }
-a { color:#e94560; font-size:18px; display:block; margin:10px; }
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+background-color:#1a1a2e;
+color:white;
+font-family:Arial;
+}
+nav {
+background-color:#e94560;
+padding:15px 30px;
+position:sticky;
+top:0;
+display:flex;
+justify-content:space-between;
+align-items:center;
+z-index:100;
+}
+nav a {
+color:white;
+margin:10px;
+text-decoration:none;
+font-size:18px;
+}
+nav a:hover {
+background-color:white;
+color:#e94560;
+padding:5px 10px;
+border-radius:5px;
+}
+.hero {
+text-align:center;
+padding:60px 20px;
+background:linear-gradient(135deg,#1a1a2e,#0f3460);
+}
+.hero h1 {
+color:#e94560;
+font-size:45px;
+margin-bottom:15px;
+}
+.hero p {
+font-size:20px;
+color:#aaa;
+}
+.sehemu {
+padding:50px 20px;
+max-width:1000px;
+margin:0 auto;
+}
+.sehemu h2 {
+color:#e94560;
+font-size:35px;
+text-align:center;
+margin-bottom:30px;
+border-bottom:3px solid #e94560;
+padding-bottom:10px;
+}
+.miradi {
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+gap:20px;
+margin:20px 0;
+}
+.mradi {
+background-color:#0f3460;
+border-radius:15px;
+overflow:hidden;
+transition:transform 0.3s;
+}
+.mradi:hover {
+transform:translateY(-10px);
+box-shadow:0 10px 30px rgba(233,69,96,0.3);
+}
+.mradi-picha {
+background:linear-gradient(135deg,#e94560,#0f3460);
+height:150px;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:60px;
+}
+.mradi-maelezo {
+padding:20px;
+}
+.mradi-maelezo h3 {
+color:#e94560;
+font-size:22px;
+margin-bottom:10px;
+}
+.mradi-maelezo p {
+color:#aaa;
+font-size:16px;
+margin-bottom:15px;
+}
+.tag {
+display:inline-block;
+background-color:#e94560;
+color:white;
+padding:3px 10px;
+border-radius:15px;
+font-size:12px;
+margin:3px;
+}
+.btn {
+display:inline-block;
+background-color:#e94560;
+color:white;
+padding:10px 20px;
+border-radius:10px;
+text-decoration:none;
+font-size:16px;
+margin-top:10px;
+transition:all 0.3s;
+}
+.btn:hover {
+background-color:white;
+color:#e94560;
+}
+.huduma {
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+gap:20px;
+margin:20px 0;
+}
+.huduma-kadi {
+background-color:#0f3460;
+padding:30px 20px;
+border-radius:15px;
+text-align:center;
+transition:transform 0.3s;
+}
+.huduma-kadi:hover {
+transform:translateY(-5px);
+}
+.huduma-kadi .ikoni {
+font-size:50px;
+margin-bottom:15px;
+}
+.huduma-kadi h3 {
+color:#e94560;
+margin-bottom:10px;
+}
+.huduma-kadi p {
+color:#aaa;
+font-size:15px;
+}
+.footer {
+background-color:#0f3460;
+text-align:center;
+padding:30px;
+margin-top:40px;
+}
+.footer p {
+color:#aaa;
+margin:5px;
+}
+.footer a {
+color:#e94560;
+text-decoration:none;
+}
 </style>
 </head>
 <body>
-<h1>Wasiliana Na Mimi</h1>
-<p>Niandikia ujumbe wowote!</p>
 
-<form action="https://formspree.io/f/mojrddaz" method="POST">
-<input type="text" name="jina" placeholder="Jina lako">
-<input type="email" name="email" placeholder="Email yako">
-<textarea name="ujumbe" placeholder="Ujumbe wako hapa..."></textarea>
-<button type="submit">Tuma Ujumbe</button>
-</form>
+<nav>
+    <div>
+        <a href="index.html">🏠 Nyumbani</a>
+        <a href="portfolio.html">💼 Portfolio</a>
+        <a href="game.html">🎮 Mchezo</a>
+        <a href="contact.html">📧 Wasiliana</a>
+    </div>
+</nav>
 
-<br>
-<h3>Au Wasiliana Moja Kwa Moja:</h3>
-<a href="https://wa.me/255718996785">📱 Piga WhatsApp — 0718996785</a>
-<a href="mailto:zakayomalogo@gmail.com">📧 Tuma Email — zakayomalogo@gmail.com</a>
-<br>
-<a href="index.html">← Rudi Nyumbani</a>
+<div class="hero">
+    <h1>💼 Portfolio Yangu</h1>
+    <p>Miradi niliyotengeneza — kutoka sifuri hadi tovuti za kweli!</p>
+</div>
+
+<div class="sehemu">
+    <h2>🚀 Miradi Yangu</h2>
+    <div class="miradi">
+
+        <div class="mradi">
+            <div class="mradi-picha">🌐</div>
+            <div class="mradi-maelezo">
+                <h3>Tovuti Yangu Ya Kibinafsi</h3>
+                <p>Tovuti yangu ya kwanza niliyoijenga kutoka sifuri — ina picha, CSS ya kisasa, JavaScript, na kikokotoo!</p>
+                <span class="tag">HTML</span>
+                <span class="tag">CSS</span>
+                <span class="tag">JavaScript</span>
+                <br>
+                <a href="index.html" class="btn">🔗 Angalia</a>
+            </div>
+        </div>
+
+        <div class="mradi">
+            <div class="mradi-picha">📧</div>
+            <div class="mradi-maelezo">
+                <h3>Kurasa ya Mawasiliano</h3>
+                <p>Kurasa nzuri ya mawasiliano yenye fomu inayotuma ujumbe wa kweli kwa email kupitia Formspree!</p>
+                <span class="tag">HTML</span>
+                <span class="tag">CSS</span>
+                <span class="tag">Formspree</span>
+                <br>
+                <a href="contact.html" class="btn">🔗 Angalia</a>
+            </div>
+        </div>
+
+        <div class="mradi">
+            <div class="mradi-picha">🎮</div>
+            <div class="mradi-maelezo">
+                <h3>Mchezo wa Nadhani Nambari</h3>
+                <p>Mchezo wa JavaScript — kompyuta inachagua nambari ya siri nawe unajaribu kuipata!</p>
+                <span class="tag">JavaScript</span>
+                <span class="tag">Logic</span>
+                <span class="tag">DOM</span>
+                <br>
+                <a href="game.html" class="btn">🔗 Cheza</a>
+            </div>
+        </div>
+
+        <div class="mradi">
+            <div class="mradi-picha">🔢</div>
+            <div class="mradi-maelezo">
+                <h3>Kikokotoo cha JavaScript</h3>
+                <p>Kikokotoo kinachofanya hesabu za jumlisha, toa, zidisha na gawanya kwa kutumia JavaScript!</p>
+                <span class="tag">JavaScript</span>
+                <span class="tag">Math</span>
+                <span class="tag">Functions</span>
+                <br>
+                <a href="index.html" class="btn">🔗 Angalia</a>
+            </div>
+        </div>
+
+    </div>
+
+    <h2>🛠️ Huduma Ninazotoa</h2>
+    <div class="huduma">
+        <div class="huduma-kadi">
+            <div class="ikoni">🌐</div>
+            <h3>Utengenezaji wa Tovuti</h3>
+            <p>Natengeneza tovuti nzuri za kibinafsi na biashara kwa bei nafuu!</p>
+        </div>
+        <div class="huduma-kadi">
+            <div class="ikoni">🎨</div>
+            <h3>Muundo wa Kisasa</h3>
+            <p>Naunda muonekano wa kisasa unaovutia wageni wengi kwenye tovuti yako!</p>
+        </div>
+        <div class="huduma-kadi">
+            <div class="ikoni">📱</div>
+            <h3>Mobile Friendly</h3>
+            <p>Tovuti zangu zote zinafanya kazi vizuri kwenye simu na kompyuta!</p>
+        </div>
+        <div class="huduma-kadi">
+            <div class="ikoni">⚡</div>
+            <h3>JavaScript</h3>
+            <p>Naongeza uhai kwenye tovuti yako — vitufe, animations, na zaidi!</p>
+        </div>
+    </div>
+
+    <h2>📞 Wasiliana Nami</h2>
+    <div style="text-align:center;background-color:#0f3460;padding:30px;border-radius:15px;">
+        <p style="font-size:20px;margin:10px">Unahitaji tovuti? Nipigie simu au niandikia!</p>
+        <br>
+        <a href="https://wa.me/255718996785" class="btn">📱 WhatsApp — 0718996785</a>
+        <br><br>
+        <a href="mailto:zakayomalogo@gmail.com" class="btn">📧 zakayomalogo@gmail.com</a>
+        <br><br>
+        <a href="contact.html" class="btn">✉️ Tuma Ujumbe</a>
+    </div>
+</div>
+
+<div class="footer">
+    <p>© 2026 <strong>Zakayo Maloloi Malogo</strong> — Web Developer Tanzania</p>
+    <p>📱 0718996785 | 📧 zakayomalogo@gmail.com</p>
+    <br>
+    <p>Imetengenezwa kwa ❤️ na HTML, CSS, na JavaScript</p>
+</div>
+
 </body>
 </html>
