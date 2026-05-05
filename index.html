@@ -50,6 +50,7 @@ border:none;
 border-radius:10px;
 font-size:20px;
 cursor:pointer;
+margin:10px;
 }
 button:hover {
 background-color:white;
@@ -65,6 +66,11 @@ display:inline-block;
 }
 p {
 font-size:18px;
+}
+#ujumbe {
+font-size:22px;
+color:yellow;
+font-weight:bold;
 }
 </style>
 </head>
@@ -96,14 +102,22 @@ font-size:18px;
 </ul>
 
 <br><br>
-<a href="contact.html">📧 Wasiliana Nami</a>
+<p id="ujumbe">Karibu kwenye tovuti yangu!</p>
+<button onclick="badilisha()">Badilisha Ujumbe</button>
 
 <br><br>
 <button onclick="salamu()">Bonyeza Mimi!</button>
 
+<br><br>
+<a href="contact.html">📧 Wasiliana Nami</a>
+
 <script>
 function salamu() {
     alert("Habari! Mimi ni Zakayo!");
+}
+function badilisha() {
+    document.getElementById("ujumbe").innerHTML =
+    "Umebonyeza kitufe — JavaScript inafanya kazi!";
 }
 </script>
 </body>
