@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>CSS Flexbox na Grid — Zakayo</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+background-color:#1a1a2e;
+color:white;
+font-family:Arial;
+padding:20px;
+}
+nav {
+background-color:#e94560;
+padding:15px 30px;
+margin:-20px -20px 30px -20px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+nav a {
+color:white;
+margin:10px;
+text-decoration:none;
+font-size:16px;
+}
+nav a:hover {
+background-color:white;
+color:#e94560;
+padding:5px 10px;
+border-radius:5px;
+}
+h1 {
+color:#e94560;
+font-size:35px;
+margin:20px 0;
+text-align:center;
+}
+h2 {
+color:#e94560;
+font-size:25px;
+margin:20px 0;
+}
+.sanduku {
+background-color:#0f3460;
+padding:25px;
+border-radius:15px;
+margin:20px auto;
+max-width:800px;
+}
+.code {
+background-color:#1a1a2e;
+padding:15px;
+border-radius:10px;
+font-family:monospace;
+font-size:15px;
+color:#00ff88;
+margin:10px 0;
+text-align:left;
+border-left:4px solid #e94560;
+}
+button {
+background-color:#e94560;
+color:white;
+padding:12px 25px;
+border:none;
+border-radius:10px;
+font-size:16px;
+cursor:pointer;
+margin:8px;
+transition:all 0.3s;
+}
+button:hover {
+background-color:white;
+color:#e94560;
+transform:scale(1.05);
+}
+
+/* FLEXBOX DEMO */
+.flex-demo {
+display:flex;
+gap:10px;
+margin:15px 0;
+padding:15px;
+background-color:#1a1a2e;
+border-radius:10px;
+}
+.flex-kitu {
+background-color:#e94560;
+padding:20px;
+border-radius:10px;
+font-size:18px;
+font-weight:bold;
+text-align:center;
+flex:1;
+}
+.flex-demo-2 {
+display:flex;
+flex-direction:column;
+gap:10px;
+margin:15px 0;
+padding:15px;
+background-color:#1a1a2e;
+border-radius:10px;
+}
+.flex-demo-3 {
+display:flex;
+justify-content:space-between;
+gap:10px;
+margin:15px 0;
+padding:15px;
+background-color:#1a1a2e;
+border-radius:10px;
+}
+.flex-demo-4 {
+display:flex;
+justify-content:center;
+align-items:center;
+gap:10px;
+margin:15px 0;
+padding:30px;
+background-color:#1a1a2e;
+border-radius:10px;
+height:150px;
+}
+
+/* GRID DEMO */
+.grid-demo-1 {
+display:grid;
+grid-template-columns:1fr 1fr 1fr;
+gap:10px;
+margin:15px 0;
+padding:15px;
+background-color:#1a1a2e;
+border-radius:10px;
+}
+.grid-demo-2 {
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px;
+margin:15px 0;
+padding:15px;
+background-color:#1a1a2e;
+border-radius:10px;
+}
+.grid-demo-3 {
+display:grid;
+grid-template-columns:2fr 1fr;
+gap:10px;
+margin:15px 0;
+padding:15px;
+background-color:#1a1a2e;
+border-radius:10px;
+}
+.grid-kitu {
+background-color:#0f3460;
+border:2px solid #e94560;
+padding:20px;
+border-radius:10px;
+text-align:center;
+font-size:16px;
+}
+.grid-kitu-kubwa {
+background-color:#e94560;
+padding:20px;
+border-radius:10px;
+text-align:center;
+font-size:16px;
+}
+
+/* RESPONSIVE DEMO */
+.responsive-grid {
+display:grid;
+grid-template-columns:repeat(auto-fit, minmax(150px, 1fr));
+gap:15px;
+margin:15px 0;
+padding:15px;
+background-color:#1a1a2e;
+border-radius:10px;
+}
+.responsive-kitu {
+background-color:#e94560;
+padding:20px;
+border-radius:10px;
+text-align:center;
+font-size:16px;
+transition:transform 0.3s;
+}
+.responsive-kitu:hover {
+transform:scale(1.05);
+}
+
+.footer {
+text-align:center;
+margin-top:40px;
+color:#aaa;
+}
+</style>
+</head>
+<body>
+
+<nav>
+    <div>
+        <a href="index.html">🏠 Nyumbani</a>
+        <a href="portfolio.html">💼 Portfolio</a>
+        <a href="game.html">🎮 Mchezo</a>
+        <a href="contact.html">📧 Wasiliana</a>
+    </div>
+</nav>
+
+<h1>🎨 CSS Flexbox na Grid</h1>
+
+<!-- FLEXBOX -->
+<div class="sanduku">
+    <h2>📦 Sehemu 1 — Flexbox</h2>
+    <p>Flexbox inapanga vitu kwenye <strong>mstari mmoja</strong> — mlalo au wima!</p>
+
+    <br>
+    <h2>1️⃣ Flexbox — Mlalo (Row)</h2>
+    <div class="code">
+        display: flex;<br>
+        gap: 10px;
+    </div>
+    <div class="flex-demo">
+        <div class="flex-kitu">1️⃣</div>
+        <div class="flex-kitu">2️⃣</div>
+        <div class="flex-kitu">3️⃣</div>
+    </div>
+
+    <br>
+    <h2>2️⃣ Flexbox — Wima (Column)</h2>
+    <div class="code">
+        display: flex;<br>
+        flex-direction: column;
+    </div>
+    <div class="flex-demo-2">
+        <div class="flex-kitu">1️⃣ Juu</div>
+        <div class="flex-kitu">2️⃣ Kati</div>
+        <div class="flex-kitu">3️⃣ Chini</div>
+    </div>
+
+    <br>
+    <h2>3️⃣ Flexbox — Space Between</h2>
+    <div class="code">
+        display: flex;<br>
+        justify-content: space-between;
+    </div>
+    <div class="flex-demo-3">
+        <div class="flex-kitu">Kushoto</div>
+        <div class="flex-kitu">Katikati</div>
+        <div class="flex-kitu">Kulia</div>
+    </div>
+
+    <br>
+    <h2>4️⃣ Flexbox — Katikati Kabisa</h2>
+    <div class="code">
+        display: flex;<br>
+        justify-content: center;<br>
+        align-items: center;
+    </div>
+    <div class="flex-demo-4">
+        <div class="flex-kitu">🎯 Katikati!</div>
+    </div>
+</div>
+
+<!-- GRID -->
+<div class="sanduku">
+    <h2>📐 Sehemu 2 — Grid</h2>
+    <p>Grid inapanga vitu kwenye <strong>safu na nguzo</strong> — kama jedwali!</p>
+
+    <br>
+    <h2>1️⃣ Grid — Nguzo 3</h2>
+    <div class="code">
+        display: grid;<br>
+        grid-template-columns: 1fr 1fr 1fr;
+    </div>
+    <div class="grid-demo-1">
+        <div class="grid-kitu">A</div>
+        <div class="grid-kitu">B</div>
+        <div class="grid-kitu">C</div>
+        <div class="grid-kitu">D</div>
+        <div class="grid-kitu">E</div>
+        <div class="grid-kitu">F</div>
+    </div>
+
+    <br>
+    <h2>2️⃣ Grid — Nguzo 2</h2>
+    <div class="code">
+        display: grid;<br>
+        grid-template-columns: 1fr 1fr;
+    </div>
+    <div class="grid-demo-2">
+        <div class="grid-kitu-kubwa">🌐 Tovuti</div>
+        <div class="grid-kitu-kubwa">📱 Simu</div>
+        <div class="grid-kitu-kubwa">💻 Laptop</div>
+        <div class="grid-kitu-kubwa">🎮 Mchezo</div>
+    </div>
+
+    <br>
+    <h2>3️⃣ Grid — Nguzo Tofauti (2fr + 1fr)</h2>
+    <div class="code">
+        display: grid;<br>
+        grid-template-columns: 2fr 1fr;
+    </div>
+    <div class="grid-demo-3">
+        <div class="grid-kitu-kubwa">📄 Sehemu Kubwa (2fr)</div>
+        <div class="grid-kitu">📌 Ndogo (1fr)</div>
+        <div class="grid-kitu-kubwa">📄 Sehemu Kubwa (2fr)</div>
+        <div class="grid-kitu">📌 Ndogo (1fr)</div>
+    </div>
+</div>
+
+<!-- RESPONSIVE -->
+<div class="sanduku">
+    <h2>📱 Sehemu 3 — Responsive Grid</h2>
+    <p>Hii inabadilika yenyewe kulingana na ukubwa wa screen — simu au kompyuta!</p>
+    <br>
+    <div class="code">
+        display: grid;<br>
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    </div>
+    <br>
+    <div class="responsive-grid">
+        <div class="responsive-kitu">🏠 Nyumbani</div>
+        <div class="responsive-kitu">💼 Kazi</div>
+        <div class="responsive-kitu">📚 Elimu</div>
+        <div class="responsive-kitu">🎮 Mchezo</div>
+        <div class="responsive-kitu">📧 Mawasiliano</div>
+        <div class="responsive-kitu">🌍 Tanzania</div>
+    </div>
+    <br>
+    <p style="color:#aaa">👆 Finyanua dirisha la browser — utaona vitu vinabadilika mpangilio vyenyewe!</p>
+</div>
+
+<!-- MUHTASARI -->
+<div class="sanduku">
+    <h2>📊 Flexbox vs Grid — Tofauti</h2>
+    <div class="grid-demo-2">
+        <div class="grid-kitu">
+            <h3 style="color:#e94560;margin-bottom:10px">📦 Flexbox</h3>
+            <p>✅ Mstari mmoja</p>
+            <p>✅ Navigation menu</p>
+            <p>✅ Kupanga vitu mlalo</p>
+            <p>✅ Kuweka katikati</p>
+        </div>
+        <div class="grid-kitu">
+            <h3 style="color:#e94560;margin-bottom:10px">📐 Grid</h3>
+            <p>✅ Safu na nguzo</p>
+            <p>✅ Kurasa nzima</p>
+            <p>✅ Kadi za bidhaa</p>
+            <p>✅ Portfolio</p>
+        </div>
+    </div>
+</div>
+
+<div class="footer">
+    <p>© 2026 Zakayo Maloloi Malogo — Web Developer Tanzania</p>
+</div>
+
+</body>
+</html>

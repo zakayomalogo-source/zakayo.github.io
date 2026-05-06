@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>React — Zakayo</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+background-color:#1a1a2e;
+color:white;
+font-family:Arial;
+padding:20px;
+}
+nav {
+background-color:#e94560;
+padding:15px 30px;
+margin:-20px -20px 30px -20px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+nav a {
+color:white;
+margin:10px;
+text-decoration:none;
+font-size:16px;
+}
+nav a:hover {
+background-color:white;
+color:#e94560;
+padding:5px 10px;
+border-radius:5px;
+}
+h1 {
+color:#e94560;
+font-size:35px;
+margin:20px 0;
+text-align:center;
+}
+h2 {
+color:#e94560;
+font-size:25px;
+margin:20px 0;
+}
+.sanduku {
+background-color:#0f3460;
+padding:25px;
+border-radius:15px;
+margin:20px auto;
+max-width:700px;
+}
+.code {
+background-color:#1a1a2e;
+padding:15px;
+border-radius:10px;
+font-family:monospace;
+font-size:15px;
+color:#00ff88;
+margin:10px 0;
+text-align:left;
+border-left:4px solid #e94560;
+}
+.tofauti {
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:15px;
+margin:15px 0;
+}
+.tofauti-kadi {
+background-color:#1a1a2e;
+padding:15px;
+border-radius:10px;
+}
+.tofauti-kadi h3 {
+margin-bottom:10px;
+}
+.footer {
+text-align:center;
+margin-top:40px;
+color:#aaa;
+}
+/* React App Styles */
+#react-app {
+max-width:700px;
+margin:20px auto;
+}
+.react-kadi {
+background-color:#0f3460;
+padding:25px;
+border-radius:15px;
+margin:15px 0;
+text-align:center;
+}
+.react-kadi h2 {
+color:#e94560;
+margin-bottom:15px;
+}
+.counter-nambari {
+font-size:80px;
+font-weight:bold;
+color:#e94560;
+margin:20px 0;
+}
+.react-btn {
+background-color:#e94560;
+color:white;
+padding:12px 25px;
+border:none;
+border-radius:10px;
+font-size:18px;
+cursor:pointer;
+margin:8px;
+transition:all 0.3s;
+}
+.react-btn:hover {
+background-color:white;
+color:#e94560;
+transform:scale(1.05);
+}
+.react-btn.kijani {
+background-color:#27ae60;
+}
+.react-btn.kijani:hover {
+background-color:white;
+color:#27ae60;
+}
+.react-btn.nyekundu {
+background-color:#c0392b;
+}
+.react-btn.nyekundu:hover {
+background-color:white;
+color:#c0392b;
+}
+.todo-input {
+padding:12px;
+border-radius:10px;
+border:none;
+font-size:16px;
+width:60%;
+margin:8px;
+}
+.todo-kitu {
+background-color:#1a1a2e;
+padding:12px 15px;
+border-radius:10px;
+margin:8px 0;
+display:flex;
+justify-content:space-between;
+align-items:center;
+font-size:16px;
+}
+.todo-kitu.imekamilika {
+text-decoration:line-through;
+color:#aaa;
+}
+.rangi-btn {
+width:50px;
+height:50px;
+border-radius:50%;
+border:none;
+cursor:pointer;
+margin:8px;
+transition:transform 0.3s;
+}
+.rangi-btn:hover {
+transform:scale(1.2);
+}
+.bei-kadi {
+background-color:#1a1a2e;
+padding:20px;
+border-radius:15px;
+margin:10px 0;
+}
+.bei-jumla {
+font-size:30px;
+color:#e94560;
+font-weight:bold;
+margin:15px 0;
+}
+.bidhaa {
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:10px;
+border-bottom:1px solid #0f3460;
+}
+</style>
+</head>
+<body>
+
+<nav>
+    <div>
+        <a href="index.html">🏠 Nyumbani</a>
+        <a href="portfolio.html">💼 Portfolio</a>
+        <a href="game.html">🎮 Mchezo</a>
+        <a href="contact.html">📧 Wasiliana</a>
+    </div>
+</nav>
+
+<h1>⚛️ React — Teknolojia ya Kisasa</h1>
+
+<!-- MAELEZO -->
+<div class="sanduku">
+    <h2>📚 React ni Nini?</h2>
+    <p>React ni maktaba ya JavaScript iliyoundwa na <strong>Facebook</strong> — inatumiwa na mamilioni ya tovuti duniani!</p>
+    <br>
+    <div class="tofauti">
+        <div class="tofauti-kadi">
+            <h3 style="color:#aaa">❌ HTML ya Kawaida</h3>
+            <p style="color:#aaa;font-size:14px">
+                • Unaandika HTML moja kwa moja<br>
+                • Kubadilisha data ni ngumu<br>
+                • Code inakuwa ndefu sana<br>
+                • Haipangiki vizuri
+            </p>
+        </div>
+        <div class="tofauti-kadi">
+            <h3 style="color:#e94560">✅ React</h3>
+            <p style="font-size:14px">
+                • Unaandika Components<br>
+                • Data inabadilika yenyewe<br>
+                • Code ni fupi na safi<br>
+                • Inapangika vizuri sana
+            </p>
+        </div>
+    </div>
+    <br>
+    <div class="code">
+        // Component ya kawaida ya React<br>
+        function Salamu({ jina }) {<br>
+        &nbsp;&nbsp;return &lt;h1&gt;Habari {jina}!&lt;/h1&gt;;<br>
+        }<br><br>
+        // Kutumia Component<br>
+        &lt;Salamu jina="Zakayo" /&gt;
+    </div>
+</div>
+
+<!-- REACT APPS -->
+<div id="react-app">
+
+    <!-- APP 1 — COUNTER -->
+    <div class="react-kadi">
+        <h2>⚛️ App 1 — Counter (Kihesabu)</h2>
+        <p style="color:#aaa">Mfano rahisi wa React State — nambari inabadilika ukibonyeza!</p>
+        <div class="counter-nambari" id="counter">0</div>
+        <button class="react-btn kijani" onclick="ongeza()">➕ Ongeza</button>
+        <button class="react-btn nyekundu" onclick="punguza()">➖ Punguza</button>
+        <button class="react-btn" onclick="weka()">🔄 Weka Sifuri</button>
+        <br><br>
+        <div id="counter-ujumbe" style="color:yellow;font-size:18px"></div>
+    </div>
+
+    <!-- APP 2 — TODO LIST -->
+    <div class="react-kadi">
+        <h2>⚛️ App 2 — Todo List</h2>
+        <p style="color:#aaa">Orodha ya kazi — kama React inaivyofanya!</p>
+        <br>
+        <input type="text" class="todo-input" id="todo-input" placeholder="Andika kazi mpya...">
+        <button class="react-btn kijani" onclick="ongezaTodo()">➕ Ongeza</button>
+        <div id="todo-orodha"></div>
+        <br>
+        <div id="todo-takwimu" style="color:#aaa"></div>
+    </div>
+
+    <!-- APP 3 — RANGI CHAGUO -->
+    <div class="react-kadi">
+        <h2>⚛️ App 3 — Badilisha Mandhari</h2>
+        <p style="color:#aaa">State inabadilisha rangi ya ukurasa mzima!</p>
+        <br>
+        <button class="rangi-btn" style="background-color:#e94560" onclick="badilishaRangi('#e94560','#1a1a2e')"></button>
+        <button class="rangi-btn" style="background-color:#27ae60" onclick="badilishaRangi('#27ae60','#0d2818')"></button>
+        <button class="rangi-btn" style="background-color:#3498db" onclick="badilishaRangi('#3498db','#0d1f35')"></button>
+        <button class="rangi-btn" style="background-color:#9b59b6" onclick="badilishaRangi('#9b59b6','#1a0d2e')"></button>
+        <button class="rangi-btn" style="background-color:#f39c12" onclick="badilishaRangi('#f39c12','#2e1f0d')"></button>
+        <br><br>
+        <div id="rangi-ujumbe" style="color:yellow">Chagua rangi yako!</div>
+    </div>
+
+    <!-- APP 4 — DUKA -->
+    <div class="react-kadi">
+        <h2>⚛️ App 4 — Duka la Bidhaa 🛒</h2>
+        <p style="color:#aaa">Ongeza bidhaa kwenye kikapu — bei inajumlishwa yenyewe!</p>
+        <br>
+        <div class="bei-kadi">
+            <div class="bidhaa">
+                <span>🍎 Embe (1,000 TZS)</span>
+                <button class="react-btn" style="padding:8px 15px;font-size:14px" onclick="nunua('Embe',1000)">🛒 Nunua</button>
+            </div>
+            <div class="bidhaa">
+                <span>🍌 Ndizi (500 TZS)</span>
+                <button class="react-btn" style="padding:8px 15px;font-size:14px" onclick="nunua('Ndizi',500)">🛒 Nunua</button>
+            </div>
+            <div class="bidhaa">
+                <span>🥭 Papai (2,000 TZS)</span>
+                <button class="react-btn" style="padding:8px 15px;font-size:14px" onclick="nunua('Papai',2000)">🛒 Nunua</button>
+            </div>
+            <div class="bidhaa">
+                <span>🍊 Chungwa (800 TZS)</span>
+                <button class="react-btn" style="padding:8px 15px;font-size:14px" onclick="nunua('Chungwa',800)">🛒 Nunua</button>
+            </div>
+        </div>
+        <br>
+        <div id="kikapu-orodha"></div>
+        <div class="bei-jumla" id="bei-jumla">Jumla: 0 TZS</div>
+        <button class="react-btn nyekundu" onclick="ondoaKikapu()">🗑️ Ondoa Yote</button>
+    </div>
+
+</div>
+
+<div class="sanduku">
+    <h2>🎯 Umejifunza React Concepts:</h2>
+    <br>
+    <p>✅ <strong>State</strong> — data inayobadilika (counter, todo, rangi)</p>
+    <br>
+    <p>✅ <strong>Events</strong> — mambo yanayotokea ukibonyeza</p>
+    <br>
+    <p>✅ <strong>Re-render</strong> — ukurasa unasasishwa kiotomatiki</p>
+    <br>
+    <p>✅ <strong>Components</strong> — sehemu zinazoweza kutumika tena</p>
+    <br>
+    <p>✅ <strong>Props</strong> — kupitisha data kati ya components</p>
+</div>
+
+<div class="footer">
+    <p>© 2026 Zakayo Maloloi Malogo — Web Developer Tanzania</p>
+</div>
+
+<script>
+// ===== APP 1 — COUNTER =====
+let idadi = 0;
+
+function sasishaCounter() {
+    document.getElementById("counter").innerHTML = idadi;
+    const ujumbe = document.getElementById("counter-ujumbe");
+    if (idadi > 0) ujumbe.innerHTML = "📈 Inaongezeka!";
+    else if (idadi < 0) ujumbe.innerHTML = "📉 Inapungua!";
+    else ujumbe.innerHTML = "⚖️ Sifuri!";
+}
+
+function ongeza() {
+    idadi++;
+    sasishaCounter();
+}
+
+function punguza() {
+    idadi--;
+    sasishaCounter();
+}
+
+function weka() {
+    idadi = 0;
+    sasishaCounter();
+}
+
+// ===== APP 2 — TODO =====
+let todos = [];
+
+function onyeshaTodos() {
+    const orodha = document.getElementById("todo-orodha");
+    if (todos.length === 0) {
+        orodha.innerHTML = '<p style="color:#aaa;margin:15px">Hakuna kazi — ongeza kazi yako!</p>';
+    } else {
+        orodha.innerHTML = todos.map((t, i) => `
+            <div class="todo-kitu ${t.imekamilika ? 'imekamilika' : ''}">
+                <span>${t.imekamilika ? '✅' : '⏳'} ${t.maandishi}</span>
+                <div>
+                    <button class="react-btn kijani" style="padding:5px 10px;font-size:13px" onclick="kamilishaTodo(${i})">✅</button>
+                    <button class="react-btn nyekundu" style="padding:5px 10px;font-size:13px" onclick="futaTodo(${i})">🗑️</button>
+                </div>
+            </div>
+        `).join("");
+    }
+    const zilizokamilika = todos.filter(t => t.imekamilika).length;
+    document.getElementById("todo-takwimu").innerHTML = 
+        📊 Kazi Zote: ${todos.length} | ✅ Zilizokamilika: ${zilizokamilika} | ⏳ Zilizobaki: ${todos.length - zilizokamilika};
+}
+
+function ongezaTodo() {
+    const input = document.getElementById("todo-input");
+    if (!input.value.trim()) return;
+    todos.push({ maandishi: input.value.trim(), imekamilika: false });
+    input.value = "";
+    onyeshaTodos();
+}
+
+function kamilishaTodo(i) {
+    todos[i].imekamilika = !todos[i].imekamilika;
+    onyeshaTodos();
+}
+
+function futaTodo(i) {
+    todos.splice(i, 1);
+    onyeshaTodos();
+}
+
+document.getElementById("todo-input").addEventListener("keypress", function(e) {
+    if (e.key === "Enter") ongezaTodo();
+});
+
+// ===== APP 3 — RANGI =====
+function badilishaRangi(rangiKuu, ranginyuma) {
+    document.body.style.backgroundColor = ranginyuma;
+    document.querySelectorAll("nav").forEach(n => n.style.backgroundColor = rangiKuu);
+    document.querySelectorAll(".counter-nambari, h1, h2").forEach(el => el.style.color = rangiKuu);
+    document.querySelectorAll(".react-btn:not(.kijani):not(.nyekundu)").forEach(b => b.style.backgroundColor = rangiKuu);
+    document.getElementById("rangi-ujumbe").innerHTML = ✅ Rangi ${rangiKuu} imechaguliwa! State imebadilika!;
+}
+
+// ===== APP 4 — DUKA =====
+let kikapu = [];
+
+function nunua(jina, bei) {
+    const iliyopo = kikapu.find(k => k.jina === jina);
+    if (iliyopo) {
+        iliyopo.idadi++;
+    } else {
+        kikapu.push({ jina, bei, idadi: 1 });
+    }
+    onyeshaKikapu();
+}
+
+function onyeshaKikapu() {
+    const orodha = document.getElementById("kikapu-orodha");
+    if (kikapu.length === 0) {
+        orodha.innerHTML = '<p style="color:#aaa">🛒 Kikapu kiko tupu!</p>';
+        document.getElementById("bei-jumla").innerHTML = "Jumla: 0 TZS";
+        return;
+    }
+    orodha.innerHTML = kikapu.map((k, i) => `
+        <div class="bidhaa">
+            <span>${k.jina} x${k.idadi}</span>
+            <span style="color:#e94560">${(k.bei * k.idadi).toLocaleString()} TZS</span>
+        </div>
+    `).join("");
+    const jumla = kikapu.reduce((sum, k) => sum + (k.bei * k.idadi), 0);
+    document.getElementById("bei-jumla").innerHTML = Jumla: ${jumla.toLocaleString()} TZS;
+}
+
+// Pakia
+onyeshaTodos();
+onyeshaKikapu();
+</script>
+</body>
+</html>

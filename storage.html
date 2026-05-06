@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Local Storage — Zakayo</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+background-color:#1a1a2e;
+color:white;
+font-family:Arial;
+padding:20px;
+}
+nav {
+background-color:#e94560;
+padding:15px 30px;
+margin:-20px -20px 30px -20px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+nav a {
+color:white;
+margin:10px;
+text-decoration:none;
+font-size:16px;
+}
+nav a:hover {
+background-color:white;
+color:#e94560;
+padding:5px 10px;
+border-radius:5px;
+}
+h1 {
+color:#e94560;
+font-size:35px;
+margin:20px 0;
+text-align:center;
+}
+h2 {
+color:#e94560;
+font-size:25px;
+margin:20px 0;
+}
+.sanduku {
+background-color:#0f3460;
+padding:25px;
+border-radius:15px;
+margin:20px auto;
+max-width:700px;
+}
+.code {
+background-color:#1a1a2e;
+padding:15px;
+border-radius:10px;
+font-family:monospace;
+font-size:15px;
+color:#00ff88;
+margin:10px 0;
+text-align:left;
+border-left:4px solid #e94560;
+}
+button {
+background-color:#e94560;
+color:white;
+padding:12px 25px;
+border:none;
+border-radius:10px;
+font-size:16px;
+cursor:pointer;
+margin:8px;
+transition:all 0.3s;
+}
+button:hover {
+background-color:white;
+color:#e94560;
+transform:scale(1.05);
+}
+button.hatari {
+background-color:#c0392b;
+}
+button.salama {
+background-color:#27ae60;
+}
+input {
+padding:12px;
+border-radius:10px;
+border:none;
+font-size:16px;
+margin:8px;
+width:250px;
+}
+.matokeo {
+background-color:#1a1a2e;
+padding:15px;
+border-radius:10px;
+margin:10px 0;
+font-size:16px;
+color:yellow;
+min-height:50px;
+text-align:left;
+}
+.kazi-kitu {
+background-color:#1a1a2e;
+padding:12px 15px;
+border-radius:10px;
+margin:8px 0;
+display:flex;
+justify-content:space-between;
+align-items:center;
+font-size:16px;
+}
+.kazi-kitu.imekamilika {
+text-decoration:line-through;
+color:#aaa;
+}
+.kazi-kitu button {
+padding:5px 12px;
+font-size:14px;
+margin:2px;
+}
+.btn-kamilisha {
+background-color:#27ae60;
+}
+.btn-futa {
+background-color:#c0392b;
+}
+.takwimu {
+display:grid;
+grid-template-columns:1fr 1fr 1fr;
+gap:10px;
+margin:15px 0;
+}
+.takwimu-kadi {
+background-color:#1a1a2e;
+padding:15px;
+border-radius:10px;
+text-align:center;
+}
+.takwimu-nambari {
+font-size:35px;
+color:#e94560;
+font-weight:bold;
+}
+.takwimu-jina {
+font-size:14px;
+color:#aaa;
+}
+.footer {
+text-align:center;
+margin-top:40px;
+color:#aaa;
+}
+</style>
+</head>
+<body>
+
+<nav>
+    <div>
+        <a href="index.html">🏠 Nyumbani</a>
+        <a href="portfolio.html">💼 Portfolio</a>
+        <a href="game.html">🎮 Mchezo</a>
+        <a href="contact.html">📧 Wasiliana</a>
+    </div>
+</nav>
+
+<h1>💾 Local Storage</h1>
+
+<!-- SOMO 1 -->
+<div class="sanduku">
+    <h2>📚 Somo 1 — Local Storage ni Nini?</h2>
+    <p>Local Storage ni sehemu ya browser inayohifadhi data — hata ukifunga browser data inabaki!</p>
+    <br>
+    <div class="code">
+        // Hifadhi data<br>
+        localStorage.setItem("jina", "Zakayo");<br><br>
+        // Soma data<br>
+        localStorage.getItem("jina");<br><br>
+        // Futa data<br>
+        localStorage.removeItem("jina");<br><br>
+        // Futa yote<br>
+        localStorage.clear();
+    </div>
+    <br>
+    <input type="text" id="jina-input" placeholder="Andika jina lako">
+    <br>
+    <button class="salama" onclick="hifadhi()">💾 Hifadhi</button>
+    <button onclick="soma()">📖 Soma</button>
+    <button class="hatari" onclick="futa()">🗑️ Futa</button>
+    <div class="matokeo" id="matokeo1">Bonyeza kitufe kuona matokeo...</div>
+</div>
+
+<!-- SOMO 2 — ORODHA YA KAZI -->
+<div class="sanduku">
+    <h2>📋 Somo 2 — Orodha ya Kazi</h2>
+    <p>Tutaunda orodha ya kazi inayohifadhiwa — hata ukifunga browser itabaki!</p>
+    <br>
+
+    <div class="takwimu">
+        <div class="takwimu-kadi">
+            <div class="takwimu-nambari" id="idadi-yote">0</div>
+            <div class="takwimu-jina">Kazi Zote</div>
+        </div>
+        <div class="takwimu-kadi">
+            <div class="takwimu-nambari" id="idadi-zilizokamilika">0</div>
+            <div class="takwimu-jina">Zilizokamilika</div>
+        </div>
+        <div class="takwimu-kadi">
+            <div class="takwimu-nambari" id="idadi-zilizobaki">0</div>
+            <div class="takwimu-jina">Zilizobaki</div>
+        </div>
+    </div>
+
+    <input type="text" id="kazi-input" placeholder="Andika kazi mpya...">
+    <button class="salama" onclick="ongezaKazi()">➕ Ongeza</button>
+    <button class="hatari" onclick="futaZote()">🗑️ Futa Zote</button>
+
+    <div id="orodha-kazi"></div>
+</div>
+
+<!-- SOMO 3 — MIPANGILIO -->
+<div class="sanduku">
+    <h2>⚙️ Somo 3 — Hifadhi Mipangilio</h2>
+    <p>Hifadhi mipangilio ya mtumiaji — rangi, lugha, na zaidi!</p>
+    <br>
+    <div class="code">
+        // Hifadhi object<br>
+        const mipangilio = {rangi: "nyekundu", lugha: "Kiswahili"};<br>
+        localStorage.setItem("mipangilio", JSON.stringify(mipangilio));<br><br>
+        // Soma object<br>
+        const data = JSON.parse(localStorage.getItem("mipangilio"));
+    </div>
+    <br>
+    <p>Chagua rangi unayoipenda:</p>
+    <br>
+    <button onclick="badilishaRangi('#e94560')" style="background-color:#e94560">🔴 Nyekundu</button>
+    <button onclick="badilishaRangi('#27ae60')" style="background-color:#27ae60">🟢 Kijani</button>
+    <button onclick="badilishaRangi('#3498db')" style="background-color:#3498db">🔵 Buluu</button>
+    <button onclick="badilishaRangi('#f39c12')" style="background-color:#f39c12;color:#1a1a2e">🟡 Njano</button>
+    <br><br>
+    <div class="matokeo" id="matokeo3">Chagua rangi — itahifadhiwa na kubaki hata ukiclose browser!</div>
+</div>
+
+<!-- SOMO 4 — JINA LA MTUMIAJI -->
+<div class="sanduku">
+    <h2>👤 Somo 4 — Kumbuka Mtumiaji</h2>
+    <p>Tovuti inaweza kukukumbuka — kama Facebook inavyokukumbuka!</p>
+    <br>
+    <div id="karibu-sehemu">
+        <input type="text" id="mtumiaji-jina" placeholder="Jina lako">
+        <br>
+        <button class="salama" onclick="ingia()">✅ Ingia</button>
+    </div>
+    <div id="mtumiaji-info" style="display:none">
+        <div class="matokeo" id="mtumiaji-ujumbe"></div>
+        <br>
+        <button class="hatari" onclick="toka()">🚪 Toka</button>
+    </div>
+</div>
+
+<div class="footer">
+    <p>© 2026 Zakayo Maloloi Malogo — Web Developer Tanzania</p>
+</div>
+
+<script>
+// ===== SOMO 1 =====
+function hifadhi() {
+    const jina = document.getElementById("jina-input").value;
+    if (!jina) {
+        document.getElementById("matokeo1").innerHTML = "⚠️ Andika jina kwanza!";
+        return;
+    }
+    localStorage.setItem("jina_la_mtumiaji", jina);
+    document.getElementById("matokeo1").innerHTML = ✅ Jina "${jina}" limehifadhiwa! Funga browser na urudi — bado litakuwepo!;
+}
+
+function soma() {
+    const jina = localStorage.getItem("jina_la_mtumiaji");
+    if (jina) {
+        document.getElementById("matokeo1").innerHTML = 📖 Jina lililohifadhiwa: "${jina}";
+    } else {
+        document.getElementById("matokeo1").innerHTML = "❌ Hakuna jina lililohifadhiwa!";
+    }
+}
+
+function futa() {
+    localStorage.removeItem("jina_la_mtumiaji");
+    document.getElementById("matokeo1").innerHTML = "🗑️ Jina limefutwa!";
+    document.getElementById("jina-input").value = "";
+}
+
+// ===== SOMO 2 — ORODHA YA KAZI =====
+let kazi = JSON.parse(localStorage.getItem("orodha_kazi")) || [];
+
+function onyeshaKazi() {
+    const orodha = document.getElementById("orodha-kazi");
+    
+    if (kazi.length === 0) {
+        orodha.innerHTML = <div class="matokeo">📝 Hakuna kazi — ongeza kazi yako ya kwanza!</div>;
+    } else {
+        orodha.innerHTML = kazi.map((k, i) => `
+            <div class="kazi-kitu ${k.imekamilika ? 'imekamilika' : ''}">
+                <span>${k.imekamilika ? '✅' : '⏳'} ${k.maandishi}</span>
+                <div>
+                    <button class="btn-kamilisha" onclick="kamilisha(${i})">✅</button>
+                    <button class="btn-futa" onclick="futaKazi(${i})">🗑️</button>
+                </div>
+            </div>
+        `).join("");
+    }
+    
+    const zilizokamilika = kazi.filter(k => k.imekamilika).length;
+    document.getElementById("idadi-yote").innerHTML = kazi.length;
+    document.getElementById("idadi-zilizokamilika").innerHTML = zilizokamilika;
+    document.getElementById("idadi-zilizobaki").innerHTML = kazi.length - zilizokamilika;
+}
+
+function ongezaKazi() {
+    const input = document.getElementById("kazi-input");
+    const maandishi = input.value.trim();
+    if (!maandishi) return;
+    
+    kazi.push({ maandishi: maandishi, imekamilika: false });
+    localStorage.setItem("orodha_kazi", JSON.stringify(kazi));
+    input.value = "";
+    onyeshaKazi();
+}
+
+function kamilisha(i) {
+    kazi[i].imekamilika = !kazi[i].imekamilika;
+    localStorage.setItem("orodha_kazi", JSON.stringify(kazi));
+    onyeshaKazi();
+}
+
+function futaKazi(i) {
+    kazi.splice(i, 1);
+    localStorage.setItem("orodha_kazi", JSON.stringify(kazi));
+    onyeshaKazi();
+}
+
+function futaZote() {
+    kazi = [];
+    localStorage.removeItem("orodha_kazi");
+    onyeshaKazi();
+}
+
+document.getElementById("kazi-input").addEventListener("keypress", function(e) {
+    if (e.key === "Enter") ongezaKazi();
+});
+
+// ===== SOMO 3 — MIPANGILIO =====
+function badilishaRangi(rangi) {
+    document.querySelectorAll("nav").forEach(n => n.style.backgroundColor = rangi);
+    document.querySelectorAll("button:not(.hatari):not(.salama):not(.btn-kamilisha):not(.btn-futa)").forEach(b => {
+        b.style.backgroundColor = rangi;
+    });
+    localStorage.setItem("rangi_iliyochaguliwa", rangi);
+    document.getElementById("matokeo3").innerHTML = ✅ Rangi ${rangi} imehifadhiwa! Funga browser na urudi — rangi hii itabaki!;
+}
+
+// Pakia rangi iliyohifadhiwa
+const rangiIliyohifadhiwa = localStorage.getItem("rangi_iliyochaguliwa");
+if (rangiIliyohifadhiwa) {
+    badilishaRangi(rangiIliyohifadhiwa);
+}
+
+// ===== SOMO 4 — MTUMIAJI =====
+function angaliaMtumiaji() {
+    const jina = localStorage.getItem("mtumiaji_aliyeingia");
+    if (jina) {
+        document.getElementById("karibu-sehemu").style.display = "none";
+        document.getElementById("mtumiaji-info").style.display = "block";
+        const saa = new Date().getHours();
+        let salamu = saa < 12 ? "Habari za asubuhi" : saa < 17 ? "Habari za mchana" : "Habari za jioni";
+        document.getElementById("mtumiaji-ujumbe").innerHTML = `
+            👋 ${salamu}, <strong>${jina}</strong>!<br>
+            🎉 Karibu tena kwenye tovuti yako!<br>
+            💻 Unaendelea kujifunza coding vizuri sana!
+        `;
+    }
+}
+
+function ingia() {
+    const jina = document.getElementById("mtumiaji-jina").value;
+    if (!jina) return;
+    localStorage.setItem("mtumiaji_aliyeingia", jina);
+    angaliaMtumiaji();
+}
+
+function toka() {
+    localStorage.removeItem("mtumiaji_aliyeingia");
+    document.getElementById("karibu-sehemu").style.display = "block";
+    document.getElementById("mtumiaji-info").style.display = "none";
+    document.getElementById("mtumiaji-jina").value = "";
+}
+
+// Pakia data ukifungua ukurasa
+onyeshaKazi();
+angaliaMtumiaji();
+</script>
+</body>
+</html>
