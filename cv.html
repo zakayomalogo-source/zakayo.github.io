@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>CV — Zakayo Maloloi Malogo</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+background-color:#f5f5f5;
+font-family:Arial;
+color:#333;
+}
+.cv-container {
+max-width:800px;
+margin:30px auto;
+background:white;
+box-shadow:0 5px 30px rgba(0,0,0,0.1);
+}
+.header {
+background:linear-gradient(135deg,#1a1a2e,#e94560);
+color:white;
+padding:40px;
+display:flex;
+align-items:center;
+gap:30px;
+}
+.header-picha {
+width:120px;
+height:120px;
+border-radius:50%;
+border:4px solid white;
+object-fit:cover;
+}
+.header-maelezo h1 {
+font-size:32px;
+margin-bottom:8px;
+}
+.header-maelezo h2 {
+font-size:18px;
+color:#ffaaaa;
+margin-bottom:15px;
+}
+.header-maelezo p {
+font-size:14px;
+color:#ddd;
+margin:3px 0;
+}
+.mwili {
+padding:30px 40px;
+}
+.sehemu {
+margin-bottom:30px;
+}
+.sehemu-kichwa {
+color:#e94560;
+font-size:20px;
+font-weight:bold;
+border-bottom:3px solid #e94560;
+padding-bottom:8px;
+margin-bottom:15px;
+text-transform:uppercase;
+}
+.maelezo-kadi {
+background:#f9f9f9;
+padding:15px;
+border-radius:10px;
+margin:10px 0;
+border-left:4px solid #e94560;
+}
+.maelezo-kadi h3 {
+color:#1a1a2e;
+font-size:16px;
+margin-bottom:5px;
+}
+.maelezo-kadi .tarehe {
+color:#e94560;
+font-size:13px;
+margin-bottom:8px;
+}
+.maelezo-kadi p {
+font-size:14px;
+color:#555;
+line-height:1.6;
+}
+.ujuzi-grid {
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:15px;
+}
+.ujuzi-kitu {
+margin-bottom:12px;
+}
+.ujuzi-jina {
+display:flex;
+justify-content:space-between;
+margin-bottom:5px;
+font-size:14px;
+font-weight:bold;
+}
+.bar {
+background:#ddd;
+border-radius:10px;
+height:10px;
+}
+.bar-jaza {
+height:10px;
+border-radius:10px;
+background:linear-gradient(90deg,#e94560,#1a1a2e);
+}
+.mawasiliano-grid {
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:15px;
+}
+.mawasiliano-kitu {
+display:flex;
+align-items:center;
+gap:10px;
+padding:10px;
+background:#f9f9f9;
+border-radius:10px;
+font-size:14px;
+}
+.mawasiliano-ikoni {
+font-size:20px;
+}
+.miradi-grid {
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:15px;
+}
+.mradi-kadi {
+background:#f9f9f9;
+padding:15px;
+border-radius:10px;
+border-top:4px solid #e94560;
+}
+.mradi-kadi h3 {
+color:#1a1a2e;
+margin-bottom:8px;
+font-size:15px;
+}
+.mradi-kadi p {
+font-size:13px;
+color:#555;
+margin-bottom:10px;
+}
+.tag {
+display:inline-block;
+background:#e94560;
+color:white;
+padding:2px 8px;
+border-radius:10px;
+font-size:11px;
+margin:2px;
+}
+.footer-cv {
+background:#1a1a2e;
+color:white;
+text-align:center;
+padding:20px;
+font-size:14px;
+}
+button {
+background-color:#e94560;
+color:white;
+padding:12px 30px;
+border:none;
+border-radius:10px;
+font-size:16px;
+cursor:pointer;
+margin:20px auto;
+display:block;
+transition:all 0.3s;
+}
+button:hover {
+background-color:#1a1a2e;
+transform:scale(1.05);
+}
+@media print {
+button { display:none; }
+.cv-container { box-shadow:none; margin:0; }
+}
+</style>
+</head>
+<body>
+
+<button onclick="window.print()">🖨️ Chapisha CV / Hifadhi PDF</button>
+
+<div class="cv-container">
+
+    <!-- HEADER -->
+    <div class="header">
+        <img class="header-picha" src="IMG 1234.JPG" alt="Zakayo">
+        <div class="header-maelezo">
+            <h1>Zakayo Maloloi Malogo</h1>
+            <h2>Full Stack Web Developer</h2>
+            <p>📱 +255 718 996 785</p>
+            <p>📧 zakayomalogo@gmail.com</p>
+            <p>🌍 Tanzania</p>
+            <p>🔗 zakayomalogo-source.github.io/zakayo.github.io</p>
+        </div>
+    </div>
+
+    <div class="mwili">
+
+        <!-- KUHUSU -->
+        <div class="sehemu">
+            <div class="sehemu-kichwa">👤 Kuhusu Mimi</div>
+            <div class="maelezo-kadi">
+                <p>Mimi ni Full Stack Web Developer kutoka Tanzania. Nina ujuzi wa kutengeneza tovuti nzuri za kisasa kutumia HTML, CSS, JavaScript, Node.js, Express, na MongoDB. Ninajifunza kwa bidii kila siku na ndoto yangu ni kutengeneza tovuti zinazosaidia watu wa Afrika.</p>
+            </div>
+        </div>
+
+        <!-- UJUZI -->
+        <div class="sehemu">
+            <div class="sehemu-kichwa">💪 Ujuzi Wangu</div>
+            <div class="ujuzi-grid">
+                <div>
+                    <div class="ujuzi-kitu">
+                        <div class="ujuzi-jina"><span>HTML</span><span>95%</span></div>
+                        <div class="bar"><div class="bar-jaza" style="width:95%"></div></div>
+                    </div>
+                    <div class="ujuzi-kitu">
+                        <div class="ujuzi-jina"><span>CSS</span><span>90%</span></div>
+                        <div class="bar"><div class="bar-jaza" style="width:90%"></div></div>
+                    </div>
+                    <div class="ujuzi-kitu">
+                        <div class="ujuzi-jina"><span>JavaScript</span><span>85%</span></div>
+                        <div class="bar"><div class="bar-jaza" style="width:85%"></div></div>
+                    </div>
+                    <div class="ujuzi-kitu">
+                        <div class="ujuzi-jina"><span>React</span><span>75%</span></div>
+                        <div class="bar"><div class="bar-jaza" style="width:75%"></div></div>
+                    </div>
+                </div>
+                <div>
+                    <div class="ujuzi-kitu">
+                        <div class="ujuzi-jina"><span>Node.js</span><span>80%</span></div>
+                        <div class="bar"><div class="bar-jaza" style="width:80%"></div></div>
+                    </div>
+                    <div class="ujuzi-kitu">
+                        <div class="ujuzi-jina"><span>Express</span><span>75%</span></div>
+                        <div class="bar"><div class="bar-jaza" style="width:75%"></div></div>
+                    </div>
+                    <div class="ujuzi-kitu">
+                        <div class="ujuzi-jina"><span>MongoDB</span><span>70%</span></div>
+                        <div class="bar"><div class="bar-jaza" style="width:70%"></div></div>
+                    </div>
+                    <div class="ujuzi-kitu">
+                        <div class="ujuzi-jina"><span>GitHub</span><span>85%</span></div>
+                        <div class="bar"><div class="bar-jaza" style="width:85%"></div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MIRADI -->
+        <div class="sehemu">
+            <div class="sehemu-kichwa">🚀 Miradi Yangu</div>
+            <div class="miradi-grid">
+                <div class="mradi-kadi">
+                    <h3>🌐 Tovuti ya Kibinafsi</h3>
+                    <p>Tovuti kamili yenye picha, CSS ya kisasa, JavaScript, kikokotoo, na saa inayotembea.</p>
+                    <span class="tag">HTML</span>
+                    <span class="tag">CSS</span>
+                    <span class="tag">JavaScript</span>
+                </div>
+                <div class="mradi-kadi">
+                    <h3>📧 Mfumo wa Mawasiliano</h3>
+                    <p>Kurasa ya mawasiliano yenye fomu inayotuma ujumbe wa kweli kwa email kupitia Formspree.</p>
+                    <span class="tag">HTML</span>
+                    <span class="tag">Formspree</span>
+                </div>
+                <div class="mradi-kadi">
+                    <h3>🎮 Mchezo wa JavaScript</h3>
+                    <p>Mchezo wa "Nadhani Nambari" wenye takwimu na rekodi ya mchezaji.</p>
+                    <span class="tag">JavaScript</span>
+                    <span class="tag">DOM</span>
+                </div>
+                <div class="mradi-kadi">
+                    <h3>🖥️ Express Web Server</h3>
+                    <p>Web server yenye kurasa nyingi na database ya MongoDB kuhifadhi data.</p>
+                    <span class="tag">Node.js</span>
+                    <span class="tag">Express</span>
+                    <span class="tag">MongoDB</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ELIMU -->
+        <div class="sehemu">
+            <div class="sehemu-kichwa">🎓 Elimu</div>
+            <div class="maelezo-kadi">
+                <h3>Full Stack Web Development</h3>
+                <div class="tarehe">📅 2026 — Hadi Sasa</div>
+                <p>Kujifunza HTML, CSS, JavaScript, React, Node.js, Express, MongoDB, GitHub na VS Code kwa njia ya vitendo.</p>
+            </div>
+        </div>
+
+        <!-- MAWASILIANO -->
+        <div class="sehemu">
+            <div class="sehemu-kichwa">📞 Mawasiliano</div>
+            <div class="mawasiliano-grid">
+                <div class="mawasiliano-kitu">
+                    <span class="mawasiliano-ikoni">📱</span>
+                    <span>+255 718 996 785</span>
+                </div>
+                <div class="mawasiliano-kitu">
+                    <span class="mawasiliano-ikoni">📧</span>
+                    <span>zakayomalogo@gmail.com</span>
+                </div>
+                <div class="mawasiliano-kitu">
+                    <span class="mawasiliano-ikoni">🌍</span>
+                    <span>Tanzania, Afrika</span>
+                </div>
+                <div class="mawasiliano-kitu">
+                    <span class="mawasiliano-ikoni">🔗</span>
+                    <span>GitHub Portfolio</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="footer-cv">
+        <p>© 2026 Zakayo Maloloi Malogo — Full Stack Web Developer Tanzania</p>
+    </div>
+
+</div>
+
+</body>
+</html>
