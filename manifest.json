@@ -1,0 +1,22 @@
+{
+    "name": "Zakayo Maloloi Malogo",
+    "short_name": "Zakayo",
+    "description": "Full Stack Web Developer kutoka Tanzania",
+    "start_url": "/zakayo.github.io/index.html",
+    "display": "standalone",
+    "background_color": "#1a1a2e",
+    "theme_color": "#e94560",
+    "orientation": "portrait",
+    "icons": [
+        {
+            "src": "IMG 1234.JPG",
+            "sizes": "192x192",
+            "type": "image/jpeg"
+        },
+        {
+            "src": "IMG 1234.JPG",
+            "sizes": "512x512",
+            "type": "image/jpeg"
+        }
+    ]
+}
