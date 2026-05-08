@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Malipo — Zakayo</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+background-color:#1a1a2e;
+color:white;
+font-family:Arial;
+padding:20px;
+}
+nav {
+background-color:#e94560;
+padding:15px 30px;
+margin:-20px -20px 30px -20px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+nav a { color:white; margin:10px; text-decoration:none; font-size:16px; }
+h1 { color:#e94560; font-size:35px; margin:20px 0; text-align:center; }
+h2 { color:#e94560; font-size:25px; margin:20px 0; }
+.sanduku {
+background-color:#0f3460;
+padding:25px;
+border-radius:15px;
+margin:20px auto;
+max-width:600px;
+}
+.bei-grid {
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+gap:15px;
+margin:20px 0;
+}
+.bei-kadi {
+background-color:#1a1a2e;
+padding:20px;
+border-radius:15px;
+text-align:center;
+border:2px solid transparent;
+cursor:pointer;
+transition:all 0.3s;
+}
+.bei-kadi:hover { border-color:#e94560; transform:scale(1.05); }
+.bei-kadi.selected { border-color:#e94560; background:#e94560; }
+.bei-nambari { font-size:28px; font-weight:bold; color:#e94560; }
+.bei-kadi.selected .bei-nambari { color:white; }
+.bei-jina { font-size:14px; color:#aaa; margin-top:5px; }
+.bei-kadi.selected .bei-jina { color:white; }
+input {
+width:100%;
+padding:12px 15px;
+border-radius:10px;
+border:1px solid rgba(233,69,96,0.3);
+background:#1a1a2e;
+color:white;
+font-size:16px;
+margin:8px 0;
+}
+input:focus { outline:none; border-color:#e94560; }
+button {
+width:100%;
+padding:15px;
+border-radius:10px;
+border:none;
+font-size:18px;
+font-weight:bold;
+cursor:pointer;
+margin:8px 0;
+transition:all 0.3s;
+}
+.btn-mix {
+background:linear-gradient(135deg,#ff6b00,#ff9500);
+color:white;
+}
+.btn-mix:hover { opacity:0.9; transform:scale(1.02); }
+.btn-stripe {
+background:#635bff;
+color:white;
+}
+.btn-stripe:hover { background:#4e44ff; transform:scale(1.02); }
+.btn-paypal {
+background:#003087;
+color:white;
+}
+.btn-paypal:hover { background:#002070; transform:scale(1.02); }
+.matokeo {
+background-color:#1a1a2e;
+padding:15px;
+border-radius:10px;
+margin:15px 0;
+font-size:16px;
+text-align:center;
+display:none;
+}
+.matokeo.inaonekana { display:block; }
+.hatua {
+display:flex;
+align-items:center;
+gap:15px;
+background:#1a1a2e;
+padding:15px;
+border-radius:10px;
+margin:10px 0;
+}
+.hatua-nambari {
+background:#ff6b00;
+color:white;
+width:35px;
+height:35px;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+font-weight:bold;
+font-size:16px;
+flex-shrink:0;
+}
+.hatua-maelezo { font-size:14px; color:#aaa; }
+.jumla-box {
+background:#e94560;
+padding:20px;
+border-radius:15px;
+text-align:center;
+margin:15px 0;
+}
+.jumla-nambari { font-size:35px; font-weight:bold; }
+.jumla-jina { font-size:14px; opacity:0.8; }
+.footer { text-align:center; margin-top:40px; color:#aaa; font-size:14px; }
+</style>
+</head>
+<body>
+
+<nav>
+    <div>
+        <a href="index.html">🏠 Nyumbani</a>
+        <a href="portfolio.html">💼 Portfolio</a>
+        <a href="contact.html">📧 Wasiliana</a>
+    </div>
+</nav>
+
+<h1>💳 Mfumo wa Malipo</h1>
+
+<!-- CHAGUA HUDUMA -->
+<div class="sanduku">
+    <h2>1️⃣ Chagua Huduma</h2>
+    <div class="bei-grid">
+        <div class="bei-kadi" onclick="chaguaBei(50000, 'Tovuti Rahisi', this)">
+            <div class="bei-nambari">50K</div>
+            <div class="bei-jina">Tovuti Rahisi</div>
+        </div>
+        <div class="bei-kadi" onclick="chaguaBei(150000, 'Tovuti ya Biashara', this)">
+            <div class="bei-nambari">150K</div>
+            <div class="bei-jina">Biashara</div>
+        </div>
+        <div class="bei-kadi" onclick="chaguaBei(300000, 'Full Stack Website', this)">
+            <div class="bei-nambari">300K</div>
+            <div class="bei-jina">Full Stack</div>
+        </div>
+        <div class="bei-kadi" onclick="chaguaBei(500000, 'Mfumo Kamili', this)">
+            <div class="bei-nambari">500K</div>
+            <div class="bei-jina">Mfumo Kamili</div>
+        </div>
+    </div>
+    <div class="jumla-box" id="jumla-box" style="display:none">
+        <div class="jumla-jina">Huduma Uliyochagua</div>
+        <div class="jumla-nambari" id="jumla-nambari">TZS 0</div>
+        <div id="jumla-jina-huduma"></div>
+    </div>
+</div>
+
+<!-- TAARIFA ZA MLIPAJI -->
+<div class="sanduku">
+    <h2>2️⃣ Taarifa Zako</h2>
+    <input type="text" id="jina-mlipaji" placeholder="Jina lako kamili">
+    <input type="email" id="email-mlipaji" placeholder="Email yako">
+    <input type="tel" id="simu-mlipaji" placeholder="Nambari ya simu (0712345678)">
+</div>
+
+<!-- CHAGUA NJIA YA KULIPA -->
+<div class="sanduku">
+    <h2>3️⃣ Chagua Njia ya Kulipa</h2>
+
+    <button class="btn-mix" onclick="lipa('mix')">
+        🔶 Lipa kwa Mix by Yas
+    </button>
+
+    <button class="btn-stripe" onclick="lipa('stripe')">
+        💳 Lipa kwa Kadi (Stripe)
+    </button>
+
+    <button class="btn-paypal" onclick="lipa('paypal')">
+        🔵 Lipa kwa PayPal
+    </button>
+
+    <div class="matokeo" id="matokeo"></div>
+</div>
+
+<!-- JINSI MIX BY YAS INAVYOFANYA KAZI -->
+<div class="sanduku">
+    <h2>ℹ️ Jinsi Mix by Yas Inavyofanya Kazi</h2>
+    <div class="hatua">
+        <div class="hatua-nambari">1</div>
+        <div class="hatua-maelezo">Bonyeza "Lipa kwa Mix by Yas" — utapata nambari ya malipo</div>
+    </div>
+    <div class="hatua">
+        <div class="hatua-nambari">2</div>
+        <div class="hatua-maelezo">Fungua app ya Mix by Yas kwenye simu yako</div>
+    </div>
+    <div class="hatua">
+        <div class="hatua-nambari">3</div>
+        <div class="hatua-maelezo">Bonyeza "Send Money" — ingiza nambari: <strong>0718996785</strong></div>
+    </div>
+    <div class="hatua">
+        <div class="hatua-nambari">4</div>
+        <div class="hatua-maelezo">Ingiza kumbukumbu nambari uliyopewa kwenye maelezo</div>
+    </div>
+    <div class="hatua">
+        <div class="hatua-nambari">5</div>
+        <div class="hatua-maelezo">Ingiza kiasi na PIN yako — malipo yamekamilika!</div>
+    </div>
+</div>
+
+<!-- USALAMA -->
+<div class="sanduku">
+    <h2>🔒 Usalama wa Malipo</h2>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:15px;">
+        <div style="background:#1a1a2e;padding:15px;border-radius:10px;text-align:center;">
+            <div style="font-size:30px">🔐</div>
+            <p style="font-size:13px;color:#aaa;margin-top:8px">SSL Encrypted — Malipo salama</p>
+        </div>
+        <div style="background:#1a1a2e;padding:15px;border-radius:10px;text-align:center;">
+            <div style="font-size:30px">✅</div>
+            <p style="font-size:13px;color:#aaa;margin-top:8px">Tumia njia yoyote unayoipenda</p>
+        </div>
+        <div style="background:#1a1a2e;padding:15px;border-radius:10px;text-align:center;">
+            <div style="font-size:30px">📧</div>
+            <p style="font-size:13px;color:#aaa;margin-top:8px">Utapata risiti kwa email</p>
+        </div>
+        <div style="background:#1a1a2e;padding:15px;border-radius:10px;text-align:center;">
+            <div style="font-size:30px">💯</div>
+            <p style="font-size:13px;color:#aaa;margin-top:8px">Hakikisho la kazi nzuri</p>
+        </div>
+    </div>
+</div>
+
+<div class="footer">
+    <p>© 2026 Zakayo Maloloi Malogo — Full Stack Web Developer Tanzania</p>
+    <p>📱 0718996785 | 📧 zakayomalogo@gmail.com</p>
+</div>
+
+<script>
+var bei_iliyochaguliwa = 0;
+var huduma_iliyochaguliwa = "";
+
+function chaguaBei(bei, huduma, kadi) {
+    document.querySelectorAll('.bei-kadi').forEach(function(k) {
+        k.classList.remove('selected');
+    });
+    kadi.classList.add('selected');
+    bei_iliyochaguliwa = bei;
+    huduma_iliyochaguliwa = huduma;
+    document.getElementById('jumla-box').style.display = 'block';
+    document.getElementById('jumla-nambari').innerHTML = 'TZS ' + bei.toLocaleString();
+    document.getElementById('jumla-jina-huduma').innerHTML = huduma;
+}
+
+function lipa(njia) {
+    var jina = document.getElementById('jina-mlipaji').value;
+    var email = document.getElementById('email-mlipaji').value;
+    var simu = document.getElementById('simu-mlipaji').value;
+    var matokeo = document.getElementById('matokeo');
+
+    if (!bei_iliyochaguliwa) {
+        matokeo.innerHTML = "⚠️ Chagua huduma kwanza!";
+        matokeo.style.color = "#e94560";
+        matokeo.classList.add('inaonekana');
+        return;
+    }
+    if (!jina || !email || !simu) {
+        matokeo.innerHTML = "⚠️ Jaza taarifa zako zote kwanza!";
+        matokeo.style.color = "#e94560";
+        matokeo.classList.add('inaonekana');
+        return;
+    }
+
+    var kumbukumbu = "ZAK" + Math.floor(Math.random() * 1000000);
+
+    if (njia === 'mix') {
+        matokeo.innerHTML =
+            "<div style='color:#ff6b00;font-size:22px;font-weight:bold'>🔶 Mix by Yas</div>" +
+            "<br>" +
+            "<p>Habari " + jina + "!</p>" +
+            "<br>" +
+            "<p>Nambari ya Kupokea: <strong style='color:#ff6b00'>0718996785</strong></p>" +
+            "<p>Jina: <strong style='color:#ff6b00'>Zakayo Maloloi Malogo</strong></p>" +
+            "<p>Kumbukumbu: <strong style='color:#ff6b00'>" + kumbukumbu + "</strong></p>" +
+            "<p>Kiasi: <strong style='color:#ff6b00'>TZS " + bei_iliyochaguliwa.toLocaleString() + "</strong></p>" +
+            "<p>Huduma: " + huduma_iliyochaguliwa + "</p>" +
+            "<br>" +
+            "<p style='color:#aaa'>Fungua Mix by Yas → Send Money → Ingiza nambari na kumbukumbu hapo juu!</p>" +
+            "<br>" +
+            "<p style='color:#aaa;font-size:13px'>Risiti itumwe kwa: " + email + "</p>";
+        matokeo.style.background = "rgba(255,107,0,0.1)";
+        matokeo.style.border = "1px solid #ff6b00";
+
+    } else if (njia === 'stripe') {
+        matokeo.innerHTML =
+            "<div style='color:#635bff;font-size:22px;font-weight:bold'>💳 Stripe</div>" +
+            "<br>" +
+            "<p>Habari " + jina + "!</p>" +
+            "<br>" +
+            "<p>Kumbukumbu: <strong style='color:#635bff'>" + kumbukumbu + "</strong></p>" +
+            "<p>Kiasi: <strong style='color:#635bff'>TZS " + bei_iliyochaguliwa.toLocaleString() + "</strong></p>" +
+            "<br>" +
+            "<p style='color:#aaa'>Utapelekwa kwenye ukurasa salama wa Stripe kumaliza malipo!</p>" +
+            "<br>" +
+            "<p style='color:#aaa;font-size:13px'>Risiti itumwe kwa: " + email + "</p>";
+        matokeo.style.background = "rgba(99,91,255,0.1)";
+        matokeo.style.border = "1px solid #635bff";
+
+    } else if (njia === 'paypal') {
+        matokeo.innerHTML =
+            "<div style='color:#009cde;font-size:22px;font-weight:bold'>🔵 PayPal</div>" +
+            "<br>" +
+            "<p>Habari " + jina + "!</p>" +
+            "<br>" +
+            "<p>Kumbukumbu: <strong style='color:#009cde'>" + kumbukumbu + "</strong></p>" +
+            "<p>Kiasi: <strong style='color:#009cde'>TZS " + bei_iliyochaguliwa.toLocaleString() + "</strong></p>" +
+            "<br>" +
+            "<p style='color:#aaa'>Utapelekwa kwenye PayPal kumaliza malipo!</p>" +
+            "<br>" +
+            "<p style='color:#aaa;font-size:13px'>Risiti itumwe kwa: " + email + "</p>";
+        matokeo.style.background = "rgba(0,156,222,0.1)";
+        matokeo.style.border = "1px solid #009cde";
+    }
+
+    matokeo.classList.add('inaonekana');
+    window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'});
+}
+</script>
+</body>
+</html>
