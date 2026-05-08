@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>AI Assistant — Zakayo</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+background-color:#1a1a2e;
+color:white;
+font-family:Arial;
+padding:20px;
+}
+nav {
+background-color:#e94560;
+padding:15px 30px;
+margin:-20px -20px 30px -20px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+nav a { color:white; margin:10px; text-decoration:none; font-size:16px; }
+h1 { color:#e94560; font-size:35px; margin:20px 0; text-align:center; }
+h2 { color:#e94560; font-size:22px; margin:15px 0; }
+.sanduku {
+background-color:#0f3460;
+padding:25px;
+border-radius:15px;
+margin:20px auto;
+max-width:700px;
+}
+.chat-box {
+background:#1a1a2e;
+border-radius:15px;
+padding:20px;
+height:400px;
+overflow-y:auto;
+margin:15px 0;
+border:1px solid rgba(233,69,96,0.3);
+}
+.ujumbe {
+margin:10px 0;
+display:flex;
+gap:10px;
+align-items:flex-start;
+}
+.ujumbe.mtumiaji { flex-direction:row-reverse; }
+.ujumbe-picha {
+width:40px;
+height:40px;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:20px;
+flex-shrink:0;
+}
+.ujumbe.ai .ujumbe-picha { background:#e94560; }
+.ujumbe.mtumiaji .ujumbe-picha { background:#0f3460; border:2px solid #e94560; }
+.ujumbe-maandishi {
+background:#0f3460;
+padding:12px 15px;
+border-radius:15px;
+max-width:80%;
+font-size:15px;
+line-height:1.6;
+}
+.ujumbe.mtumiaji .ujumbe-maandishi {
+background:#e94560;
+}
+.ujumbe.ai .ujumbe-maandishi {
+border-top-left-radius:0;
+}
+.ujumbe.mtumiaji .ujumbe-maandishi {
+border-top-right-radius:0;
+}
+.ingizo-sehemu {
+display:flex;
+gap:10px;
+margin-top:15px;
+}
+.ingizo-sehemu input {
+flex:1;
+padding:12px 15px;
+border-radius:30px;
+border:1px solid rgba(233,69,96,0.3);
+background:#1a1a2e;
+color:white;
+font-size:16px;
+}
+.ingizo-sehemu input:focus { outline:none; border-color:#e94560; }
+.ingizo-sehemu button {
+background:#e94560;
+color:white;
+padding:12px 25px;
+border:none;
+border-radius:30px;
+font-size:16px;
+cursor:pointer;
+transition:all 0.3s;
+}
+.ingizo-sehemu button:hover { background:white; color:#e94560; }
+.maswali-grid {
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+gap:10px;
+margin:15px 0;
+}
+.swali-kitufe {
+background:#1a1a2e;
+border:1px solid rgba(233,69,96,0.3);
+color:white;
+padding:10px 15px;
+border-radius:10px;
+cursor:pointer;
+font-size:13px;
+text-align:left;
+transition:all 0.3s;
+}
+.swali-kitufe:hover {
+border-color:#e94560;
+background:rgba(233,69,96,0.1);
+}
+.loading {
+display:none;
+text-align:center;
+color:#aaa;
+padding:10px;
+}
+.loading.inaonekana { display:block; }
+.dots span {
+animation:dot 1.4s infinite;
+font-size:20px;
+color:#e94560;
+}
+.dots span:nth-child(2) { animation-delay:0.2s; }
+.dots span:nth-child(3) { animation-delay:0.4s; }
+@keyframes dot {
+0%,80%,100% { opacity:0; }
+40% { opacity:1; }
+}
+.api-sehemu {
+background:#1a1a2e;
+padding:15px;
+border-radius:10px;
+margin:15px 0;
+}
+.api-input {
+width:100%;
+padding:10px 15px;
+border-radius:10px;
+border:1px solid rgba(233,69,96,0.3);
+background:#0f3460;
+color:white;
+font-size:14px;
+margin:8px 0;
+}
+.btn-hifadhi {
+background:#27ae60;
+color:white;
+padding:10px 20px;
+border:none;
+border-radius:10px;
+cursor:pointer;
+font-size:14px;
+transition:all 0.3s;
+}
+.btn-hifadhi:hover { background:white; color:#27ae60; }
+.footer { text-align:center; margin-top:40px; color:#aaa; font-size:14px; }
+</style>
+</head>
+<body>
+
+<nav>
+    <div>
+        <a href="index.html">🏠 Nyumbani</a>
+        <a href="portfolio.html">💼 Portfolio</a>
+        <a href="contact.html">📧 Wasiliana</a>
+    </div>
+</nav>
+
+<h1>🤖 AI Assistant ya Zakayo</h1>
+
+<!-- API KEY -->
+<div class="sanduku">
+    <h2>🔑 Weka API Key Yako</h2>
+    <div class="api-sehemu">
+        <p style="color:#aaa;font-size:14px;margin-bottom:10px">
+            Pata API key bure kutoka: <a href="https://console.anthropic.com" target="_blank" style="color:#e94560">console.anthropic.com</a>
+        </p>
+        <input type="password" class="api-input" id="api-key" placeholder="sk-ant-api03-...">
+        <button class="btn-hifadhi" onclick="hifadhiKey()">💾 Hifadhi Key</button>
+        <p id="key-hali" style="color:#aaa;font-size:13px;margin-top:8px"></p>
+    </div>
+</div>
+
+<!-- CHAT -->
+<div class="sanduku">
+    <h2>💬 Zungumza na AI</h2>
+
+    <!-- MASWALI YA HARAKA -->
+    <p style="color:#aaa;font-size:14px;margin-bottom:10px">Maswali ya haraka:</p>
+    <div class="maswali-grid">
+        <button class="swali-kitufe" onclick="uliaSwaliFupi('Zakayo ni nani?')">
+            👤 Zakayo ni nani?
+        </button>
+        <button class="swali-kitufe" onclick="uliaSwaliFupi('Huduma gani unazotoa?')">
+            🛠️ Huduma zinazotolewa
+        </button>
+        <button class="swali-kitufe" onclick="uliaSwaliFupi('Bei ya kutengeneza tovuti ni ngapi?')">
+            💰 Bei za huduma
+        </button>
+        <button class="swali-kitufe" onclick="uliaSwaliFupi('Ninawezaje kuwasiliana nawe?')">
+            📞 Jinsi ya kuwasiliana
+        </button>
+        <button class="swali-kitufe" onclick="uliaSwaliFupi('Unajenga tovuti za aina gani?')">
+            🌐 Aina za tovuti
+        </button>
+        <button class="swali-kitufe" onclick="uliaSwaliFupi('Una ujuzi gani wa coding?')">
+            💻 Ujuzi wa coding
+        </button>
+    </div>
+
+    <!-- CHAT BOX -->
+    <div class="chat-box" id="chat-box">
+        <div class="ujumbe ai">
+            <div class="ujumbe-picha">🤖</div>
+            <div class="ujumbe-maandishi">
+                Habari! Mimi ni AI Assistant ya Zakayo Maloloi Malogo — Full Stack Web Developer kutoka Tanzania! 🇹🇿
+                <br><br>
+                Ninaweza kukusaidia na maswali kuhusu:
+                <br>• Huduma za web development
+                <br>• Bei na muda wa kukamilisha
+                <br>• Jinsi ya kuwasiliana na Zakayo
+                <br>• Maswali ya coding
+                <br><br>
+                Niulize chochote! 😊
+            </div>
+        </div>
+    </div>
+
+    <!-- LOADING -->
+    <div class="loading" id="loading">
+        <div class="dots">
+            <span>●</span><span>●</span><span>●</span>
+        </div>
+        <p style="font-size:13px">AI inafikiri...</p>
+    </div>
+
+    <!-- INGIZO -->
+    <div class="ingizo-sehemu">
+        <input type="text" id="ujumbe-input" placeholder="Andika swali lako hapa...">
+        <button onclick="tuma()">📨 Tuma</button>
+    </div>
+</div>
+
+<!-- MAELEZO -->
+<div class="sanduku">
+    <h2>ℹ️ Kuhusu AI Assistant Hii</h2>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:15px;">
+        <div style="background:#1a1a2e;padding:15px;border-radius:10px;text-align:center;">
+            <div style="font-size:30px">🧠</div>
+            <p style="font-size:13px;color:#aaa;margin-top:8px">Inatumia Claude AI — teknolojia ya hali ya juu</p>
+        </div>
+        <div style="background:#1a1a2e;padding:15px;border-radius:10px;text-align:center;">
+            <div style="font-size:30px">⚡</div>
+            <p style="font-size:13px;color:#aaa;margin-top:8px">Inajibu haraka sana kwa Kiswahili</p>
+        </div>
+        <div style="background:#1a1a2e;padding:15px;border-radius:10px;text-align:center;">
+            <div style="font-size:30px">🔒</div>
+            <p style="font-size:13px;color:#aaa;margin-top:8px">Mazungumzo yako ni salama</p>
+        </div>
+        <div style="background:#1a1a2e;padding:15px;border-radius:10px;text-align:center;">
+            <div style="font-size:30px">24/7</div>
+            <p style="font-size:13px;color:#aaa;margin-top:8px">Inajibu saa yoyote — usiku na mchana</p>
+        </div>
+    </div>
+</div>
+
+<div class="footer">
+    <p>© 2026 Zakayo Maloloi Malogo — Full Stack Web Developer Tanzania</p>
+    <p>📱 0718996785 | 📧 zakayomalogo@gmail.com</p>
+</div>
+
+<script>
+var historia = [];
+var api_key = localStorage.getItem("zakayo_ai_key") || "";
+
+if (api_key) {
+    document.getElementById("api-key").value = api_key;
+    document.getElementById("key-hali").innerHTML = "✅ API Key imehifadhiwa!";
+    document.getElementById("key-hali").style.color = "#27ae60";
+}
+
+function hifadhiKey() {
+    var key = document.getElementById("api-key").value.trim();
+    if (!key) {
+        document.getElementById("key-hali").innerHTML = "⚠️ Weka API key kwanza!";
+        document.getElementById("key-hali").style.color = "#e94560";
+        return;
+    }
+    localStorage.setItem("zakayo_ai_key", key);
+    api_key = key;
+    document.getElementById("key-hali").innerHTML = "✅ API Key imehifadhiwa vizuri!";
+    document.getElementById("key-hali").style.color = "#27ae60";
+}
+
+function ongezaUjumbe(maandishi, aina) {
+    var chat = document.getElementById("chat-box");
+    var div = document.createElement("div");
+    div.className = "ujumbe " + aina;
+    var ikoni = aina === "ai" ? "🤖" : "👤";
+    div.innerHTML =
+        "<div class='ujumbe-picha'>" + ikoni + "</div>" +
+        "<div class='ujumbe-maandishi'>" + maandishi + "</div>";
+    chat.appendChild(div);
+    chat.scrollTop = chat.scrollHeight;
+}
+
+async function tuma() {
+    var input = document.getElementById("ujumbe-input");
+    var ujumbe = input.value.trim();
+    if (!ujumbe) return;
+
+    if (!api_key) {
+        ongezaUjumbe("⚠️ Tafadhali weka API Key kwanza!", "ai");
+        return;
+    }
+
+    input.value = "";
+    ongezaUjumbe(ujumbe, "mtumiaji");
+    historia.push({ role: "user", content: ujumbe });
+
+    document.getElementById("loading").classList.add("inaonekana");
+
+    try {
+        var response = await fetch("https://api.anthropic.com/v1/messages", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "x-api-key": api_key,
+                "anthropic-version": "2023-06-01"
+            },
+            body: JSON.stringify({
+                model: "claude-sonnet-4-20250514",
+                max_tokens: 1000,
+                system: "Wewe ni AI Assistant ya Zakayo Maloloi Malogo — Full Stack Web Developer kutoka Tanzania. Jibu maswali kwa Kiswahili. Kuhusu Zakayo: Jina lake kamili ni Zakayo Maloloi Malogo. Ni Full Stack Web Developer kutoka Tanzania. Simu: 0718996785. Email: zakayomalogo@gmail.com. Ujuzi: HTML, CSS, JavaScript, React, Node.js, Express, MongoDB, GitHub. Bei za huduma: Tovuti rahisi TZS 50,000-100,000. Tovuti ya biashara TZS 150,000-300,000. Full Stack website TZS 300,000-500,000. Jibu kwa upole, kwa Kiswahili, na uwe msaidizi mzuri.",
+                messages: historia
+            })
+        });
+
+        var data = await response.json();
+
+        document.getElementById("loading").classList.remove("inaonekana");
+
+        if (data.content && data.content[0]) {
+            var jibu = data.content[0].text;
+            historia.push({ role: "assistant", content: jibu });
+            ongezaUjumbe(jibu, "ai");
+        } else {
+            ongezaUjumbe("❌ Kosa: " + JSON.stringify(data), "ai");
+        }
+
+    } catch (kosa) {
+        document.getElementById("loading").classList.remove("inaonekana");
+        ongezaUjumbe("❌ Kosa la mtandao: " + kosa.message, "ai");
+    }
+}
+
+function uliaSwaliFupi(swali) {
+    document.getElementById("ujumbe-input").value = swali;
+    tuma();
+}
+
+document.getElementById("ujumbe-input").addEventListener("keypress", function(e) {
+    if (e.key === "Enter") tuma();
+});
+</script>
+</body>
+</html>
