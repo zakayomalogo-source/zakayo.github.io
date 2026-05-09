@@ -65,15 +65,9 @@ max-width:80%;
 font-size:15px;
 line-height:1.6;
 }
-.ujumbe.mtumiaji .ujumbe-maandishi {
-background:#e94560;
-}
-.ujumbe.ai .ujumbe-maandishi {
-border-top-left-radius:0;
-}
-.ujumbe.mtumiaji .ujumbe-maandishi {
-border-top-right-radius:0;
-}
+.ujumbe.mtumiaji .ujumbe-maandishi { background:#e94560; }
+.ujumbe.ai .ujumbe-maandishi { border-top-left-radius:0; }
+.ujumbe.mtumiaji .ujumbe-maandishi { border-top-right-radius:0; }
 .ingizo-sehemu {
 display:flex;
 gap:10px;
@@ -102,7 +96,7 @@ transition:all 0.3s;
 .ingizo-sehemu button:hover { background:white; color:#e94560; }
 .maswali-grid {
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
 gap:10px;
 margin:15px 0;
 }
@@ -124,7 +118,6 @@ background:rgba(233,69,96,0.1);
 .loading {
 display:none;
 text-align:center;
-color:#aaa;
 padding:10px;
 }
 .loading.inaonekana { display:block; }
@@ -167,6 +160,20 @@ transition:all 0.3s;
 }
 .btn-hifadhi:hover { background:white; color:#27ae60; }
 .footer { text-align:center; margin-top:40px; color:#aaa; font-size:14px; }
+.badge {
+background:linear-gradient(135deg,#6366f1,#8b5cf6);
+padding:3px;
+border-radius:10px;
+display:inline-block;
+margin-bottom:15px;
+}
+.badge span {
+background:#0f3460;
+padding:5px 15px;
+border-radius:8px;
+font-size:14px;
+display:block;
+}
 </style>
 </head>
 <body>
@@ -183,13 +190,33 @@ transition:all 0.3s;
 
 <!-- API KEY -->
 <div class="sanduku">
-    <h2>🔑 Weka API Key Yako</h2>
+    <h2>🔑 Weka OpenRouter API Key</h2>
+    <div class="badge">
+        <span>✨ Powered by OpenRouter — Models Nyingi Bure!</span>
+    </div>
     <div class="api-sehemu">
         <p style="color:#aaa;font-size:14px;margin-bottom:10px">
-            Pata API key bure kutoka: <a href="https://console.anthropic.com" target="_blank" style="color:#e94560">console.anthropic.com</a>
+            Pata API key bure kutoka:
+            <a href="https://openrouter.ai" target="_blank" style="color:#6366f1">
+                openrouter.ai
+            </a>
+            → Sign Up → API Keys → Create Key
         </p>
-        <input type="password" class="api-input" id="api-key" placeholder="sk-ant-api03-...">
-        <button class="btn-hifadhi" onclick="hifadhiKey()">💾 Hifadhi Key</button>
+        <input type="password" class="api-input"
+            id="api-key" placeholder="sk-or-v1-...">
+        <br>
+        <label style="color:#aaa;font-size:13px;margin:8px 0;display:block">
+            Chagua Model:
+        </label>
+        <select id="model-chaguo" style="width:100%;padding:10px;border-radius:10px;border:1px solid rgba(233,69,96,0.3);background:#0f3460;color:white;font-size:14px;margin-bottom:10px;">
+            <option value="mistralai/mistral-7b-instruct:free">Mistral 7B — Bure ✅</option>
+            <option value="google/gemma-2-9b-it:free">Google Gemma 2 — Bure ✅</option>
+            <option value="meta-llama/llama-3.2-3b-instruct:free">Meta Llama 3.2 — Bure ✅</option>
+            <option value="microsoft/phi-3-mini-128k-instruct:free">Microsoft Phi-3 — Bure ✅</option>
+            <option value="anthropic/claude-3-haiku">Claude 3 Haiku — Kulipa</option>
+            <option value="openai/gpt-3.5-turbo">GPT-3.5 Turbo — Kulipa</option>
+        </select>
+        <button class="btn-hifadhi" onclick="hifadhiKey()">💾 Hifadhi</button>
         <p id="key-hali" style="color:#aaa;font-size:13px;margin-top:8px"></p>
     </div>
 </div>
@@ -198,82 +225,53 @@ transition:all 0.3s;
 <div class="sanduku">
     <h2>💬 Zungumza na AI</h2>
 
-    <!-- MASWALI YA HARAKA -->
     <p style="color:#aaa;font-size:14px;margin-bottom:10px">Maswali ya haraka:</p>
     <div class="maswali-grid">
-        <button class="swali-kitufe" onclick="uliaSwaliFupi('Zakayo ni nani?')">
-            👤 Zakayo ni nani?
-        </button>
-        <button class="swali-kitufe" onclick="uliaSwaliFupi('Huduma gani unazotoa?')">
-            🛠️ Huduma zinazotolewa
-        </button>
-        <button class="swali-kitufe" onclick="uliaSwaliFupi('Bei ya kutengeneza tovuti ni ngapi?')">
-            💰 Bei za huduma
-        </button>
-        <button class="swali-kitufe" onclick="uliaSwaliFupi('Ninawezaje kuwasiliana nawe?')">
-            📞 Jinsi ya kuwasiliana
-        </button>
-        <button class="swali-kitufe" onclick="uliaSwaliFupi('Unajenga tovuti za aina gani?')">
-            🌐 Aina za tovuti
-        </button>
-        <button class="swali-kitufe" onclick="uliaSwaliFupi('Una ujuzi gani wa coding?')">
-            💻 Ujuzi wa coding
-        </button>
+        <button class="swali-kitufe" onclick="uliaSwaliFupi('Zakayo ni nani?')">👤 Zakayo ni nani?</button>
+        <button class="swali-kitufe" onclick="uliaSwaliFupi('Huduma gani unazotoa?')">🛠️ Huduma</button>
+        <button class="swali-kitufe" onclick="uliaSwaliFupi('Bei ya kutengeneza tovuti ni ngapi?')">💰 Bei</button>
+        <button class="swali-kitufe" onclick="uliaSwaliFupi('Ninawezaje kuwasiliana nawe?')">📞 Wasiliana</button>
+        <button class="swali-kitufe" onclick="uliaSwaliFupi('Unajenga tovuti za aina gani?')">🌐 Aina za tovuti</button>
+        <button class="swali-kitufe" onclick="uliaSwaliFupi('Una ujuzi gani wa coding?')">💻 Ujuzi</button>
     </div>
 
-    <!-- CHAT BOX -->
     <div class="chat-box" id="chat-box">
         <div class="ujumbe ai">
             <div class="ujumbe-picha">🤖</div>
             <div class="ujumbe-maandishi">
                 Habari! Mimi ni AI Assistant ya Zakayo Maloloi Malogo — Full Stack Web Developer kutoka Tanzania! 🇹🇿
                 <br><br>
-                Ninaweza kukusaidia na maswali kuhusu:
+                Ninaweza kukusaidia na:
                 <br>• Huduma za web development
                 <br>• Bei na muda wa kukamilisha
                 <br>• Jinsi ya kuwasiliana na Zakayo
-                <br>• Maswali ya coding
+                <br>• Maswali ya coding na teknolojia
+                <br><br>
+                Powered by OpenRouter AI ✨
                 <br><br>
                 Niulize chochote! 😊
             </div>
         </div>
     </div>
 
-    <!-- LOADING -->
     <div class="loading" id="loading">
         <div class="dots">
             <span>●</span><span>●</span><span>●</span>
         </div>
-        <p style="font-size:13px">AI inafikiri...</p>
+        <p style="font-size:13px;color:#aaa">AI inafikiri...</p>
     </div>
 
-    <!-- INGIZO -->
     <div class="ingizo-sehemu">
-        <input type="text" id="ujumbe-input" placeholder="Andika swali lako hapa...">
+        <input type="text" id="ujumbe-input"
+            placeholder="Andika swali lako hapa...">
         <button onclick="tuma()">📨 Tuma</button>
     </div>
-</div>
 
-<!-- MAELEZO -->
-<div class="sanduku">
-    <h2>ℹ️ Kuhusu AI Assistant Hii</h2>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:15px;">
-        <div style="background:#1a1a2e;padding:15px;border-radius:10px;text-align:center;">
-            <div style="font-size:30px">🧠</div>
-            <p style="font-size:13px;color:#aaa;margin-top:8px">Inatumia Claude AI — teknolojia ya hali ya juu</p>
-        </div>
-        <div style="background:#1a1a2e;padding:15px;border-radius:10px;text-align:center;">
-            <div style="font-size:30px">⚡</div>
-            <p style="font-size:13px;color:#aaa;margin-top:8px">Inajibu haraka sana kwa Kiswahili</p>
-        </div>
-        <div style="background:#1a1a2e;padding:15px;border-radius:10px;text-align:center;">
-            <div style="font-size:30px">🔒</div>
-            <p style="font-size:13px;color:#aaa;margin-top:8px">Mazungumzo yako ni salama</p>
-        </div>
-        <div style="background:#1a1a2e;padding:15px;border-radius:10px;text-align:center;">
-            <div style="font-size:30px">24/7</div>
-            <p style="font-size:13px;color:#aaa;margin-top:8px">Inajibu saa yoyote — usiku na mchana</p>
-        </div>
+    <div style="text-align:right;margin-top:10px;">
+        <button onclick="futa()"
+            style="background:transparent;border:1px solid rgba(255,255,255,0.2);color:#aaa;padding:5px 15px;border-radius:10px;cursor:pointer;font-size:13px;">
+            🗑️ Futa Mazungumzo
+        </button>
     </div>
 </div>
 
@@ -284,24 +282,29 @@ transition:all 0.3s;
 
 <script>
 var historia = [];
-var api_key = localStorage.getItem("zakayo_ai_key") || "";
+var api_key = localStorage.getItem("openrouter_api_key") || "";
+var model = localStorage.getItem("openrouter_model") || "mistralai/mistral-7b-instruct:free";
 
 if (api_key) {
     document.getElementById("api-key").value = api_key;
     document.getElementById("key-hali").innerHTML = "✅ API Key imehifadhiwa!";
     document.getElementById("key-hali").style.color = "#27ae60";
 }
+document.getElementById("model-chaguo").value = model;
 
 function hifadhiKey() {
     var key = document.getElementById("api-key").value.trim();
+    var m = document.getElementById("model-chaguo").value;
     if (!key) {
         document.getElementById("key-hali").innerHTML = "⚠️ Weka API key kwanza!";
         document.getElementById("key-hali").style.color = "#e94560";
         return;
     }
-    localStorage.setItem("zakayo_ai_key", key);
+    localStorage.setItem("openrouter_api_key", key);
+    localStorage.setItem("openrouter_model", m);
     api_key = key;
-    document.getElementById("key-hali").innerHTML = "✅ API Key imehifadhiwa vizuri!";
+    model = m;
+    document.getElementById("key-hali").innerHTML = "✅ Imehifadhiwa! Model: " + m.split("/")[1];
     document.getElementById("key-hali").style.color = "#27ae60";
 }
 
@@ -323,42 +326,49 @@ async function tuma() {
     if (!ujumbe) return;
 
     if (!api_key) {
-        ongezaUjumbe("⚠️ Tafadhali weka API Key kwanza!", "ai");
+        ongezaUjumbe("⚠️ Tafadhali weka OpenRouter API Key kwanza! Nenda openrouter.ai kupata key bure.", "ai");
         return;
     }
 
     input.value = "";
     ongezaUjumbe(ujumbe, "mtumiaji");
     historia.push({ role: "user", content: ujumbe });
-
     document.getElementById("loading").classList.add("inaonekana");
 
+    var mfumo = "Wewe ni AI Assistant ya Zakayo Maloloi Malogo — Full Stack Web Developer kutoka Tanzania. Jibu maswali YOTE kwa Kiswahili. Taarifa za Zakayo: Jina: Zakayo Maloloi Malogo. Kazi: Full Stack Web Developer. Nchi: Tanzania. Simu: +255 718 996 785. Email: zakayomalogo@gmail.com. Tovuti: zakayomalogo-source.github.io/zakayo.github.io. Ujuzi: HTML 95%, CSS 90%, JavaScript 85%, React 75%, Node.js 80%, Express 75%, MongoDB 70%, GitHub 85%. Bei: Tovuti rahisi TZS 50,000-100,000. Biashara TZS 150,000-300,000. Full Stack TZS 300,000-500,000. Matengenezo/mwezi TZS 30,000-50,000. Jibu kwa Kiswahili, kwa upole na ufupi.";
+
     try {
-        var response = await fetch("https://api.anthropic.com/v1/messages", {
+        var ujumbe_wote = [
+            { role: "system", content: mfumo }
+        ].concat(historia);
+
+        var response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "x-api-key": api_key,
-                "anthropic-version": "2023-06-01"
+                "Authorization": "Bearer " + api_key,
+                "HTTP-Referer": "https://zakayomalogo-source.github.io",
+                "X-Title": "Zakayo AI Assistant"
             },
             body: JSON.stringify({
-                model: "claude-sonnet-4-20250514",
-                max_tokens: 1000,
-                system: "Wewe ni AI Assistant ya Zakayo Maloloi Malogo — Full Stack Web Developer kutoka Tanzania. Jibu maswali kwa Kiswahili. Kuhusu Zakayo: Jina lake kamili ni Zakayo Maloloi Malogo. Ni Full Stack Web Developer kutoka Tanzania. Simu: 0718996785. Email: zakayomalogo@gmail.com. Ujuzi: HTML, CSS, JavaScript, React, Node.js, Express, MongoDB, GitHub. Bei za huduma: Tovuti rahisi TZS 50,000-100,000. Tovuti ya biashara TZS 150,000-300,000. Full Stack website TZS 300,000-500,000. Jibu kwa upole, kwa Kiswahili, na uwe msaidizi mzuri.",
-                messages: historia
+                model: model,
+                messages: ujumbe_wote,
+                max_tokens: 500,
+                temperature: 0.7
             })
         });
 
         var data = await response.json();
-
         document.getElementById("loading").classList.remove("inaonekana");
 
-        if (data.content && data.content[0]) {
-            var jibu = data.content[0].text;
+        if (data.choices && data.choices[0]) {
+            var jibu = data.choices[0].message.content;
             historia.push({ role: "assistant", content: jibu });
             ongezaUjumbe(jibu, "ai");
+        } else if (data.error) {
+            ongezaUjumbe("❌ Kosa: " + data.error.message, "ai");
         } else {
-            ongezaUjumbe("❌ Kosa: " + JSON.stringify(data), "ai");
+            ongezaUjumbe("❌ Jibu halikuja vizuri — jaribu tena!", "ai");
         }
 
     } catch (kosa) {
@@ -372,8 +382,23 @@ function uliaSwaliFupi(swali) {
     tuma();
 }
 
+function futa() {
+    historia = [];
+    var chat = document.getElementById("chat-box");
+    chat.innerHTML =
+        "<div class='ujumbe ai'>" +
+        "<div class='ujumbe-picha'>🤖</div>" +
+        "<div class='ujumbe-maandishi'>Mazungumzo yamefutwa! Niulize swali jipya 😊</div>" +
+        "</div>";
+}
+
 document.getElementById("ujumbe-input").addEventListener("keypress", function(e) {
     if (e.key === "Enter") tuma();
+});
+
+document.getElementById("model-chaguo").addEventListener("change", function() {
+    model = this.value;
+    localStorage.setItem("openrouter_model", model);
 });
 </script>
 </body>
