@@ -3,825 +3,381 @@
 <head>
 <title>Zakayo Maloloi Malogo — Full Stack Developer</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Full Stack Web Developer kutoka Tanzania">
+<meta name="description" content="Full Stack Web Developer Tanzania">
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#e94560">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="Zakayo">
-<link rel="apple-touch-icon" href="IMG 1234.JPG">
 <style>
-* { margin:0; padding:0; box-sizing:border-box; }
-:root {
---rangi-kuu: #e94560;
---rangi-giza: #1a1a2e;
---rangi-kati: #0f3460;
---rangi-nyeupe: #ffffff;
-}
-body {
-background-color:var(--rangi-giza);
-color:var(--rangi-nyeupe);
-font-family:'Segoe UI', Arial, sans-serif;
-overflow-x:hidden;
-}
-::-webkit-scrollbar { width:8px; }
-::-webkit-scrollbar-track { background:var(--rangi-giza); }
-::-webkit-scrollbar-thumb { background:var(--rangi-kuu); border-radius:10px; }
-nav {
-background:rgba(26,26,46,0.95);
-padding:15px 40px;
-position:fixed;
-top:0;
-width:100%;
-display:flex;
-justify-content:space-between;
-align-items:center;
-z-index:1000;
-backdrop-filter:blur(10px);
-border-bottom:1px solid rgba(233,69,96,0.3);
-}
-.nav-logo {
-color:var(--rangi-kuu);
-font-size:22px;
-font-weight:bold;
-text-decoration:none;
-}
-.nav-viungo a {
-color:var(--rangi-nyeupe);
-margin:0 15px;
-text-decoration:none;
-font-size:15px;
-transition:color 0.3s;
-position:relative;
-}
-.nav-viungo a::after {
-content:'';
-position:absolute;
-bottom:-5px;
-left:0;
-width:0;
-height:2px;
-background:var(--rangi-kuu);
-transition:width 0.3s;
-}
-.nav-viungo a:hover { color:var(--rangi-kuu); }
-.nav-viungo a:hover::after { width:100%; }
-.hero {
-min-height:100vh;
-display:flex;
-align-items:center;
-justify-content:center;
-text-align:center;
-padding:100px 20px 60px;
-background:linear-gradient(135deg,var(--rangi-giza) 0%,var(--rangi-kati) 100%);
-position:relative;
-overflow:hidden;
-}
-.hero::before {
-content:'';
-position:absolute;
-width:500px;
-height:500px;
-background:radial-gradient(circle,rgba(233,69,96,0.15),transparent);
-top:50%;
-left:50%;
-transform:translate(-50%,-50%);
-border-radius:50%;
-animation:pulsate 3s ease-in-out infinite;
-}
-@keyframes pulsate {
-0%,100% { transform:translate(-50%,-50%) scale(1); opacity:0.5; }
-50% { transform:translate(-50%,-50%) scale(1.2); opacity:1; }
-}
-.hero-maudhui { position:relative; z-index:1; }
-.hero-picha {
-width:180px;
-height:180px;
-border-radius:50%;
-border:4px solid var(--rangi-kuu);
-object-fit:cover;
-margin-bottom:25px;
-animation:ingia-juu 1s ease-out;
-box-shadow:0 0 30px rgba(233,69,96,0.5);
-}
-@keyframes ingia-juu {
-from { transform:translateY(-50px); opacity:0; }
-to { transform:translateY(0); opacity:1; }
-}
-.hero h1 {
-font-size:52px;
-font-weight:800;
-margin-bottom:15px;
-animation:ingia-kushoto 1s ease-out 0.2s both;
-}
-.hero h1 span { color:var(--rangi-kuu); }
-@keyframes ingia-kushoto {
-from { transform:translateX(-50px); opacity:0; }
-to { transform:translateX(0); opacity:1; }
-}
-.hero-typing {
-font-size:22px;
-color:var(--rangi-kuu);
-margin-bottom:20px;
-height:30px;
-animation:ingia-kulia 1s ease-out 0.4s both;
-}
-@keyframes ingia-kulia {
-from { transform:translateX(50px); opacity:0; }
-to { transform:translateX(0); opacity:1; }
-}
-.hero p {
-font-size:18px;
-color:#aaa;
-max-width:600px;
-margin:0 auto 30px;
-line-height:1.8;
-animation:ingia-chini 1s ease-out 0.6s both;
-}
-@keyframes ingia-chini {
-from { transform:translateY(30px); opacity:0; }
-to { transform:translateY(0); opacity:1; }
-}
-.hero-vitufe {
-display:flex;
-gap:15px;
-justify-content:center;
-flex-wrap:wrap;
-animation:ingia-chini 1s ease-out 0.8s both;
-}
-.btn-kuu {
-background:var(--rangi-kuu);
-color:white;
-padding:14px 30px;
-border-radius:30px;
-text-decoration:none;
-font-size:16px;
-font-weight:bold;
-transition:all 0.3s;
-border:2px solid var(--rangi-kuu);
-}
-.btn-kuu:hover {
-background:transparent;
-color:var(--rangi-kuu);
-transform:translateY(-3px);
-box-shadow:0 10px 20px rgba(233,69,96,0.3);
-}
-.btn-pili {
-background:transparent;
-color:white;
-padding:14px 30px;
-border-radius:30px;
-text-decoration:none;
-font-size:16px;
-font-weight:bold;
-transition:all 0.3s;
-border:2px solid white;
-}
-.btn-pili:hover {
-background:white;
-color:var(--rangi-giza);
-transform:translateY(-3px);
-}
-.saa-box {
-display:inline-block;
-background:rgba(233,69,96,0.15);
-border:1px solid rgba(233,69,96,0.3);
-padding:10px 25px;
-border-radius:30px;
-font-size:22px;
-color:var(--rangi-kuu);
-font-weight:bold;
-margin-bottom:20px;
-}
-.takwimu-sehemu {
-background:var(--rangi-kati);
-padding:40px 20px;
-}
-.takwimu-grid {
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
-gap:20px;
-max-width:800px;
-margin:0 auto;
-text-align:center;
-}
-.takwimu-kadi { padding:20px; }
-.takwimu-nambari {
-font-size:45px;
-font-weight:800;
-color:var(--rangi-kuu);
-}
-.takwimu-jina {
-color:#aaa;
-font-size:14px;
-margin-top:5px;
-}
-.sehemu {
-padding:80px 20px;
-max-width:1000px;
-margin:0 auto;
-}
-.sehemu-kichwa {
-text-align:center;
-margin-bottom:50px;
-}
-.sehemu-kichwa h2 {
-font-size:38px;
-font-weight:800;
-margin-bottom:15px;
-}
-.sehemu-kichwa h2 span { color:var(--rangi-kuu); }
-.sehemu-kichwa p {
-color:#aaa;
-font-size:17px;
-max-width:500px;
-margin:0 auto;
-}
-.mstari {
-width:60px;
-height:4px;
-background:var(--rangi-kuu);
-margin:15px auto;
-border-radius:2px;
-}
-.kuhusu-grid {
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:40px;
-align-items:center;
-}
-.kuhusu-maelezo p {
-color:#aaa;
-font-size:16px;
-line-height:1.9;
-margin-bottom:20px;
-}
-.kuhusu-info { display:grid; gap:10px; }
-.kuhusu-info-kitu {
-display:flex;
-gap:15px;
-background:var(--rangi-kati);
-padding:12px 20px;
-border-radius:10px;
-align-items:center;
-border-left:3px solid var(--rangi-kuu);
-}
-.kuhusu-info-kitu span:first-child { font-size:20px; }
-.kuhusu-info-kitu span:last-child { color:#aaa; font-size:14px; }
-.ujuzi-grid {
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:30px;
-}
-.ujuzi-kitu { margin-bottom:20px; }
-.ujuzi-jina {
-display:flex;
-justify-content:space-between;
-margin-bottom:8px;
-font-size:15px;
-font-weight:bold;
-}
-.bar {
-background:rgba(255,255,255,0.1);
-border-radius:10px;
-height:10px;
-overflow:hidden;
-}
-.bar-jaza {
-height:10px;
-border-radius:10px;
-background:linear-gradient(90deg,var(--rangi-kuu),#ff6b6b);
-transition:width 2s ease;
-width:0;
-}
-.miradi-grid {
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-gap:25px;
-}
-.mradi-kadi {
-background:var(--rangi-kati);
-border-radius:20px;
-overflow:hidden;
-transition:all 0.3s;
-border:1px solid rgba(233,69,96,0.2);
-}
-.mradi-kadi:hover {
-transform:translateY(-10px);
-box-shadow:0 20px 40px rgba(233,69,96,0.2);
-border-color:var(--rangi-kuu);
-}
-.mradi-picha {
-height:160px;
-background:linear-gradient(135deg,var(--rangi-kuu),var(--rangi-kati));
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:65px;
-}
-.mradi-maudhui { padding:25px; }
-.mradi-maudhui h3 {
-color:var(--rangi-kuu);
-font-size:19px;
-margin-bottom:10px;
-}
-.mradi-maudhui p {
-color:#aaa;
-font-size:14px;
-line-height:1.7;
-margin-bottom:15px;
-}
-.tag {
-display:inline-block;
-background:rgba(233,69,96,0.2);
-color:var(--rangi-kuu);
-padding:4px 12px;
-border-radius:20px;
-font-size:12px;
-margin:3px;
-border:1px solid rgba(233,69,96,0.3);
-}
-.mradi-btn {
-display:inline-block;
-background:var(--rangi-kuu);
-color:white;
-padding:10px 20px;
-border-radius:20px;
-text-decoration:none;
-font-size:14px;
-margin-top:15px;
-transition:all 0.3s;
-}
-.mradi-btn:hover {
-background:white;
-color:var(--rangi-kuu);
-transform:scale(1.05);
-}
-.huduma-grid {
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-gap:25px;
-}
-.huduma-kadi {
-background:var(--rangi-kati);
-padding:35px 25px;
-border-radius:20px;
-text-align:center;
-transition:all 0.3s;
-border:1px solid rgba(233,69,96,0.1);
-}
-.huduma-kadi:hover {
-transform:translateY(-8px);
-border-color:var(--rangi-kuu);
-box-shadow:0 15px 30px rgba(233,69,96,0.2);
-}
-.huduma-ikoni {
-font-size:55px;
-margin-bottom:20px;
-display:block;
-}
-.huduma-kadi h3 {
-color:var(--rangi-kuu);
-font-size:18px;
-margin-bottom:12px;
-}
-.huduma-kadi p {
-color:#aaa;
-font-size:14px;
-line-height:1.7;
-}
-.vitu-grid {
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:25px;
-}
-.kitu-kadi {
-background:var(--rangi-kati);
-padding:25px;
-border-radius:20px;
-text-align:center;
-}
-.kitu-kadi h3 {
-color:var(--rangi-kuu);
-margin-bottom:20px;
-font-size:18px;
-}
-.counter-nambari {
-font-size:70px;
-font-weight:800;
-color:var(--rangi-kuu);
-margin:10px 0;
-}
-.kitu-btn {
-background:var(--rangi-kuu);
-color:white;
-padding:10px 20px;
-border:none;
-border-radius:20px;
-font-size:15px;
-cursor:pointer;
-margin:5px;
-transition:all 0.3s;
-}
-.kitu-btn:hover { background:white; color:var(--rangi-kuu); transform:scale(1.05); }
-.kitu-btn.kijani { background:#27ae60; }
-.kitu-btn.kijani:hover { background:white; color:#27ae60; }
-.kitu-btn.nyekundu { background:#c0392b; }
-.kitu-btn.nyekundu:hover { background:white; color:#c0392b; }
-.mawasiliano-sehemu {
-background:var(--rangi-kati);
-padding:60px 40px;
-border-radius:25px;
-text-align:center;
-border:1px solid rgba(233,69,96,0.2);
-}
-.mawasiliano-sehemu h3 { font-size:28px; margin-bottom:15px; }
-.mawasiliano-sehemu p { color:#aaa; font-size:17px; margin-bottom:30px; }
-.mawasiliano-vitufe {
-display:flex;
-gap:15px;
-justify-content:center;
-flex-wrap:wrap;
-}
-.btn-wa {
-background:#25D366;
-color:white;
-padding:15px 30px;
-border-radius:30px;
-text-decoration:none;
-font-size:16px;
-font-weight:bold;
-transition:all 0.3s;
-}
-.btn-wa:hover { background:white; color:#25D366; transform:translateY(-3px); }
-.btn-em {
-background:var(--rangi-kuu);
-color:white;
-padding:15px 30px;
-border-radius:30px;
-text-decoration:none;
-font-size:16px;
-font-weight:bold;
-transition:all 0.3s;
-}
-.btn-em:hover { background:white; color:var(--rangi-kuu); transform:translateY(-3px); }
-footer {
-background:var(--rangi-kati);
-text-align:center;
-padding:40px 20px;
-border-top:1px solid rgba(233,69,96,0.2);
-}
-footer p { color:#aaa; margin:5px; font-size:14px; }
-footer strong { color:var(--rangi-kuu); }
-.kitufe-juu {
-position:fixed;
-bottom:30px;
-right:30px;
-background:var(--rangi-kuu);
-color:white;
-width:50px;
-height:50px;
-border-radius:50%;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:22px;
-cursor:pointer;
-transition:all 0.3s;
-z-index:999;
-border:none;
-box-shadow:0 5px 15px rgba(233,69,96,0.4);
-opacity:0;
-}
-.kitufe-juu.inaonekana { opacity:1; }
-.kitufe-juu:hover { transform:translateY(-5px); }
-.pwa-banner {
-display:none;
-position:fixed;
-bottom:80px;
-left:50%;
-transform:translateX(-50%);
-background:var(--rangi-kati);
-color:white;
-padding:15px 25px;
-border-radius:15px;
-text-align:center;
-z-index:1000;
-border:2px solid var(--rangi-kuu);
-box-shadow:0 10px 30px rgba(0,0,0,0.5);
-}
-.pwa-banner.inaonekana { display:block; }
-.pwa-banner button {
-background:var(--rangi-kuu);
-color:white;
-padding:8px 20px;
-border:none;
-border-radius:10px;
-cursor:pointer;
-margin:5px;
-font-size:14px;
-}
-@media(max-width:768px) {
-.hero h1 { font-size:32px; }
-.kuhusu-grid { grid-template-columns:1fr; }
-.ujuzi-grid { grid-template-columns:1fr; }
-.vitu-grid { grid-template-columns:1fr; }
-.nav-viungo { display:none; }
-}
-.animate {
-opacity:0;
-transform:translateY(30px);
-transition:all 0.8s ease;
-}
-.animate.inaonekana {
-opacity:1;
-transform:translateY(0);
-}
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{--red:#e94560;--dark:#0a0a1a;--navy:#1a1a2e;--blue:#0f3460;--white:#ffffff;}
+body{background:var(--dark);color:var(--white);font-family:'Segoe UI',Arial,sans-serif;overflow-x:hidden;}
+::-webkit-scrollbar{width:6px;}
+::-webkit-scrollbar-thumb{background:var(--red);border-radius:3px;}
+
+/* NAV */
+nav{background:rgba(10,10,26,0.95);padding:15px 40px;position:fixed;top:0;width:100%;display:flex;justify-content:space-between;align-items:center;z-index:1000;backdrop-filter:blur(15px);border-bottom:1px solid rgba(233,69,96,0.2);}
+.nav-logo{color:var(--red);font-size:24px;font-weight:900;text-decoration:none;letter-spacing:2px;}
+.nav-links{display:flex;gap:5px;align-items:center;flex-wrap:wrap;}
+.nav-links a{color:#aaa;padding:8px 14px;text-decoration:none;font-size:14px;border-radius:20px;transition:all 0.3s;}
+.nav-links a:hover{color:white;background:rgba(233,69,96,0.2);}
+.nav-links a.active{color:white;background:var(--red);}
+.nav-user{color:rgba(255,255,255,0.6);font-size:13px;}
+.hamburger{display:none;background:none;border:none;color:white;font-size:24px;cursor:pointer;}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:100px 20px 60px;background:linear-gradient(135deg,var(--dark),var(--navy),var(--blue));position:relative;overflow:hidden;}
+.hero-bg{position:absolute;top:0;left:0;width:100%;height:100%;}
+.circle{position:absolute;border-radius:50%;animation:float 6s ease-in-out infinite;}
+.c1{width:400px;height:400px;background:radial-gradient(circle,rgba(233,69,96,0.08),transparent);top:10%;left:10%;}
+.c2{width:300px;height:300px;background:radial-gradient(circle,rgba(99,102,241,0.08),transparent);bottom:10%;right:10%;animation-delay:2s;}
+.c3{width:200px;height:200px;background:radial-gradient(circle,rgba(233,69,96,0.05),transparent);top:50%;right:20%;animation-delay:4s;}
+@keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-20px);}}
+.hero-content{position:relative;z-index:1;}
+.hero-img{width:180px;height:180px;border-radius:50%;border:4px solid var(--red);object-fit:cover;margin-bottom:20px;box-shadow:0 0 40px rgba(233,69,96,0.4);animation:zoomIn 1s ease;}
+@keyframes zoomIn{from{transform:scale(0);opacity:0;}to{transform:scale(1);opacity:1;}}
+.hero-clock{display:inline-block;background:rgba(233,69,96,0.15);border:1px solid rgba(233,69,96,0.3);padding:8px 22px;border-radius:25px;font-size:20px;color:var(--red);font-weight:bold;margin-bottom:20px;}
+.hero h1{font-size:52px;font-weight:900;margin-bottom:12px;animation:slideLeft 1s ease 0.2s both;}
+.hero h1 span{color:var(--red);}
+@keyframes slideLeft{from{transform:translateX(-50px);opacity:0;}to{transform:translateX(0);opacity:1;}}
+.hero-type{font-size:22px;color:var(--red);margin-bottom:20px;height:30px;}
+.hero-desc{font-size:17px;color:#aaa;max-width:600px;margin:0 auto 30px;line-height:1.8;animation:slideUp 1s ease 0.6s both;}
+@keyframes slideUp{from{transform:translateY(30px);opacity:0;}to{transform:translateY(0);opacity:1;}}
+.hero-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;animation:slideUp 1s ease 0.8s both;}
+.btn{padding:14px 28px;border-radius:30px;font-size:15px;font-weight:bold;text-decoration:none;transition:all 0.3s;display:inline-block;}
+.btn-red{background:var(--red);color:white;border:2px solid var(--red);}
+.btn-red:hover{background:transparent;color:var(--red);transform:translateY(-3px);box-shadow:0 10px 20px rgba(233,69,96,0.3);}
+.btn-outline{background:transparent;color:white;border:2px solid rgba(255,255,255,0.5);}
+.btn-outline:hover{background:white;color:var(--dark);transform:translateY(-3px);}
+
+/* STATS */
+.stats{background:var(--blue);padding:40px 20px;}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:20px;max-width:800px;margin:0 auto;text-align:center;}
+.stat-num{font-size:42px;font-weight:900;color:var(--red);}
+.stat-name{color:#aaa;font-size:13px;margin-top:4px;}
+
+/* SECTIONS */
+.section{padding:80px 20px;}
+.section.alt{background:rgba(15,52,96,0.3);}
+.sec-title{text-align:center;margin-bottom:50px;}
+.sec-title h2{font-size:38px;font-weight:900;margin-bottom:10px;}
+.sec-title h2 span{color:var(--red);}
+.sec-title p{color:#aaa;font-size:16px;}
+.line{width:60px;height:4px;background:var(--red);margin:12px auto;border-radius:2px;}
+.container{max-width:1000px;margin:0 auto;}
+
+/* KUHUSU */
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;}
+.about-text p{color:#aaa;font-size:16px;line-height:1.9;margin-bottom:18px;}
+.about-info{display:grid;gap:10px;}
+.info-item{display:flex;gap:12px;align-items:center;background:rgba(15,52,96,0.6);padding:12px 18px;border-radius:10px;border-left:3px solid var(--red);}
+.info-item span:first-child{font-size:18px;}
+.info-item span:last-child{color:#aaa;font-size:14px;}
+
+/* UJUZI */
+.skills-grid{display:grid;grid-template-columns:1fr 1fr;gap:30px;}
+.skill{margin-bottom:18px;}
+.skill-name{display:flex;justify-content:space-between;margin-bottom:6px;font-size:15px;font-weight:bold;}
+.skill-bar{background:rgba(255,255,255,0.08);border-radius:8px;height:10px;overflow:hidden;}
+.skill-fill{height:10px;border-radius:8px;background:linear-gradient(90deg,var(--red),#ff6b6b);width:0;transition:width 2s ease;}
+
+/* MIRADI */
+.projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:22px;}
+.project-card{background:rgba(15,52,96,0.5);border-radius:18px;overflow:hidden;border:1px solid rgba(233,69,96,0.15);transition:all 0.3s;}
+.project-card:hover{transform:translateY(-10px);box-shadow:0 20px 40px rgba(233,69,96,0.2);border-color:var(--red);}
+.project-img{height:155px;background:linear-gradient(135deg,var(--red),var(--blue));display:flex;align-items:center;justify-content:center;font-size:60px;}
+.project-body{padding:22px;}
+.project-body h3{color:var(--red);font-size:18px;margin-bottom:8px;}
+.project-body p{color:#aaa;font-size:13px;line-height:1.7;margin-bottom:12px;}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px;}
+.tag{background:rgba(233,69,96,0.15);color:var(--red);padding:3px 10px;border-radius:15px;font-size:11px;border:1px solid rgba(233,69,96,0.2);}
+.project-link{display:inline-block;background:var(--red);color:white;padding:8px 18px;border-radius:20px;text-decoration:none;font-size:13px;transition:all 0.3s;}
+.project-link:hover{background:white;color:var(--red);}
+
+/* HUDUMA */
+.services-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:22px;}
+.service-card{background:rgba(15,52,96,0.5);border-radius:18px;padding:30px 22px;text-align:center;border:1px solid rgba(233,69,96,0.1);transition:all 0.3s;}
+.service-card:hover{transform:translateY(-8px);border-color:var(--red);box-shadow:0 15px 30px rgba(233,69,96,0.15);}
+.service-icon{font-size:50px;margin-bottom:18px;}
+.service-card h3{color:var(--red);margin-bottom:10px;font-size:17px;}
+.service-card p{color:#aaa;font-size:14px;line-height:1.7;}
+
+/* VITU */
+.tools-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;}
+.tool-card{background:rgba(15,52,96,0.5);border-radius:18px;padding:22px;text-align:center;border:1px solid rgba(233,69,96,0.1);}
+.tool-card h3{color:var(--red);margin-bottom:16px;}
+.counter-num{font-size:72px;font-weight:900;color:var(--red);margin:8px 0;}
+.tool-btns{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;}
+.tool-btn{padding:10px 18px;border-radius:20px;border:none;font-size:14px;cursor:pointer;transition:all 0.3s;font-weight:bold;}
+.tb-red{background:var(--red);color:white;}
+.tb-green{background:#27ae60;color:white;}
+.tb-dark{background:rgba(255,255,255,0.1);color:#aaa;}
+.tb-red:hover,.tb-green:hover,.tb-dark:hover{transform:scale(1.05);}
+.calc-inputs{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:10px;}
+.calc-input{width:100px;padding:10px;border-radius:10px;border:1px solid rgba(233,69,96,0.3);background:rgba(10,10,26,0.8);color:white;font-size:15px;text-align:center;}
+.calc-result{font-size:22px;color:var(--red);font-weight:bold;margin-top:8px;}
+
+/* MAWASILIANO */
+.contact-box{background:rgba(15,52,96,0.5);border-radius:22px;padding:50px 40px;text-align:center;border:1px solid rgba(233,69,96,0.2);}
+.contact-box h3{font-size:28px;margin-bottom:12px;}
+.contact-box p{color:#aaa;margin-bottom:30px;font-size:17px;}
+.contact-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+.btn-wa{background:#25D366;color:white;padding:14px 28px;border-radius:30px;text-decoration:none;font-size:16px;font-weight:bold;transition:all 0.3s;}
+.btn-wa:hover{background:white;color:#25D366;transform:translateY(-3px);}
+.btn-em{background:var(--red);color:white;padding:14px 28px;border-radius:30px;text-decoration:none;font-size:16px;font-weight:bold;transition:all 0.3s;}
+.btn-em:hover{background:white;color:var(--red);transform:translateY(-3px);}
+
+/* SCROLL BTN */
+.scroll-top{position:fixed;bottom:25px;right:25px;background:var(--red);color:white;width:48px;height:48px;border-radius:50%;border:none;font-size:20px;cursor:pointer;transition:all 0.3s;z-index:999;opacity:0;box-shadow:0 5px 15px rgba(233,69,96,0.4);}
+.scroll-top.show{opacity:1;}
+.scroll-top:hover{transform:translateY(-4px);}
+
+/* FOOTER */
+footer{background:rgba(15,52,96,0.4);text-align:center;padding:35px 20px;border-top:1px solid rgba(233,69,96,0.15);}
+footer p{color:#555;margin:4px;font-size:13px;}
+footer strong{color:var(--red);}
+
+/* MOBILE */
+@media(max-width:768px){
+.hero h1{font-size:32px;}
+.about-grid,.skills-grid,.tools-grid{grid-template-columns:1fr;}
+.nav-links{display:none;}
+.nav-links.open{display:flex;flex-direction:column;position:absolute;top:60px;left:0;width:100%;background:rgba(10,10,26,0.98);padding:20px;}
+.hamburger{display:block;}
+}
+
+/* ANIMATE */
+.anim{opacity:0;transform:translateY(30px);transition:all 0.8s ease;}
+.anim.visible{opacity:1;transform:translateY(0);}
 </style>
 </head>
 <body>
 
-<nav>
+<nav id="nav">
     <a href="#nyumbani" class="nav-logo">ZM</a>
-    <div class="nav-viungo">
-        <a href="#nyumbani">Nyumbani</a>
+    <button class="hamburger" onclick="toggleNav()">☰</button>
+    <div class="nav-links" id="nav-links">
+        <a href="#nyumbani" class="active">Nyumbani</a>
         <a href="#kuhusu">Kuhusu</a>
         <a href="#ujuzi">Ujuzi</a>
         <a href="#miradi">Miradi</a>
         <a href="#mawasiliano">Wasiliana</a>
         <a href="portfolio.html">Portfolio</a>
-        <a href="cv.html">CV</a>
+        <a href="gallery.html">📸</a>
+        <a href="ai.html">🤖 AI</a>
+        <a href="school.html">🎓 Shule</a>
+        <a href="login.html" class="active">🔐 Ingia</a>
     </div>
+    <span class="nav-user" id="nav-user"></span>
 </nav>
-    <a href="login.html">🔐 Ingia</a>
-<a href="gallery.html">📸 Gallery</a>
-<a href="brand.html">🎨 Brand</a>
-<a href="ai.html">🤖 AI Chat</a>
 
+<!-- HERO -->
 <section id="nyumbani" class="hero">
-    <div class="hero-maudhui">
-        <img class="hero-picha" src="IMG 1234.JPG" alt="Zakayo">
-        <div class="saa-box" id="saa">⏰ 00:00:00</div>
+    <div class="hero-bg">
+        <div class="circle c1"></div>
+        <div class="circle c2"></div>
+        <div class="circle c3"></div>
+    </div>
+    <div class="hero-content">
+        <img class="hero-img" src="IMG 1234.JPG" alt="Zakayo">
+        <div class="hero-clock" id="saa">⏰ 00:00:00</div>
         <h1>Habari! Mimi ni <span>Zakayo</span></h1>
-        <div class="hero-typing" id="typing"></div>
-        <p>Full Stack Web Developer kutoka Tanzania — Ninatengeneza tovuti nzuri za kisasa zinazosaidia biashara yako kukua!</p>
-        <div class="hero-vitufe">
-            <a href="#miradi" class="btn-kuu">🚀 Angalia Miradi</a>
-            <a href="#mawasiliano" class="btn-pili">📞 Wasiliana</a>
-            <a href="cv.html" class="btn-kuu">📄 Pakua CV</a>
+        <div class="hero-type" id="typing"></div>
+        <p class="hero-desc">Full Stack Web Developer kutoka Tanzania — Ninatengeneza tovuti nzuri za kisasa zinazosaidia biashara yako kukua!</p>
+        <div class="hero-btns">
+            <a href="#miradi" class="btn btn-red">🚀 Angalia Miradi</a>
+            <a href="#mawasiliano" class="btn btn-outline">📞 Wasiliana</a>
+            <a href="cv.html" class="btn btn-red">📄 CV Yangu</a>
         </div>
     </div>
 </section>
 
-<div class="takwimu-sehemu">
-    <div class="takwimu-grid">
-        <div class="takwimu-kadi animate">
-            <div class="takwimu-nambari">10+</div>
-            <div class="takwimu-jina">Miradi Iliyokamilika</div>
-        </div>
-        <div class="takwimu-kadi animate">
-            <div class="takwimu-nambari">5+</div>
-            <div class="takwimu-jina">Teknolojia</div>
-        </div>
-        <div class="takwimu-kadi animate">
-            <div class="takwimu-nambari">100%</div>
-            <div class="takwimu-jina">Bidii na Moyo</div>
-        </div>
-        <div class="takwimu-kadi animate">
-            <div class="takwimu-nambari">24/7</div>
-            <div class="takwimu-jina">Msaada wa Wateja</div>
-        </div>
+<!-- STATS -->
+<div class="stats">
+    <div class="stats-grid">
+        <div class="anim"><div class="stat-num">10+</div><div class="stat-name">Miradi</div></div>
+        <div class="anim"><div class="stat-num">5+</div><div class="stat-name">Teknolojia</div></div>
+        <div class="anim"><div class="stat-num">100%</div><div class="stat-name">Bidii</div></div>
+        <div class="anim"><div class="stat-num">24/7</div><div class="stat-name">Msaada</div></div>
     </div>
 </div>
 
-<section id="kuhusu">
-    <div class="sehemu">
-        <div class="sehemu-kichwa animate">
+<!-- KUHUSU -->
+<section id="kuhusu" class="section">
+    <div class="container">
+        <div class="sec-title anim">
             <h2>👤 Kuhusu <span>Mimi</span></h2>
-            <div class="mstari"></div>
+            <div class="line"></div>
             <p>Najua nani mimi na ninachoweza kukufanyia</p>
         </div>
-        <div class="kuhusu-grid animate">
-            <div class="kuhusu-maelezo">
+        <div class="about-grid anim">
+            <div class="about-text">
                 <p>Mimi ni Full Stack Web Developer kutoka Tanzania. Nina ujuzi wa kutengeneza tovuti nzuri za kisasa kutumia teknolojia za hali ya juu.</p>
                 <p>Ninajifunza kwa bidii kila siku na ndoto yangu ni kutengeneza tovuti zinazosaidia watu wa Afrika kukua kibiashara na kidigitali.</p>
-                <p>Nina ujuzi wa HTML, CSS, JavaScript, React, Node.js, Express, MongoDB, GitHub na VS Code.</p>
-                <br>
-                <a href="cv.html" class="btn-kuu">📄 Angalia CV Yangu</a>
+                <a href="cv.html" class="btn btn-red">📄 Angalia CV</a>
             </div>
-            <div class="kuhusu-info">
-                <div class="kuhusu-info-kitu">
-                    <span>👤</span><span>Zakayo Maloloi Malogo</span>
-                </div>
-                <div class="kuhusu-info-kitu">
-                    <span>💼</span><span>Full Stack Web Developer</span>
-                </div>
-                <div class="kuhusu-info-kitu">
-                    <span>🌍</span><span>Tanzania, Afrika</span>
-                </div>
-                <div class="kuhusu-info-kitu">
-                    <span>📱</span><span>+255 718 996 785</span>
-                </div>
-                <div class="kuhusu-info-kitu">
-                    <span>📧</span><span>zakayomalogo@gmail.com</span>
-                </div>
-                <div class="kuhusu-info-kitu">
-                    <span>🎓</span><span>Full Stack Development 2026</span>
-                </div>
+            <div class="about-info">
+                <div class="info-item"><span>👤</span><span>Zakayo Maloloi Malogo</span></div>
+                <div class="info-item"><span>💼</span><span>Full Stack Web Developer</span></div>
+                <div class="info-item"><span>🌍</span><span>Tanzania, Afrika</span></div>
+                <div class="info-item"><span>📱</span><span>+255 718 996 785</span></div>
+                <div class="info-item"><span>📧</span><span>zakayomalogo@gmail.com</span></div>
+                <div class="info-item"><span>🎓</span><span>Full Stack Dev 2026</span></div>
             </div>
         </div>
     </div>
 </section>
 
-<section id="ujuzi" style="background:var(--rangi-kati);padding:80px 20px;">
-    <div style="max-width:1000px;margin:0 auto;">
-        <div class="sehemu-kichwa animate">
+<!-- UJUZI -->
+<section id="ujuzi" class="section alt">
+    <div class="container">
+        <div class="sec-title anim">
             <h2>💪 Ujuzi <span>Wangu</span></h2>
-            <div class="mstari"></div>
-            <p>Teknolojia ninazozitumia kutengeneza tovuti za hali ya juu</p>
+            <div class="line"></div>
         </div>
-        <div class="ujuzi-grid animate">
+        <div class="skills-grid anim">
             <div>
-                <div class="ujuzi-kitu">
-                    <div class="ujuzi-jina"><span>HTML</span><span>95%</span></div>
-                    <div class="bar"><div class="bar-jaza" data-upana="95%"></div></div>
-                </div>
-                <div class="ujuzi-kitu">
-                    <div class="ujuzi-jina"><span>CSS</span><span>90%</span></div>
-                    <div class="bar"><div class="bar-jaza" data-upana="90%"></div></div>
-                </div>
-                <div class="ujuzi-kitu">
-                    <div class="ujuzi-jina"><span>JavaScript</span><span>85%</span></div>
-                    <div class="bar"><div class="bar-jaza" data-upana="85%"></div></div>
-                </div>
-                <div class="ujuzi-kitu">
-                    <div class="ujuzi-jina"><span>React</span><span>75%</span></div>
-                    <div class="bar"><div class="bar-jaza" data-upana="75%"></div></div>
-                </div>
+                <div class="skill"><div class="skill-name"><span>HTML</span><span>95%</span></div><div class="skill-bar"><div class="skill-fill" data-w="95%"></div></div></div>
+                <div class="skill"><div class="skill-name"><span>CSS</span><span>90%</span></div><div class="skill-bar"><div class="skill-fill" data-w="90%"></div></div></div>
+                <div class="skill"><div class="skill-name"><span>JavaScript</span><span>85%</span></div><div class="skill-bar"><div class="skill-fill" data-w="85%"></div></div></div>
+                <div class="skill"><div class="skill-name"><span>React</span><span>75%</span></div><div class="skill-bar"><div class="skill-fill" data-w="75%"></div></div></div>
             </div>
             <div>
-                <div class="ujuzi-kitu">
-                    <div class="ujuzi-jina"><span>Node.js</span><span>80%</span></div>
-                    <div class="bar"><div class="bar-jaza" data-upana="80%"></div></div>
-                </div>
-                <div class="ujuzi-kitu">
-                    <div class="ujuzi-jina"><span>Express</span><span>75%</span></div>
-                    <div class="bar"><div class="bar-jaza" data-upana="75%"></div></div>
-                </div>
-                <div class="ujuzi-kitu">
-                    <div class="ujuzi-jina"><span>MongoDB</span><span>70%</span></div>
-                    <div class="bar"><div class="bar-jaza" data-upana="70%"></div></div>
-                </div>
-                <div class="ujuzi-kitu">
-                    <div class="ujuzi-jina"><span>GitHub</span><span>85%</span></div>
-                    <div class="bar"><div class="bar-jaza" data-upana="85%"></div></div>
-                </div>
+                <div class="skill"><div class="skill-name"><span>Node.js</span><span>80%</span></div><div class="skill-bar"><div class="skill-fill" data-w="80%"></div></div></div>
+                <div class="skill"><div class="skill-name"><span>Express</span><span>75%</span></div><div class="skill-bar"><div class="skill-fill" data-w="75%"></div></div></div>
+                <div class="skill"><div class="skill-name"><span>MongoDB</span><span>70%</span></div><div class="skill-bar"><div class="skill-fill" data-w="70%"></div></div></div>
+                <div class="skill"><div class="skill-name"><span>GitHub</span><span>85%</span></div><div class="skill-bar"><div class="skill-fill" data-w="85%"></div></div></div>
             </div>
         </div>
     </div>
 </section>
 
-<section id="miradi">
-    <div class="sehemu">
-        <div class="sehemu-kichwa animate">
+<!-- MIRADI -->
+<section id="miradi" class="section">
+    <div class="container">
+        <div class="sec-title anim">
             <h2>🚀 Miradi <span>Yangu</span></h2>
-            <div class="mstari"></div>
-            <p>Baadhi ya kazi niliyotengeneza</p>
+            <div class="line"></div>
         </div>
-        <div class="miradi-grid">
-            <div class="mradi-kadi animate">
-                <div class="mradi-picha">🌐</div>
-                <div class="mradi-maudhui">
+        <div class="projects-grid">
+            <div class="project-card anim">
+                <div class="project-img">🌐</div>
+                <div class="project-body">
                     <h3>Tovuti Ya Kibinafsi</h3>
-                    <p>Tovuti kamili yenye CSS ya kisasa, JavaScript, kikokotoo na saa inayotembea!</p>
-                    <span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span>
-                    <br><a href="#" class="mradi-btn">🔗 Angalia</a>
+                    <p>Tovuti kamili yenye CSS ya kisasa, animations, na JavaScript!</p>
+                    <div class="tags"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JS</span></div>
+                    <a href="index.html" class="project-link">🔗 Angalia</a>
                 </div>
             </div>
-            <div class="mradi-kadi animate">
-                <div class="mradi-picha">📧</div>
-                <div class="mradi-maudhui">
-                    <h3>Mfumo wa Mawasiliano</h3>
-                    <p>Kurasa ya mawasiliano yenye fomu inayotuma ujumbe wa kweli kwa email!</p>
-                    <span class="tag">HTML</span><span class="tag">Formspree</span>
-                    <br><a href="contact.html" class="mradi-btn">🔗 Angalia</a>
+            <div class="project-card anim">
+                <div class="project-img">🤖</div>
+                <div class="project-body">
+                    <h3>AI Assistant</h3>
+                    <p>AI inayojibu maswali kwa Kiswahili — powered by OpenRouter!</p>
+                    <div class="tags"><span class="tag">AI</span><span class="tag">OpenRouter</span><span class="tag">JS</span></div>
+                    <a href="ai.html" class="project-link">🔗 Angalia</a>
                 </div>
             </div>
-            <div class="mradi-kadi animate">
-                <div class="mradi-picha">🎮</div>
-                <div class="mradi-maudhui">
-                    <h3>Mchezo wa JavaScript</h3>
-                    <p>Mchezo wa "Nadhani Nambari" wenye takwimu na rekodi ya mchezaji!</p>
-                    <span class="tag">JavaScript</span><span class="tag">DOM</span>
-                    <br><a href="game.html" class="mradi-btn">🎮 Cheza</a>
+            <div class="project-card anim">
+                <div class="project-img">🎮</div>
+                <div class="project-body">
+                    <h3>Mchezo wa JS</h3>
+                    <p>Mchezo wa Nadhani Nambari wenye takwimu!</p>
+                    <div class="tags"><span class="tag">JavaScript</span><span class="tag">DOM</span></div>
+                    <a href="game.html" class="project-link">🎮 Cheza</a>
                 </div>
             </div>
-            <div class="mradi-kadi animate">
-                <div class="mradi-picha">🖥️</div>
-                <div class="mradi-maudhui">
-                    <h3>Express Web Server</h3>
-                    <p>Web server yenye kurasa nyingi na database ya MongoDB!</p>
-                    <span class="tag">Node.js</span><span class="tag">Express</span><span class="tag">MongoDB</span>
-                    <br><a href="#" class="mradi-btn">🔗 Angalia</a>
+            <div class="project-card anim">
+                <div class="project-img">🎓</div>
+                <div class="project-body">
+                    <h3>Zakayo High School</h3>
+                    <p>Mfumo kamili wa shule — coursework, grades, na registration!</p>
+                    <div class="tags"><span class="tag">Node.js</span><span class="tag">MongoDB</span><span class="tag">Express</span></div>
+                    <a href="school.html" class="project-link">🔗 Angalia</a>
                 </div>
             </div>
-            <div class="mradi-kadi animate">
-                <div class="mradi-picha">💼</div>
-                <div class="mradi-maudhui">
-                    <h3>Portfolio Ya Kitaalamu</h3>
-                    <p>Portfolio nzuri yenye miradi yangu yote na ujuzi wa Full Stack!</p>
-                    <span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JavaScript</span>
-                    <br><a href="portfolio.html" class="mradi-btn">🔗 Angalia</a>
+            <div class="project-card anim">
+                <div class="project-img">📸</div>
+                <div class="project-body">
+                    <h3>Gallery ya Biashara</h3>
+                    <p>Gallery nzuri ya kupakia na kuonyesha picha za biashara!</p>
+                    <div class="tags"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">Storage</span></div>
+                    <a href="gallery.html" class="project-link">🔗 Angalia</a>
                 </div>
             </div>
-            <div class="mradi-kadi animate">
-                <div class="mradi-picha">📄</div>
-                <div class="mradi-maudhui">
+            <div class="project-card anim">
+                <div class="project-img">📄</div>
+                <div class="project-body">
                     <h3>CV Ya Kitaalamu</h3>
-                    <p>CV nzuri yenye ujuzi wangu wote — inaweza kuchapishwa kama PDF!</p>
-                    <span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">Print</span>
-                    <br><a href="cv.html" class="mradi-btn">📄 Angalia</a>
+                    <p>CV nzuri inayoweza kuchapishwa kama PDF!</p>
+                    <div class="tags"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">Print</span></div>
+                    <a href="cv.html" class="project-link">📄 Angalia</a>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<section style="background:var(--rangi-kati);padding:80px 20px;">
-    <div style="max-width:1000px;margin:0 auto;">
-        <div class="sehemu-kichwa animate">
+<!-- HUDUMA -->
+<section class="section alt">
+    <div class="container">
+        <div class="sec-title anim">
             <h2>🛠️ Huduma <span>Ninazotoa</span></h2>
-            <div class="mstari"></div>
-            <p>Ninaweza kukusaidia na hizi</p>
+            <div class="line"></div>
         </div>
-        <div class="huduma-grid">
-            <div class="huduma-kadi animate">
-                <span class="huduma-ikoni">🌐</span>
-                <h3>Utengenezaji Tovuti</h3>
-                <p>Natengeneza tovuti nzuri za kibinafsi na biashara kwa bei nafuu na haraka!</p>
-            </div>
-            <div class="huduma-kadi animate">
-                <span class="huduma-ikoni">🎨</span>
-                <h3>Muundo wa Kisasa</h3>
-                <p>Naunda muonekano wa kisasa unaovutia wageni wengi kwenye tovuti yako!</p>
-            </div>
-            <div class="huduma-kadi animate">
-                <span class="huduma-ikoni">📱</span>
-                <h3>Mobile Friendly</h3>
-                <p>Tovuti zangu zote zinafanya kazi vizuri kwenye simu na kompyuta!</p>
-            </div>
-            <div class="huduma-kadi animate">
-                <span class="huduma-ikoni">🖥️</span>
-                <h3>Full Stack Dev</h3>
-                <p>Ninatengeneza tovuti kamili — mbele na nyuma — database na server!</p>
-            </div>
+        <div class="services-grid">
+            <div class="service-card anim"><div class="service-icon">🌐</div><h3>Tovuti</h3><p>Natengeneza tovuti nzuri za kibinafsi na biashara kwa bei nafuu!</p></div>
+            <div class="service-card anim"><div class="service-icon">🎨</div><h3>Muundo</h3><p>Naunda muonekano wa kisasa unaovutia wageni wengi!</p></div>
+            <div class="service-card anim"><div class="service-icon">📱</div><h3>Mobile</h3><p>Tovuti zangu zinafanya kazi vizuri kwenye simu na kompyuta!</p></div>
+            <div class="service-card anim"><div class="service-icon">🖥️</div><h3>Full Stack</h3><p>Ninatengeneza tovuti kamili — mbele na nyuma!</p></div>
         </div>
     </div>
 </section>
 
-<section>
-    <div class="sehemu">
-        <div class="sehemu-kichwa animate">
-            <h2>⚡ Vitu vya <span>Kufurahisha</span></h2>
-            <div class="mstari"></div>
-        </div>
-        <div class="vitu-grid">
-            <div class="kitu-kadi animate">
+<!-- VITU -->
+<section class="section">
+    <div class="container">
+        <div class="sec-title anim"><h2>⚡ Vitu vya <span>Kufurahisha</span></h2><div class="line"></div></div>
+        <div class="tools-grid">
+            <div class="tool-card anim">
                 <h3>🔢 Kikokotoo</h3>
-                <input type="number" id="n1" placeholder="Nambari 1" style="width:45%;padding:8px;border-radius:10px;border:1px solid #e94560;background:#1a1a2e;color:white;margin:5px;">
-                <input type="number" id="n2" placeholder="Nambari 2" style="width:45%;padding:8px;border-radius:10px;border:1px solid #e94560;background:#1a1a2e;color:white;margin:5px;">
-                <br>
-                <button class="kitu-btn" onclick="hesabu('+')">➕</button>
-                <button class="kitu-btn" onclick="hesabu('-')">➖</button>
-                <button class="kitu-btn" onclick="hesabu('*')">✖️</button>
-                <button class="kitu-btn" onclick="hesabu('/')">➗</button>
-                <div id="jibu-hesabu" style="font-size:22px;color:#e94560;margin-top:10px;font-weight:bold;"></div>
+                <div class="calc-inputs">
+                    <input type="number" class="calc-input" id="n1" placeholder="N1">
+                    <input type="number" class="calc-input" id="n2" placeholder="N2">
+                </div>
+                <div class="tool-btns">
+                    <button class="tool-btn tb-green" onclick="calc('+')">➕</button>
+                    <button class="tool-btn tb-red" onclick="calc('-')">➖</button>
+                    <button class="tool-btn tb-green" onclick="calc('*')">✖️</button>
+                    <button class="tool-btn tb-red" onclick="calc('/')">➗</button>
+                </div>
+                <div class="calc-result" id="calc-result"></div>
             </div>
-            <div class="kitu-kadi animate">
+            <div class="tool-card anim">
                 <h3>⏰ Counter</h3>
-                <div class="counter-nambari" id="counter">0</div>
-                <button class="kitu-btn kijani" onclick="ongeza()">➕ Ongeza</button>
-                <button class="kitu-btn nyekundu" onclick="punguza()">➖ Punguza</button>
-                <button class="kitu-btn" onclick="weka()">🔄 Sifuri</button>
-                <div id="counter-ujumbe" style="color:#aaa;margin-top:10px;font-size:14px;"></div>
+                <div class="counter-num" id="counter">0</div>
+                <div class="tool-btns">
+                    <button class="tool-btn tb-green" onclick="cnt(1)">➕</button>
+                    <button class="tool-btn tb-red" onclick="cnt(-1)">➖</button>
+                    <button class="tool-btn tb-dark" onclick="cnt(0)">🔄</button>
+                </div>
+                <div id="cnt-msg" style="color:#aaa;font-size:13px;margin-top:8px;"></div>
             </div>
         </div>
     </div>
 </section>
 
-<section id="mawasiliano" style="background:var(--rangi-kati);padding:80px 20px;">
-    <div style="max-width:700px;margin:0 auto;">
-        <div class="sehemu-kichwa animate">
-            <h2>📞 Wasiliana <span>Nami</span></h2>
-            <div class="mstari"></div>
-        </div>
-        <div class="mawasiliano-sehemu animate">
+<!-- MAWASILIANO -->
+<section id="mawasiliano" class="section alt">
+    <div class="container">
+        <div class="sec-title anim"><h2>📞 Wasiliana <span>Nami</span></h2><div class="line"></div></div>
+        <div class="contact-box anim">
             <h3>Uko na mradi? Nipigie! 🚀</h3>
             <p>Niko tayari kukusaidia kutengeneza tovuti yako ya ndoto — haraka na kwa bei nafuu!</p>
-            <div class="mawasiliano-vitufe">
+            <div class="contact-btns">
                 <a href="https://wa.me/255718996785" class="btn-wa">📱 WhatsApp</a>
                 <a href="mailto:zakayomalogo@gmail.com" class="btn-em">📧 Email</a>
                 <a href="contact.html" class="btn-em">✉️ Tuma Ujumbe</a>
-                <a href="cv.html" class="btn-em">📄 CV Yangu</a>
+                <a href="cv.html" class="btn-em">📄 CV</a>
+                <a href="payment.html" class="btn-em">💳 Lipa</a>
             </div>
         </div>
     </div>
@@ -830,138 +386,94 @@ transform:translateY(0);
 <footer>
     <p>© 2026 <strong>Zakayo Maloloi Malogo</strong> — Full Stack Web Developer Tanzania</p>
     <p>📱 +255 718 996 785 | 📧 zakayomalogo@gmail.com</p>
-    <br>
-    <p>Imetengenezwa kwa ❤️ na HTML, CSS, JavaScript, Node.js na MongoDB</p>
+    <p style="margin-top:8px">Imetengenezwa kwa ❤️ na HTML, CSS, JavaScript, Node.js na MongoDB</p>
 </footer>
 
-<button class="kitufe-juu" id="kitufe-juu" onclick="window.scrollTo({top:0,behavior:'smooth'})">⬆️</button>
-
-<div class="pwa-banner" id="pwa-banner">
-    <p>📱 Sakinisha app hii kwenye simu yako!</p>
-    <button onclick="sakinisha()">✅ Sakinisha</button>
-    <button onclick="document.getElementById('pwa-banner').style.display='none'">❌ Funga</button>
-</div>
+<button class="scroll-top" id="scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">⬆️</button>
 
 <script>
 // SAA
-function onyeshaSaa() {
-    var s = new Date();
-    var saa = String(s.getHours()).padStart(2,'0');
-    var dak = String(s.getMinutes()).padStart(2,'0');
-    var sek = String(s.getSeconds()).padStart(2,'0');
-    document.getElementById("saa").innerHTML = "⏰ " + saa + ":" + dak + ":" + sek;
+function saa(){
+    var s=new Date();
+    document.getElementById("saa").innerHTML="⏰ "+String(s.getHours()).padStart(2,"0")+":"+String(s.getMinutes()).padStart(2,"0")+":"+String(s.getSeconds()).padStart(2,"0");
 }
-setInterval(onyeshaSaa, 1000);
-onyeshaSaa();
+setInterval(saa,1000); saa();
 
 // TYPING
-var maneno = [
-    "Full Stack Web Developer 💻",
-    "HTML & CSS Expert 🎨",
-    "JavaScript Developer ⚡",
-    "Node.js & MongoDB 🖥️",
-    "Kutoka Tanzania 🌍"
-];
-var i = 0, j = 0, hali = 'andika';
-function chapa() {
-    var el = document.getElementById("typing");
-    if (hali === 'andika') {
-        el.innerHTML = maneno[i].substring(0, j+1);
-        j++;
-        if (j === maneno[i].length) { hali = 'subiri'; setTimeout(chapa, 1500); return; }
-    } else if (hali === 'subiri') {
-        hali = 'futa';
-    } else {
-        el.innerHTML = maneno[i].substring(0, j-1);
-        j--;
-        if (j === 0) { hali = 'andika'; i = (i+1) % maneno.length; }
-    }
-    setTimeout(chapa, hali === 'andika' ? 100 : 50);
+var maneno=["Full Stack Developer 💻","HTML & CSS Expert 🎨","JavaScript Developer ⚡","Node.js & MongoDB 🖥️","Kutoka Tanzania 🌍"];
+var i=0,j=0,hali="andika";
+function type(){
+    var el=document.getElementById("typing");
+    if(hali==="andika"){el.textContent=maneno[i].substring(0,j+1);j++;if(j===maneno[i].length){hali="subiri";setTimeout(type,1500);return;}}
+    else if(hali==="subiri"){hali="futa";}
+    else{el.textContent=maneno[i].substring(0,j-1);j--;if(j===0){hali="andika";i=(i+1)%maneno.length;}}
+    setTimeout(type,hali==="andika"?100:50);
 }
-chapa();
+type();
 
 // SCROLL ANIMATIONS
-var observer = new IntersectionObserver(function(entries) {
-    entries.forEach(function(entry) {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('inaonekana');
-            var bars = entry.target.querySelectorAll('.bar-jaza');
-            bars.forEach(function(bar) {
-                bar.style.width = bar.getAttribute('data-upana');
-            });
+var obs=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+        if(e.isIntersecting){
+            e.target.classList.add("visible");
+            e.target.querySelectorAll(".skill-fill").forEach(function(b){b.style.width=b.getAttribute("data-w");});
         }
     });
-}, { threshold: 0.1 });
-document.querySelectorAll('.animate').forEach(function(el) {
-    observer.observe(el);
-});
+},{threshold:0.1});
+document.querySelectorAll(".anim").forEach(function(el){obs.observe(el);});
 
-// KITUFE JUU
-window.addEventListener('scroll', function() {
-    var k = document.getElementById('kitufe-juu');
-    if (window.scrollY > 300) k.classList.add('inaonekana');
-    else k.classList.remove('inaonekana');
+// SCROLL TOP
+window.addEventListener("scroll",function(){
+    document.getElementById("scroll-top").classList.toggle("show",window.scrollY>300);
 });
 
 // COUNTER
-var idadi = 0;
-function ongeza() {
-    idadi++;
-    document.getElementById("counter").innerHTML = idadi;
-    document.getElementById("counter-ujumbe").innerHTML = "📈 Inaongezeka!";
-}
-function punguza() {
-    idadi--;
-    document.getElementById("counter").innerHTML = idadi;
-    document.getElementById("counter-ujumbe").innerHTML = "📉 Inapungua!";
-}
-function weka() {
-    idadi = 0;
-    document.getElementById("counter").innerHTML = 0;
-    document.getElementById("counter-ujumbe").innerHTML = "⚖️ Sifuri!";
+var c=0;
+function cnt(v){
+    if(v===0)c=0; else c+=v;
+    document.getElementById("counter").textContent=c;
+    document.getElementById("cnt-msg").textContent=c>0?"📈 Inaongezeka!":c<0?"📉 Inapungua!":"⚖️ Sifuri!";
 }
 
-// KIKOKOTOO
-function hesabu(aina) {
-    var n1 = Number(document.getElementById("n1").value);
-    var n2 = Number(document.getElementById("n2").value);
-    var jibu;
-    if (aina === '+') jibu = n1 + n2;
-    else if (aina === '-') jibu = n1 - n2;
-    else if (aina === '*') jibu = n1 * n2;
-    else if (aina === '/') jibu = n2 === 0 ? "Haiwezekani!" : n1 / n2;
-    document.getElementById("jibu-hesabu").innerHTML = "Jibu: " + jibu;
+// CALC
+function calc(op){
+    var n1=Number(document.getElementById("n1").value);
+    var n2=Number(document.getElementById("n2").value);
+    var r;
+    if(op==="+")r=n1+n2;
+    else if(op==="-")r=n1-n2;
+    else if(op==="*")r=n1*n2;
+    else r=n2===0?"Haiwezekani!":n1/n2;
+    document.getElementById("calc-result").textContent="Jibu: "+r;
 }
 
-// PWA
-var deferredPrompt;
-window.addEventListener('beforeinstallprompt', function(e) {
-    e.preventDefault();
-    deferredPrompt = e;
-    document.getElementById('pwa-banner').classList.add('inaonekana');
+// NAV USER
+var u=JSON.parse(localStorage.getItem("mtumiaji_ameingia")||"{}");
+if(u.jina)document.getElementById("nav-user").textContent="👤 "+u.jina;
+
+// HAMBURGER
+function toggleNav(){
+    document.getElementById("nav-links").classList.toggle("open");
+}
+
+// NAV ACTIVE
+window.addEventListener("scroll",function(){
+    var secs=["nyumbani","kuhusu","ujuzi","miradi","mawasiliano"];
+    secs.forEach(function(id){
+        var el=document.getElementById(id);
+        if(!el)return;
+        var rect=el.getBoundingClientRect();
+        if(rect.top<=100&&rect.bottom>=100){
+            document.querySelectorAll(".nav-links a").forEach(function(a){a.classList.remove("active");});
+            var link=document.querySelector(".nav-links a[href='#"+id+"']");
+            if(link)link.classList.add("active");
+        }
+    });
 });
 
-function sakinisha() {
-    if (deferredPrompt) {
-        deferredPrompt.prompt();
-        deferredPrompt.userChoice.then(function() {
-            deferredPrompt = null;
-            document.getElementById('pwa-banner').style.display = 'none';
-        });
-    }
-}
-
 // SERVICE WORKER
-if ("serviceWorker" in navigator) {
-    window.addEventListener("load", function() {
-        navigator.serviceWorker.register("sw.js")
-        .then(function() {
-            console.log("PWA Service Worker imesajiliwa!");
-        })
-        .catch(function(kosa) {
-            console.log("Kosa: " + kosa);
-        });
-    });
+if("serviceWorker"in navigator){
+    navigator.serviceWorker.register("sw.js").catch(function(){});
 }
 </script>
 </body>
