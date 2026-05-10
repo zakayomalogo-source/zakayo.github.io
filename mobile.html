@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Mobile Dev — Zakayo</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:#0a0a1a;color:#fff;font-family:Arial;padding:20px;}
+h1{color:#e94560;text-align:center;margin-bottom:20px;}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;max-width:1000px;margin:0 auto;}
+.card{background:#0f3460;border-radius:15px;padding:22px;border:1px solid rgba(233,69,96,0.2);}
+.card h2{color:#e94560;margin-bottom:12px;font-size:18px;}
+.card p{color:#9ca3af;font-size:14px;line-height:1.7;margin-bottom:10px;}
+.code{background:#000;border-left:3px solid #e94560;padding:14px;border-radius:8px;font-family:monospace;font-size:13px;color:#00ff88;overflow-x:auto;white-space:pre;margin:10px 0;}
+.tag{display:inline-block;background:rgba(233,69,96,0.2);color:#e94560;padding:3px 10px;border-radius:12px;font-size:11px;margin:3px;}
+.btn-copy{background:#e94560;color:#fff;border:none;padding:8px 16px;border-radius:8px;cursor:pointer;font-size:12px;float:right;transition:all 0.3s;}
+.btn-copy:hover{background:#c0392b;}
+</style>
+</head>
+<body>
+<h1>📱 Mobile Developer — Quick Reference</h1>
+<div class="grid">
+
+<div class="card">
+    <h2>📱 React Native — Kuanza</h2>
+    <p>Framework ya kutengeneza app za iOS na Android kwa JavaScript moja.</p>
+    <div class="code">
+# Install React Native CLI
+npm install -g @react-native-community/cli
+
+# Unda project mpya
+npx react-native init MyApp
+cd MyApp
+
+# Run kwenye Android
+npx react-native run-android
+
+# Run kwenye iOS
+npx react-native run-ios
+    </div>
+    <div><span class="tag">Cross-platform</span><span class="tag">JavaScript</span><span class="tag">Free</span></div>
+</div>
+
+<div class="card">
+    <h2>📱 React Native — Component ya Msingi</h2>
+    <div class="code">
+import React, { useState } from 'react';
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+  Alert
+} from 'react-native';
+
+export default function App() {
+  const [jina, setJina] = useState('');
+
+  const salamu = () => {
+    Alert.alert('Habari!', Karibu ${jina}!);
+  };
+
+  return (
+    &lt;View style={styles.container}&gt;
+      &lt;Text style={styles.title}&gt;
+        App ya Zakayo 🚀
+      &lt;/Text&gt;
+      &lt;TextInput
+        style={styles.input}
+        placeholder="Jina lako..."
+        onChangeText={setJina}
+        value={jina}
+      /&gt;
+      &lt;TouchableOpacity
+        style={styles.btn}
+        onPress={salamu}
+      &gt;
+        &lt;Text style={styles.btnText}&gt;
+          Salamu!
+        &lt;/Text&gt;
+      &lt;/TouchableOpacity&gt;
+    &lt;/View&gt;
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#1a1a2e',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 20,
+  },
+  title: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    color: '#e94560',
+    marginBottom: 30,
+  },
+  input: {
+    width: '100%',
+    backgroundColor: '#0f3460',
+    color: '#fff',
+    padding: 14,
+    borderRadius: 12,
+    marginBottom: 16,
+    fontSize: 16,
+  },
+  btn: {
+    backgroundColor: '#e94560',
+    padding: 15,
+    borderRadius: 12,
+    width: '100%',
+    alignItems: 'center',
+  },
+  btnText: {
+    color: '#fff',
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+});
+    </div>
+</div>
+
+<div class="card">
+    <h2>📱 Flutter — Kuanza</h2>
+    <p>Framework ya Google — moja ya bora zaidi kwa mobile apps.</p>
+    <div class="code">
+# Install Flutter
+# flutter.dev/docs/get-started
+
+# Unda project
+flutter create my_app
+cd my_app
+
+# Run
+flutter run
+
+# Build APK
+flutter build apk
+    </div>
+    <div><span class="tag">Dart</span><span class="tag">Google</span><span class="tag">Fast</span></div>
+</div>
+
+<div class="card">
+    <h2>🎨 Flutter — Widget ya Msingi</h2>
+    <div class="code">
+import 'package:flutter/material.dart';
+
+void main() => runApp(MyApp());
+
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State&lt;MyApp&gt; {
+  String ujumbe = 'Bonyeza kitufe!';
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        backgroundColor: Color(0xFF1a1a2e),
+        appBar: AppBar(
+          title: Text('App ya Zakayo'),
+          backgroundColor: Color(0xFFe94560),
+        ),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                ujumbe,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 22,
+                ),
+              ),
+              SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () {
+                  setState(() {
+                    ujumbe = 'Habari Zakayo! 🎉';
+                  });
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color(0xFFe94560),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 30, vertical: 15),
+                ),
+                child: Text(
+                  'Bonyeza Mimi!',
+                  style: TextStyle(fontSize: 18),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+    </div>
+</div>
+
+<div class="card">
+    <h2>📦 React Native — Navigation</h2>
+    <div class="code">
+npm install @react-navigation/native
+npm install @react-navigation/stack
+npm install react-native-screens
+npm install react-native-safe-area-context
+
+// App.js
+import { NavigationContainer } from
+  '@react-navigation/native';
+import { createStackNavigator } from
+  '@react-navigation/stack';
+import HomeScreen from './screens/Home';
+import DetailScreen from './screens/Detail';
+
+const Stack = createStackNavigator();
+
+export default function App() {
+  return (
+    &lt;NavigationContainer&gt;
+      &lt;Stack.Navigator&gt;
+        &lt;Stack.Screen
+          name="Home"
+          component={HomeScreen}
+        /&gt;
+        &lt;Stack.Screen
+          name="Detail"
+          component={DetailScreen}
+        /&gt;
+      &lt;/Stack.Navigator&gt;
+    &lt;/NavigationContainer&gt;
+  );
+}
+
+// Kutoka HomeScreen kwenda Detail
+navigation.navigate('Detail', { id: 1 });
+    </div>
+</div>
+
+<div class="card">
+    <h2>💾 AsyncStorage — Kuhifadhi Data</h2>
+    <div class="code">
+npm install @react-native-async-storage/async-storage
+
+import AsyncStorage from
+  '@react-native-async-storage/async-storage';
+
+// Hifadhi
+const hifadhi = async (key, value) => {
+  await AsyncStorage.setItem(
+    key,
+    JSON.stringify(value)
+  );
+};
+
+// Soma
+const soma = async (key) => {
+  const data = await AsyncStorage.getItem(key);
+  return data ? JSON.parse(data) : null;
+};
+
+// Futa
+const futa = async (key) => {
+  await AsyncStorage.removeItem(key);
+};
+
+// Matumizi
+await hifadhi('mtumiaji', {
+  jina: 'Zakayo',
+  umri: 25
+});
+
+const mtu = await soma('mtumiaji');
+console.log(mtu.jina); // Zakayo
+    </div>
+</div>
+
+<div class="card">
+    <h2>🌐 API Fetch kwenye Mobile</h2>
+    <div class="code">
+import React, { useState, useEffect } from 'react';
+import { View, Text, FlatList } from 'react-native';
+
+export default function Posts() {
+  const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchPosts();
+  }, []);
+
+  const fetchPosts = async () => {
+    try {
+      const res = await fetch(
+        'https://jsonplaceholder.typicode.com/posts'
+      );
+      const data = await res.json();
+      setPosts(data.slice(0, 10));
+    } catch (error) {
+      console.error('Error:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (loading) return &lt;Text&gt;Loading...&lt;/Text&gt;;
+
+  return (
+    &lt;FlatList
+      data={posts}
+      keyExtractor={item => item.id.toString()}
+      renderItem={({ item }) => (
+        &lt;View style={{ padding: 15 }}&gt;
+          &lt;Text style={{ fontWeight: 'bold' }}&gt;
+            {item.title}
+          &lt;/Text&gt;
+          &lt;Text&gt;{item.body}&lt;/Text&gt;
+        &lt;/View&gt;
+      )}
+    /&gt;
+  );
+}
+    </div>
+</div>
+
+<div class="card">
+    <h2>🚀 Roadmap ya Mobile Developer</h2>
+    <p>Hatua za kufuata kuwa Mobile Developer:</p>
+    <div style="margin-top:10px">
+        <div style="background:rgba(233,69,96,0.1);border-left:3px solid #e94560;padding:12px;border-radius:8px;margin-bottom:10px;">
+            <strong style="color:#e94560">1. JavaScript/TypeScript</strong><br>
+            <span style="color:#9ca3af;font-size:13px">Msingi wa React Native — wiki 2-4</span>
+        </div>
+        <div style="background:rgba(59,130,246,0.1);border-left:3px solid #3b82f6;padding:12px;border-radius:8px;margin-bottom:10px;">
+            <strong style="color:#3b82f6">2. React Basics</strong><br>
+            <span style="color:#9ca3af;font-size:13px">Components, hooks, state — wiki 2-3</span>
+        </div>
+        <div style="background:rgba(34,197,94,0.1);border-left:3px solid #22c55e;padding:12px;border-radius:8px;margin-bottom:10px;">
+            <strong style="color:#22c55e">3. React Native</strong><br>
+            <span style="color:#9ca3af;font-size:13px">Mobile components, navigation — wiki 4</span>
+        </div>
+        <div style="background:rgba(168,85,247,0.1);border-left:3px solid #a855f7;padding:12px;border-radius:8px;margin-bottom:10px;">
+            <strong style="color:#a855f7">4. Backend & APIs</strong><br>
+            <span style="color:#9ca3af;font-size:13px">Connect app na server — wiki 3</span>
+        </div>
+        <div style="background:rgba(245,158,11,0.1);border-left:3px solid #f59e0b;padding:12px;border-radius:8px;">
+            <strong style="color:#f59e0b">5. Deploy kwenye Store</strong><br>
+            <span style="color:#9ca3af;font-size:13px">Google Play & App Store — wiki 1</span>
+        </div>
+    </div>
+</div>
+
+</div>
+</body>
+</html>

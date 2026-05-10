@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Pomodoro Task Manager — Zakayo</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+--bg:#0f0f0f;
+--card:#1a1a1a;
+--border:#2a2a2a;
+--text:#e5e5e5;
+--sub:#6b7280;
+--red:#ef4444;
+--green:#22c55e;
+--blue:#3b82f6;
+--orange:#f97316;
+--purple:#a855f7;
+}
+body{background:var(--bg);color:var(--text);font-family:'Segoe UI',Arial,sans-serif;min-height:100vh;padding:20px;}
+h1{text-align:center;font-size:28px;font-weight:900;margin-bottom:4px;color:var(--red);}
+.sub{text-align:center;color:var(--sub);font-size:13px;margin-bottom:30px;}
+.layout{display:grid;grid-template-columns:1fr 320px;gap:20px;max-width:900px;margin:0 auto;}
+
+/* TIMER */
+.timer-card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:30px;text-align:center;}
+.mode-tabs{display:flex;gap:6px;justify-content:center;margin-bottom:25px;background:var(--bg);border-radius:12px;padding:5px;}
+.mode-btn{flex:1;padding:9px;border-radius:9px;border:none;background:transparent;color:var(--sub);cursor:pointer;font-size:13px;font-weight:600;transition:all 0.3s;}
+.mode-btn.on{background:var(--red);color:#fff;}
+.clock{font-size:80px;font-weight:900;letter-spacing:-4px;font-variant-numeric:tabular-nums;color:var(--text);margin:20px 0;line-height:1;}
+.clock.running{color:var(--green);animation:pulse 1s ease-in-out infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.8;}}
+.progress-ring{margin:0 auto 20px;position:relative;width:200px;height:200px;display:flex;align-items:center;justify-content:center;}
+.ring-svg{position:absolute;top:0;left:0;transform:rotate(-90deg);}
+.ring-bg{fill:none;stroke:var(--border);stroke-width:8;}
+.ring-fill{fill:none;stroke:var(--red);stroke-width:8;stroke-linecap:round;transition:stroke-dashoffset 1s linear;stroke-dasharray:565;stroke-dashoffset:565;}
+.ring-fill.running{stroke:var(--green);}
+.ring-fill.break{stroke:var(--blue);}
+.clock-inner{z-index:1;text-align:center;}
+.clock-time{font-size:48px;font-weight:900;letter-spacing:-2px;}
+.clock-time.running{color:var(--green);}
+.clock-label{font-size:12px;color:var(--sub);margin-top:2px;}
+.controls{display:flex;gap:10px;justify-content:center;margin-bottom:20px;}
+.cbtn{width:56px;height:56px;border-radius:50%;border:none;cursor:pointer;font-size:20px;transition:all 0.3s;display:flex;align-items:center;justify-content:center;}
+.cbtn:hover{transform:scale(1.08);}
+.cbtn-main{background:var(--red);color:#fff;width:70px;height:70px;font-size:24px;}
+.cbtn-main.running{background:var(--orange);}
+.cbtn-sec{background:var(--border);color:var(--text);}
+.session-info{display:flex;gap:15px;justify-content:center;font-size:13px;color:var(--sub);}
+.session-info span strong{color:var(--text);}
+.settings{background:var(--bg);border-radius:12px;padding:15px;margin-top:15px;}
+.settings h4{font-size:13px;color:var(--sub);margin-bottom:12px;text-transform:uppercase;letter-spacing:1px;}
+.setting-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+.setting-row label{font-size:13px;color:var(--sub);}
+.setting-row input[type=range]{width:100px;accent-color:var(--red);}
+.setting-val{font-size:13px;font-weight:bold;color:var(--text);min-width:35px;text-align:right;}
+
+/* TASKS */
+.tasks-card{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:22px;}
+.tasks-card h3{font-size:15px;font-weight:700;margin-bottom:15px;display:flex;align-items:center;justify-content:space-between;}
+.tasks-card h3 span{color:var(--sub);font-size:12px;font-weight:normal;}
+.add-task{display:flex;gap:8px;margin-bottom:15px;}
+.task-inp{flex:1;padding:10px 14px;border-radius:10px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:14px;}
+.task-inp:focus{outline:none;border-color:var(--red);}
+.btn-add{background:var(--red);color:#fff;border:none;border-radius:10px;padding:10px 14px;cursor:pointer;font-size:16px;transition:all 0.3s;}
+.btn-add:hover{background:#dc2626;}
+.priority-sel{display:flex;gap:5px;margin-bottom:12px;}
+.psel{flex:1;padding:7px;border-radius:8px;border:1px solid var(--border);background:transparent;color:var(--sub);cursor:pointer;font-size:11px;text-align:center;transition:all 0.3s;}
+.psel.on{background:var(--red);color:#fff;border-color:var(--red);}
+.task-list{max-height:380px;overflow-y:auto;}
+.task-list::-webkit-scrollbar{width:4px;}
+.task-list::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px;}
+.task{display:flex;align-items:center;gap:10px;padding:12px;border-radius:10px;border:1px solid var(--border);margin-bottom:8px;transition:all 0.3s;background:var(--bg);}
+.task:hover{border-color:var(--red);}
+.task.active-task{border-color:var(--green);background:rgba(34,197,94,0.05);}
+.task.done{opacity:0.4;}
+.task-check{width:20px;height:20px;border-radius:50%;border:2px solid var(--border);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.3s;font-size:11px;}
+.task-check.done{background:var(--green);border-color:var(--green);color:#fff;}
+.task-body{flex:1;min-width:0;}
+.task-text{font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.task.done .task-text{text-decoration:line-through;color:var(--sub);}
+.task-meta{display:flex;gap:6px;margin-top:4px;align-items:center;}
+.prio{font-size:10px;padding:1px 7px;border-radius:8px;}
+.prio-high{background:rgba(239,68,68,0.2);color:var(--red);}
+.prio-med{background:rgba(245,158,11,0.2);color:#f59e0b;}
+.prio-low{background:rgba(34,197,94,0.2);color:var(--green);}
+.pomo-dots{display:flex;gap:3px;}
+.pd{width:8px;height:8px;border-radius:50%;background:var(--border);}
+.pd.done{background:var(--red);}
+.task-actions{display:flex;gap:5px;flex-shrink:0;}
+.tact{background:none;border:none;cursor:pointer;font-size:14px;opacity:0.5;transition:opacity 0.3s;padding:3px;}
+.tact:hover{opacity:1;}
+.stats-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:15px;}
+.sstat{background:var(--bg);border-radius:10px;padding:12px;text-align:center;}
+.sstat .sn{font-size:22px;font-weight:900;}
+.sstat .sl{font-size:11px;color:var(--sub);margin-top:2px;}
+
+/* FOOTER */
+.footer{text-align:center;margin-top:20px;color:var(--sub);font-size:12px;}
+.footer a{color:var(--red);text-decoration:none;}
+
+/* NOTIFICATION */
+.notif{position:fixed;top:20px;right:20px;background:var(--card);border:1px solid var(--green);color:var(--text);padding:14px 20px;border-radius:12px;font-size:14px;z-index:9999;display:none;box-shadow:0 8px 25px rgba(0,0,0,0.5);}
+
+@media(max-width:700px){.layout{grid-template-columns:1fr;}.clock-time{font-size:36px;}}
+</style>
+</head>
+<body>
+
+<h1>🍅 Pomodoro Manager</h1>
+<div class="sub">Focus deeply. Rest wisely. Achieve more.</div>
+
+<div class="layout">
+
+<!-- TIMER SECTION -->
+<div class="timer-card">
+    <div class="mode-tabs">
+        <button class="mode-btn on" onclick="setMode('work',this)">🍅 Focus</button>
+        <button class="mode-btn" onclick="setMode('short',this)">☕ Short Break</button>
+        <button class="mode-btn" onclick="setMode('long',this)">🛌 Long Break</button>
+    </div>
+
+    <div class="progress-ring">
+        <svg class="ring-svg" width="200" height="200" viewBox="0 0 200 200">
+            <circle class="ring-bg" cx="100" cy="100" r="90"/>
+            <circle class="ring-fill" id="ring" cx="100" cy="100" r="90"/>
+        </svg>
+        <div class="clock-inner">
+            <div class="clock-time" id="display">25:00</div>
+            <div class="clock-label" id="mode-label">Focus Session</div>
+        </div>
+    </div>
+
+    <div class="controls">
+        <button class="cbtn cbtn-sec" onclick="skipSession()" title="Skip">⏭️</button>
+        <button class="cbtn cbtn-main" id="main-btn" onclick="toggleTimer()">▶️</button>
+        <button class="cbtn cbtn-sec" onclick="resetTimer()" title="Reset">🔄</button>
+    </div>
+
+    <div class="session-info">
+        <span>Session <strong id="session-num">1</strong></span>
+        <span>🍅 <strong id="pomo-count">0</strong> today</span>
+        <span>⏱️ <strong id="total-time">0m</strong></span>
+    </div>
+
+    <!-- SETTINGS -->
+    <div class="settings">
+        <h4>⚙️ Settings</h4>
+        <div class="setting-row">
+            <label>🍅 Focus</label>
+            <input type="range" id="s-work" min="1" max="60" value="25" oninput="updateSettings()">
+            <span class="setting-val" id="v-work">25m</span>
+        </div>
+        <div class="setting-row">
+            <label>☕ Short Break</label>
+            <input type="range" id="s-short" min="1" max="30" value="5" oninput="updateSettings()">
+            <span class="setting-val" id="v-short">5m</span>
+        </div>
+        <div class="setting-row">
+            <label>🛌 Long Break</label>
+            <input type="range" id="s-long" min="5" max="60" value="15" oninput="updateSettings()">
+            <span class="setting-val" id="v-long">15m</span>
+        </div>
+        <div class="setting-row">
+            <label>🔔 Sound</label>
+            <input type="checkbox" id="s-sound" checked style="width:18px;height:18px;accent-color:var(--red)">
+            <span class="setting-val">On</span>
+        </div>
+    </div>
+</div>
+
+<!-- TASKS SECTION -->
+<div class="tasks-card">
+    <h3>📋 Tasks <span id="task-count">0 remaining</span></h3>
+
+    <div class="priority-sel">
+        <button class="psel psel-high on" onclick="setPrio('high',this)">🔴 High</button>
+        <button class="psel psel-med" onclick="setPrio('med',this)">🟡 Medium</button>
+        <button class="psel psel-low" onclick="setPrio('low',this)">🟢 Low</button>
+    </div>
+
+    <div class="add-task">
+        <input type="text" class="task-inp" id="task-inp" placeholder="Add a task...">
+        <button class="btn-add" onclick="addTask()">+</button>
+    </div>
+
+    <div class="task-list" id="task-list"></div>
+
+    <div class="stats-row">
+        <div class="sstat"><div class="sn" id="st-total" style="color:var(--blue)">0</div><div class="sl">Total</div></div>
+        <div class="sstat"><div class="sn" id="st-done" style="color:var(--green)">0</div><div class="sl">Done</div></div>
+        <div class="sstat"><div class="sn" id="st-pomo" style="color:var(--red)">0</div><div class="sl">🍅 Used</div></div>
+    </div>
+</div>
+
+</div>
+
+<div class="footer">
+    <a href="index.html">← Back to Portfolio</a> |
+    Built with ❤️ by <a href="index.html">Zakayo</a>
+</div>
+
+<div class="notif" id="notif"></div>
+
+<script>
+// ===== STATE =====
+var settings = { work:25, short:5, long:15, sound:true };
+var state = { mode:"work", running:false, seconds:25*60, total:25*60, session:1, pomosToday:0, totalMinutes:0, prio:"high" };
+var tasks = JSON.parse(localStorage.getItem("pomo_tasks")||"[]");
+var interval = null;
+var activeTaskId = null;
+var audioCtx = null;
+
+var MODES = {
+    work: { label:"Focus Session", color:"var(--red)" },
+    short: { label:"Short Break ☕", color:"var(--blue)" },
+    long: { label:"Long Break 🛌", color:"var(--purple)" }
+};
+
+// ===== TIMER =====
+function setMode(mode, btn){
+    if(state.running) return;
+    state.mode = mode;
+    state.seconds = (mode==="work"?settings.work:mode==="short"?settings.short:settings.long)*60;
+    state.total = state.seconds;
+    document.querySelectorAll(".mode-btn").forEach(b=>b.classList.remove("on"));
+    btn.classList.add("on");
+    updateDisplay();
+    updateRing();
+    document.getElementById("mode-label").textContent = MODES[mode].label;
+    document.getElementById("ring").className = "ring-fill " + (mode==="work"?"":"break");
+}
+
+function toggleTimer(){
+    state.running = !state.running;
+    var btn = document.getElementById("main-btn");
+    btn.textContent = state.running ? "⏸️" : "▶️";
+    btn.className = "cbtn cbtn-main" + (state.running?" running":"");
+    document.getElementById("ring").className = "ring-fill" + (state.running?" running":"") + (state.mode!=="work"?" break":"");
+    if(state.running){
+        interval = setInterval(tick, 1000);
+    } else {
+        clearInterval(interval);
+    }
+}
+
+function tick(){
+    state.seconds--;
+    if(state.mode==="work") state.totalMinutes = (state.totalMinutes*60+1)/60;
+    updateDisplay();
+    updateRing();
+
+    if(state.seconds <= 0){
+        clearInterval(interval);
+        state.running = false;
+        sessionDone();
+    }
+}
+
+function sessionDone(){
+    playSound();
+    document.getElementById("main-btn").textContent="▶️";
+    document.getElementById("main-btn").className="cbtn cbtn-main";
+
+    if(state.mode==="work"){
+        state.pomosToday++;
+        state.session++;
+        document.getElementById("pomo-count").textContent=state.pomosToday;
+        document.getElementById("session-num").textContent=state.session;
+        document.getElementById("total-time").textContent=Math.round(state.pomosToday*settings.work)+"m";
+
+        // Update active task pomodoros
+        if(activeTaskId){
+            var t=tasks.find(x=>x.id===activeTaskId);
+            if(t){ t.pomos=(t.pomos||0)+1; saveTasks(); renderTasks(); }
+        }
+
+        showNotif("🍅 Focus session complete! Time for a break!");
+        // Auto switch
+        if(state.session%4===0){
+            state.mode="long"; document.querySelectorAll(".mode-btn")[2].click();
+        } else {
+            state.mode="short"; document.querySelectorAll(".mode-btn")[1].click();
+        }
+    } else {
+        showNotif("⏰ Break over! Time to focus!");
+        state.mode="work"; document.querySelectorAll(".mode-btn")[0].click();
+    }
+}
+
+function resetTimer(){
+    clearInterval(interval);
+    state.running=false;
+    state.seconds=(state.mode==="work"?settings.work:state.mode==="short"?settings.short:settings.long)*60;
+    state.total=state.seconds;
+    document.getElementById("main-btn").textContent="▶️";
+    document.getElementById("main-btn").className="cbtn cbtn-main";
+    document.getElementById("ring").className="ring-fill";
+    updateDisplay();
+    updateRing();
+}
+
+function skipSession(){
+    if(state.running) toggleTimer();
+    sessionDone();
+}
+
+function updateDisplay(){
+    var m=Math.floor(state.seconds/60);
+    var s=state.seconds%60;
+    document.getElementById("display").textContent=String(m).padStart(2,"0")+":"+String(s).padStart(2,"0");
+    document.title=(state.running?String(m).padStart(2,"0")+":"+String(s).padStart(2,"0")+" — ":"")+"🍅 Pomodoro";
+}
+
+function updateRing(){
+    var ring=document.getElementById("ring");
+    var pct=state.seconds/state.total;
+    var offset=565*(1-pct);
+    ring.style.strokeDashoffset=offset;
+}
+
+function updateSettings(){
+    settings.work=parseInt(document.getElementById("s-work").value);
+    settings.short=parseInt(document.getElementById("s-short").value);
+    settings.long=parseInt(document.getElementById("s-long").value);
+    settings.sound=document.getElementById("s-sound").checked;
+    document.getElementById("v-work").textContent=settings.work+"m";
+    document.getElementById("v-short").textContent=settings.short+"m";
+    document.getElementById("v-long").textContent=settings.long+"m";
+    if(!state.running) resetTimer();
+}
+
+function playSound(){
+    if(!settings.sound) return;
+    try {
+        if(!audioCtx) audioCtx=new(window.AudioContext||window.webkitAudioContext)();
+        var osc=audioCtx.createOscillator();
+        var gain=audioCtx.createGain();
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.frequency.value=880;
+        gain.gain.setValueAtTime(0.3,audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001,audioCtx.currentTime+0.8);
+        osc.start();
+        osc.stop(audioCtx.currentTime+0.8);
+    } catch(e){}
+}
+
+// ===== TASKS =====
+var curPrio="high";
+
+function setPrio(p,btn){
+    curPrio=p;
+    document.querySelectorAll(".psel").forEach(b=>b.classList.remove("on"));
+    btn.classList.add("on");
+}
+
+function addTask(){
+    var inp=document.getElementById("task-inp");
+    var txt=inp.value.trim();
+    if(!txt) return;
+    tasks.push({id:Date.now(),text:txt,done:false,prio:curPrio,pomos:0,created:new Date().toLocaleDateString()});
+    saveTasks();
+    inp.value="";
+    renderTasks();
+    showNotif("✅ Task added!");
+}
+
+function toggleDone(id){
+    var t=tasks.find(x=>x.id===id);
+    if(t){ t.done=!t.done; saveTasks(); renderTasks(); }
+}
+
+function deleteTask(id){
+    tasks=tasks.filter(x=>x.id!==id);
+    if(activeTaskId===id) activeTaskId=null;
+    saveTasks(); renderTasks();
+}
+
+function setActive(id){
+    activeTaskId = activeTaskId===id ? null : id;
+    renderTasks();
+    if(activeTaskId){
+        var t=tasks.find(x=>x.id===id);
+        showNotif("🎯 Focusing on: "+t.text);
+    }
+}
+
+function saveTasks(){ localStorage.setItem("pomo_tasks",JSON.stringify(tasks)); }
+
+function renderTasks(){
+    var sorted=[...tasks].sort((a,b)=>{
+        var po={high:0,med:1,low:2};
+        if(a.done!==b.done) return a.done?1:-1;
+        return po[a.prio]-po[b.prio];
+    });
+
+    var list=document.getElementById("task-list");
+    list.innerHTML=sorted.map(t=>`
+        <div class="task ${t.done?"done":""} ${activeTaskId===t.id?"active-task":""}">
+            <div class="task-check ${t.done?"done":""}" onclick="toggleDone(${t.id})">${t.done?"✓":""}</div>
+            <div class="task-body" onclick="setActive(${t.id})" style="cursor:pointer">
+                <div class="task-text">${t.text}</div>
+                <div class="task-meta">
+                    <span class="prio prio-${t.prio}">${t.prio==="high"?"🔴 High":t.prio==="med"?"🟡 Med":"🟢 Low"}</span>
+                    <div class="pomo-dots">${Array(Math.max(t.pomos||0,0)).fill('<div class="pd done"></div>').join("")}</div>
+                    ${t.pomos>0?<span style="font-size:10px;color:var(--sub)">🍅${t.pomos}</span>:""}
+                    ${activeTaskId===t.id?'<span style="font-size:10px;color:var(--green)">● Active</span>':""}
+                </div>
+            </div>
+            <div class="task-actions">
+                <button class="tact" onclick="deleteTask(${t.id})">🗑️</button>
+            </div>
+        </div>
+    `).join("");
+
+    var total=tasks.length;
+    var done=tasks.filter(t=>t.done).length;
+    var remaining=total-done;
+    var totalPomos=tasks.reduce((s,t)=>s+(t.pomos||0),0);
+    document.getElementById("task-count").textContent=remaining+" remaining";
+    document.getElementById("st-total").textContent=total;
+    document.getElementById("st-done").textContent=done;
+    document.getElementById("st-pomo").textContent=totalPomos;
+}
+
+function showNotif(msg){
+    var el=document.getElementById("notif");
+    el.textContent=msg; el.style.display="block";
+    setTimeout(()=>el.style.display="none",3500);
+}
+
+// ===== KEYBOARD =====
+document.addEventListener("keydown",e=>{
+    if(e.target.tagName==="INPUT") return;
+    if(e.code==="Space"){ e.preventDefault(); toggleTimer(); }
+    if(e.code==="KeyR") resetTimer();
+});
+
+document.getElementById("task-inp").addEventListener("keypress",e=>{
+    if(e.key==="Enter") addTask();
+});
+
+// ===== INIT =====
+updateDisplay();
+renderTasks();
+</script>
+</body>
+</html>
