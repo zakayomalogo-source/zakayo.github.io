@@ -1,233 +1,203 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Zakayo High School — Student Portal</title>
+<title>Zakayo High School</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
-:root{
---primary:#1565c0;
---primary-dark:#0d47a1;
---primary-light:#1976d2;
---accent:#00bcd4;
---sidebar:#0d47a1;
---sidebar-hover:#1565c0;
---bg:#f0f4f8;
---white:#ffffff;
---text:#1a237e;
---sub:#546e7a;
---border:#e0e0e0;
---green:#2e7d32;
---red:#c62828;
---orange:#e65100;
-}
-body{background:var(--bg);color:#333;font-family:'Segoe UI',Arial,sans-serif;min-height:100vh;}
+body{font-family:Arial,sans-serif;background:#f0f4f8;}
 
-/* ===LOGIN=== */
-.login-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--primary-dark),var(--primary),var(--accent));padding:20px;}
-.login-card{background:#fff;border-radius:16px;padding:40px;width:100%;max-width:420px;box-shadow:0 20px 60px rgba(0,0,0,0.2);}
-.login-logo{text-align:center;margin-bottom:28px;}
-.login-logo .logo-circle{width:80px;height:80px;background:linear-gradient(135deg,var(--primary),var(--accent));border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 14px;}
-.login-logo h1{color:var(--primary-dark);font-size:20px;font-weight:900;}
-.login-logo p{color:var(--sub);font-size:12px;margin-top:4px;}
-.role-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:22px;}
-.rtab{padding:9px 6px;border-radius:8px;border:1.5px solid var(--border);background:#fff;color:var(--sub);cursor:pointer;font-size:12px;font-weight:600;text-align:center;transition:all 0.3s;}
-.rtab.on{background:var(--primary);color:#fff;border-color:var(--primary);}
-.form-group{margin-bottom:14px;}
-.form-group label{display:block;font-size:12px;font-weight:600;color:var(--sub);margin-bottom:5px;text-transform:uppercase;letter-spacing:0.5px;}
-.form-group input{width:100%;padding:12px 14px;border:1.5px solid var(--border);border-radius:8px;font-size:14px;color:#333;transition:border-color 0.3s;background:#fafafa;}
-.form-group input:focus{outline:none;border-color:var(--primary);background:#fff;}
-.btn-login{width:100%;padding:13px;background:linear-gradient(135deg,var(--primary),var(--primary-light));color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer;transition:all 0.3s;letter-spacing:0.5px;}
-.btn-login:hover{transform:translateY(-1px);box-shadow:0 8px 20px rgba(21,101,192,0.4);}
-.err{background:#ffebee;border:1px solid #ef9a9a;color:var(--red);padding:10px 14px;border-radius:8px;font-size:13px;margin-bottom:12px;display:none;}
-.demo-box{margin-top:18px;background:#e3f2fd;border-radius:10px;padding:12px;font-size:12px;color:#1565c0;}
-.demo-box strong{display:block;margin-bottom:6px;font-size:13px;}
+/* LOGIN */
+#login-page{min-height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#0d47a1,#1565c0,#00bcd4);}
+.lcard{background:#fff;border-radius:16px;padding:40px;width:100%;max-width:420px;box-shadow:0 20px 60px rgba(0,0,0,0.2);}
+.lhead{text-align:center;margin-bottom:25px;}
+.lhead .lic{width:75px;height:75px;background:linear-gradient(135deg,#1565c0,#00bcd4);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:30px;margin:0 auto 12px;}
+.lhead h1{color:#0d47a1;font-size:20px;font-weight:900;}
+.lhead p{color:#78909c;font-size:12px;margin-top:4px;}
+.rtabs{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:20px;}
+.rtab{padding:10px 6px;border-radius:8px;border:1.5px solid #e0e0e0;background:#fff;color:#78909c;cursor:pointer;font-size:12px;font-weight:700;text-align:center;transition:all 0.3s;}
+.rtab.on{background:#1565c0;color:#fff;border-color:#1565c0;}
+.flabel{display:block;font-size:11px;font-weight:700;color:#78909c;margin-bottom:5px;text-transform:uppercase;letter-spacing:0.5px;}
+.finput{width:100%;padding:12px 14px;border:1.5px solid #e0e0e0;border-radius:8px;font-size:14px;color:#333;margin-bottom:14px;transition:border-color 0.3s;background:#fafafa;}
+.finput:focus{outline:none;border-color:#1565c0;background:#fff;}
+.lbtn{width:100%;padding:13px;background:linear-gradient(135deg,#1565c0,#1976d2);color:#fff;border:none;border-radius:8px;font-size:15px;font-weight:700;cursor:pointer;transition:all 0.3s;}
+.lbtn:hover{transform:translateY(-1px);box-shadow:0 8px 20px rgba(21,101,192,0.4);}
+.lerr{background:#ffebee;border:1px solid #ef9a9a;color:#c62828;padding:10px 14px;border-radius:8px;font-size:13px;margin-bottom:12px;display:none;}
+.ldemo{margin-top:16px;background:#e3f2fd;border-radius:10px;padding:12px;font-size:12px;color:#1565c0;}
+.ldemo strong{display:block;margin-bottom:6px;}
 
-/* ===PORTAL=== */
-.portal{display:none;min-height:100vh;background:var(--bg);}
+/* PORTAL */
+#portal-page{display:none;min-height:100vh;background:#f0f4f8;}
 
 /* TOPBAR */
-.topbar{background:linear-gradient(135deg,var(--primary-dark),var(--primary));color:#fff;padding:0 20px;height:58px;display:flex;align-items:center;justify-content:space-between;position:fixed;top:0;width:100%;z-index:1000;box-shadow:0 2px 10px rgba(0,0,0,0.2);}
-.topbar-left{display:flex;align-items:center;gap:14px;}
-.hamburger{background:rgba(255,255,255,0.15);border:none;color:#fff;width:36px;height:36px;border-radius:8px;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;transition:background 0.3s;}
-.hamburger:hover{background:rgba(255,255,255,0.25);}
-.portal-brand{font-size:16px;font-weight:800;letter-spacing:0.5px;}
-.portal-brand span{color:var(--accent);}
-.topbar-right{display:flex;align-items:center;gap:10px;}
-.top-user{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,0.12);padding:6px 14px;border-radius:20px;font-size:13px;}
-.top-avatar{width:30px;height:30px;background:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:bold;color:var(--primary-dark);}
-.btn-logout{background:rgba(255,255,255,0.15);border:none;color:#fff;padding:6px 14px;border-radius:20px;font-size:12px;cursor:pointer;transition:all 0.3s;}
-.btn-logout:hover{background:rgba(255,255,255,0.25);}
+.topbar{background:linear-gradient(135deg,#0d47a1,#1565c0);color:#fff;height:58px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;position:fixed;top:0;width:100%;z-index:1000;box-shadow:0 2px 10px rgba(0,0,0,0.2);}
+.tl{display:flex;align-items:center;gap:12px;}
+.hambtn{background:rgba(255,255,255,0.15);border:none;color:#fff;width:36px;height:36px;border-radius:8px;cursor:pointer;font-size:20px;display:flex;align-items:center;justify-content:center;}
+.hambtn:hover{background:rgba(255,255,255,0.25);}
+.tbrand{font-size:16px;font-weight:900;letter-spacing:0.5px;}
+.tbrand span{color:#00bcd4;}
+.tr{display:flex;align-items:center;gap:8px;}
+.tuser{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,0.12);padding:6px 14px;border-radius:20px;font-size:13px;}
+.tavatar{width:30px;height:30px;background:#00bcd4;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:bold;color:#0d47a1;}
+.tbtn{background:rgba(255,255,255,0.15);border:none;color:#fff;padding:6px 14px;border-radius:20px;font-size:12px;cursor:pointer;}
+.tbtn:hover{background:rgba(255,255,255,0.25);}
 
 /* LAYOUT */
-.portal-layout{display:flex;margin-top:58px;min-height:calc(100vh - 58px);}
+.layout{display:flex;margin-top:58px;min-height:calc(100vh - 58px);}
 
 /* SIDEBAR */
-.sidebar{width:260px;background:var(--sidebar);min-height:calc(100vh - 58px);position:fixed;top:58px;left:0;overflow-y:auto;transition:transform 0.3s;z-index:999;}
-.sidebar.closed{transform:translateX(-260px);}
-.sidebar::-webkit-scrollbar{width:4px;}
-.sidebar::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.2);border-radius:2px;}
-.side-section{padding:12px 0 4px;}
-.side-label{padding:8px 18px 4px;font-size:10px;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:1.5px;font-weight:700;}
-.side-item{display:flex;align-items:center;gap:10px;padding:10px 18px;color:rgba(255,255,255,0.8);cursor:pointer;font-size:13px;transition:all 0.2s;border-left:3px solid transparent;position:relative;}
-.side-item:hover{background:rgba(255,255,255,0.1);color:#fff;}
-.side-item.on{background:rgba(255,255,255,0.15);color:#fff;border-left-color:var(--accent);}
-.side-item .sicon{font-size:16px;width:22px;text-align:center;}
-.side-item .sarrow{margin-left:auto;font-size:10px;transition:transform 0.3s;}
-.side-item.open .sarrow{transform:rotate(180deg);}
-.sub-menu{background:rgba(0,0,0,0.15);overflow:hidden;max-height:0;transition:max-height 0.3s ease;}
-.sub-menu.open{max-height:300px;}
-.sub-item{display:flex;align-items:center;gap:8px;padding:9px 18px 9px 48px;color:rgba(255,255,255,0.7);cursor:pointer;font-size:12px;transition:all 0.2s;border-left:3px solid transparent;}
-.sub-item:hover{background:rgba(255,255,255,0.08);color:#fff;}
-.sub-item.on{color:#fff;border-left-color:var(--accent);background:rgba(255,255,255,0.1);}
-.sub-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,0.4);flex-shrink:0;}
-.sub-item.on .sub-dot{background:var(--accent);}
-.side-divider{height:1px;background:rgba(255,255,255,0.1);margin:8px 18px;}
+#sidebar{width:255px;background:#0d47a1;min-height:calc(100vh - 58px);position:fixed;top:58px;left:0;overflow-y:auto;transition:transform 0.3s;z-index:999;}
+#sidebar.hide{transform:translateX(-255px);}
+.slabel{padding:10px 16px 4px;font-size:10px;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:1.5px;font-weight:700;}
+.sitem{display:flex;align-items:center;gap:9px;padding:11px 16px;color:rgba(255,255,255,0.8);cursor:pointer;font-size:13px;transition:all 0.2s;border-left:3px solid transparent;}
+.sitem:hover{background:rgba(255,255,255,0.1);color:#fff;}
+.sitem.on{background:rgba(255,255,255,0.15);color:#fff;border-left-color:#00bcd4;}
+.sicon{font-size:15px;width:20px;text-align:center;}
+.sarr{margin-left:auto;font-size:10px;transition:transform 0.3s;}
+.sarr.r{transform:rotate(180deg);}
+.submenu{max-height:0;overflow:hidden;transition:max-height 0.35s ease;background:rgba(0,0,0,0.15);}
+.submenu.open{max-height:500px;}
+.subitem{display:flex;align-items:center;gap:8px;padding:9px 16px 9px 44px;color:rgba(255,255,255,0.65);cursor:pointer;font-size:12px;transition:all 0.2s;border-left:3px solid transparent;}
+.subitem:hover{color:#fff;background:rgba(255,255,255,0.08);}
+.subitem.on{color:#fff;border-left-color:#00bcd4;background:rgba(255,255,255,0.1);}
+.sdot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,0.35);flex-shrink:0;}
+.subitem.on .sdot{background:#00bcd4;}
+.sdiv{height:1px;background:rgba(255,255,255,0.1);margin:6px 14px;}
 
-/* MAIN CONTENT */
-.main{margin-left:260px;padding:24px;transition:margin-left 0.3s;flex:1;}
-.main.full{margin-left:0;}
+/* MAIN */
+#main{margin-left:255px;padding:24px;flex:1;transition:margin-left 0.3s;}
+#main.wide{margin-left:0;}
 .pg{display:none;}
 .pg.on{display:block;}
 
 /* BREADCRUMB */
-.breadcrumb{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--sub);margin-bottom:20px;}
-.breadcrumb span{color:var(--sub);}
-.breadcrumb strong{color:var(--primary);}
+.bc{display:flex;align-items:center;gap:7px;font-size:12px;color:#78909c;margin-bottom:18px;}
+.bc strong{color:#0d47a1;}
 
 /* PAGE HEADER */
-.page-header{background:#fff;border-radius:12px;padding:20px 24px;margin-bottom:20px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 2px 8px rgba(0,0,0,0.06);}
-.ph-left h2{font-size:22px;font-weight:800;color:var(--primary-dark);}
-.ph-left p{color:var(--sub);font-size:13px;margin-top:3px;}
-.ph-icon{width:50px;height:50px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:24px;}
+.ph{background:#fff;border-radius:12px;padding:18px 22px;margin-bottom:18px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 2px 8px rgba(0,0,0,0.06);}
+.ph h2{font-size:21px;font-weight:900;color:#0d47a1;}
+.ph p{color:#78909c;font-size:13px;margin-top:3px;}
+.phi{width:46px;height:46px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px;}
 
-/* STATS CARDS */
-.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-bottom:20px;}
-.stat-card{background:#fff;border-radius:12px;padding:20px;box-shadow:0 2px 8px rgba(0,0,0,0.06);border-top:4px solid;}
-.stat-card.blue{border-color:var(--primary);}
-.stat-card.green{border-color:var(--green);}
-.stat-card.orange{border-color:var(--orange);}
-.stat-card.cyan{border-color:var(--accent);}
-.stat-card .sn{font-size:32px;font-weight:900;color:var(--primary-dark);}
-.stat-card .sl{font-size:12px;color:var(--sub);margin-top:4px;}
-.stat-card .si{font-size:28px;float:right;margin-top:-5px;}
+/* STATS */
+.sgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px;margin-bottom:18px;}
+.scard{background:#fff;border-radius:12px;padding:18px;box-shadow:0 2px 8px rgba(0,0,0,0.06);border-top:4px solid #1565c0;}
+.scard.g{border-color:#2e7d32;}.scard.o{border-color:#e65100;}.scard.c{border-color:#00bcd4;}
+.scard .sn{font-size:30px;font-weight:900;color:#0d47a1;}
+.scard .sl{font-size:12px;color:#78909c;margin-top:3px;}
+.scard .si{font-size:26px;float:right;margin-top:-3px;}
 
-/* CARDS */
-.card{background:#fff;border-radius:12px;padding:22px;margin-bottom:18px;box-shadow:0 2px 8px rgba(0,0,0,0.06);}
-.card-title{font-size:15px;font-weight:700;color:var(--primary-dark);margin-bottom:16px;display:flex;align-items:center;gap:8px;padding-bottom:12px;border-bottom:1px solid var(--border);}
-.card-title .cticon{width:32px;height:32px;border-radius:8px;background:var(--primary);color:#fff;display:flex;align-items:center;justify-content:center;font-size:15px;}
+/* CARD */
+.card{background:#fff;border-radius:12px;padding:20px;margin-bottom:16px;box-shadow:0 2px 8px rgba(0,0,0,0.06);}
+.ctitle{font-size:14px;font-weight:700;color:#0d47a1;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid #f0f0f0;display:flex;align-items:center;gap:8px;}
 
 /* TABLE */
-.table-wrap{overflow-x:auto;}
+.twrap{overflow-x:auto;}
 table{width:100%;border-collapse:collapse;font-size:13px;}
 thead{background:#f5f7fa;}
-th{padding:11px 14px;text-align:left;font-size:11px;font-weight:700;color:var(--sub);text-transform:uppercase;letter-spacing:0.5px;border-bottom:1px solid var(--border);}
-td{padding:12px 14px;border-bottom:1px solid #f0f0f0;color:#444;vertical-align:middle;}
+th{padding:10px 12px;text-align:left;font-size:11px;font-weight:700;color:#78909c;text-transform:uppercase;letter-spacing:0.5px;border-bottom:1px solid #e0e0e0;}
+td{padding:11px 12px;border-bottom:1px solid #f5f5f5;color:#444;vertical-align:middle;}
 tr:hover td{background:#f8f9ff;}
-tr:last-child td{border-bottom:none;}
-.badge{padding:4px 10px;border-radius:20px;font-size:11px;font-weight:600;}
-.b-green{background:#e8f5e9;color:var(--green);}
-.b-blue{background:#e3f2fd;color:var(--primary);}
-.b-orange{background:#fff3e0;color:var(--orange);}
-.b-red{background:#ffebee;color:var(--red);}
-.b-cyan{background:#e0f7fa;color:#00838f;}
-.b-gray{background:#f5f5f5;color:#616161;}
+.badge{padding:3px 9px;border-radius:15px;font-size:11px;font-weight:700;}
+.bbl{background:#e3f2fd;color:#1565c0;}
+.bgr{background:#e8f5e9;color:#2e7d32;}
+.bor{background:#fff3e0;color:#e65100;}
+.bre{background:#ffebee;color:#c62828;}
+.bcy{background:#e0f7fa;color:#00838f;}
+.bgr2{background:#f5f5f5;color:#616161;}
 
-/* FORMS */
-.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;}
-.fg{margin-bottom:14px;}
-.fg label{display:block;font-size:11px;font-weight:700;color:var(--sub);margin-bottom:5px;text-transform:uppercase;letter-spacing:0.5px;}
-.fg input,.fg select,.fg textarea{width:100%;padding:10px 13px;border:1.5px solid var(--border);border-radius:8px;font-size:13px;color:#333;background:#fafafa;transition:border-color 0.3s;}
-.fg input:focus,.fg select:focus,.fg textarea:focus{outline:none;border-color:var(--primary);background:#fff;}
-.fg textarea{resize:vertical;min-height:80px;}
-.btn-submit{background:var(--primary);color:#fff;padding:11px 24px;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;transition:all 0.3s;}
-.btn-submit:hover{background:var(--primary-dark);transform:translateY(-1px);}
-.btn-danger{background:#ffebee;color:var(--red);border:1.5px solid #ef9a9a;padding:6px 12px;border-radius:7px;font-size:12px;cursor:pointer;transition:all 0.3s;}
-.btn-danger:hover{background:var(--red);color:#fff;}
-.btn-sec{background:#f5f5f5;color:#555;border:1.5px solid var(--border);padding:6px 12px;border-radius:7px;font-size:12px;cursor:pointer;transition:all 0.3s;}
-.btn-sec:hover{background:#e0e0e0;}
-.btn-info{background:#e3f2fd;color:var(--primary);border:1.5px solid #90caf9;padding:6px 12px;border-radius:7px;font-size:12px;cursor:pointer;}
+/* FORM */
+.fgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;}
+.fg{margin-bottom:12px;}
+.fg label{display:block;font-size:11px;font-weight:700;color:#78909c;margin-bottom:4px;text-transform:uppercase;letter-spacing:0.5px;}
+.fg input,.fg select,.fg textarea{width:100%;padding:10px 12px;border:1.5px solid #e0e0e0;border-radius:8px;font-size:13px;color:#333;background:#fafafa;}
+.fg input:focus,.fg select:focus,.fg textarea:focus{outline:none;border-color:#1565c0;background:#fff;}
+.fg textarea{resize:vertical;min-height:75px;}
+.sbtn{background:#1565c0;color:#fff;padding:10px 22px;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;transition:all 0.3s;}
+.sbtn:hover{background:#0d47a1;}
+.dbtn{background:#ffebee;color:#c62828;border:1.5px solid #ef9a9a;padding:5px 11px;border-radius:7px;font-size:11px;cursor:pointer;transition:all 0.3s;}
+.dbtn:hover{background:#c62828;color:#fff;}
+.ebtn{background:#e3f2fd;color:#1565c0;border:1.5px solid #90caf9;padding:5px 11px;border-radius:7px;font-size:11px;cursor:pointer;}
 
 /* SEM TABS */
-.sem-tabs{display:flex;gap:6px;margin-bottom:18px;background:#f0f4f8;padding:5px;border-radius:10px;width:fit-content;}
-.stab{padding:8px 18px;border-radius:8px;border:none;background:transparent;color:var(--sub);cursor:pointer;font-size:13px;font-weight:600;transition:all 0.3s;}
-.stab.on{background:#fff;color:var(--primary);box-shadow:0 2px 8px rgba(0,0,0,0.1);}
+.stabs{display:flex;gap:5px;margin-bottom:16px;background:#f0f4f8;padding:4px;border-radius:9px;width:fit-content;}
+.stab{padding:8px 16px;border-radius:7px;border:none;background:transparent;color:#78909c;cursor:pointer;font-size:13px;font-weight:600;transition:all 0.3s;}
+.stab.on{background:#fff;color:#1565c0;box-shadow:0 2px 6px rgba(0,0,0,0.1);}
 
 /* COURSE CARDS */
-.course-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px;}
-.ccard{background:#fff;border-radius:12px;padding:18px;border:1.5px solid var(--border);transition:all 0.3s;box-shadow:0 2px 6px rgba(0,0,0,0.04);}
-.ccard:hover{transform:translateY(-3px);box-shadow:0 8px 20px rgba(21,101,192,0.12);border-color:var(--primary);}
-.ccard-top{display:flex;align-items:start;justify-content:space-between;margin-bottom:10px;}
-.ccard-icon{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;}
-.ccard h4{font-size:14px;font-weight:700;color:var(--primary-dark);margin-bottom:5px;}
-.ccard p{font-size:12px;color:var(--sub);line-height:1.6;}
-.ccard-meta{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px;}
-.ccard-btn{width:100%;margin-top:12px;padding:9px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;transition:all 0.3s;border:1.5px solid var(--primary);color:var(--primary);background:transparent;}
-.ccard-btn:hover,.ccard-btn.reg{background:var(--primary);color:#fff;}
-.ccard-btn.enrolled{border-color:var(--red);color:var(--red);}
-.ccard-btn.enrolled:hover{background:var(--red);color:#fff;}
+.cgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;}
+.ccard{background:#fff;border-radius:12px;padding:18px;border:1.5px solid #e0e0e0;transition:all 0.3s;box-shadow:0 2px 6px rgba(0,0,0,0.04);}
+.ccard:hover{transform:translateY(-3px);box-shadow:0 8px 20px rgba(21,101,192,0.12);border-color:#1565c0;}
+.ccard h4{font-size:14px;font-weight:700;color:#0d47a1;margin:10px 0 6px;}
+.ccard p{font-size:12px;color:#78909c;line-height:1.6;}
+.cmeta{display:flex;gap:5px;flex-wrap:wrap;margin-top:10px;}
+.ccbtn{width:100%;margin-top:12px;padding:9px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;transition:all 0.3s;border:1.5px solid #1565c0;color:#1565c0;background:transparent;}
+.ccbtn:hover,.ccbtn.reg{background:#1565c0;color:#fff;}
+.ccbtn.drop{border-color:#c62828;color:#c62828;}
+.ccbtn.drop:hover{background:#c62828;color:#fff;}
 
 /* GRADE BAR */
-.grade-bar-wrap{margin-bottom:14px;}
-.grade-bar-info{display:flex;justify-content:space-between;font-size:13px;margin-bottom:5px;}
-.grade-bar{background:#e0e0e0;border-radius:6px;height:10px;overflow:hidden;}
-.grade-fill{height:10px;border-radius:6px;transition:width 1s ease;}
-
-/* TRANSCRIPT */
-.trans-wrap{background:#fff;border-radius:12px;padding:30px;box-shadow:0 2px 8px rgba(0,0,0,0.06);}
-.trans-head{display:flex;justify-content:space-between;align-items:start;margin-bottom:24px;padding-bottom:16px;border-bottom:2px solid var(--primary);}
-.trans-school h2{color:var(--primary-dark);font-size:18px;font-weight:900;}
-.trans-school p{color:var(--sub);font-size:12px;margin-top:3px;}
-.trans-info{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:20px;background:#f8f9ff;padding:16px;border-radius:10px;}
-.trans-info-item{font-size:13px;}
-.trans-info-item strong{color:var(--sub);font-size:11px;display:block;text-transform:uppercase;margin-bottom:2px;}
-.trans-info-item span{color:#333;font-weight:600;}
-.btn-print{background:var(--primary);color:#fff;border:none;padding:10px 20px;border-radius:8px;cursor:pointer;font-size:13px;font-weight:600;}
-@media print{.topbar,.sidebar,.breadcrumb,.btn-print{display:none!important;}.main{margin:0!important;padding:0!important;}}
+.gbar-wrap{margin-bottom:12px;}
+.gbar-info{display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px;}
+.gbar{background:#e0e0e0;border-radius:5px;height:9px;overflow:hidden;}
+.gfill{height:9px;border-radius:5px;transition:width 1s ease;}
 
 /* QUIZ */
-.quiz-select-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;}
-.qcard{background:#fff;border-radius:12px;padding:20px;border:1.5px solid var(--border);cursor:pointer;transition:all 0.3s;text-align:center;box-shadow:0 2px 6px rgba(0,0,0,0.04);}
-.qcard:hover{transform:translateY(-3px);border-color:var(--primary);box-shadow:0 8px 20px rgba(21,101,192,0.12);}
-.qcard-icon{font-size:36px;margin-bottom:12px;}
-.qcard h4{color:var(--primary-dark);font-weight:700;margin-bottom:6px;}
-.qcard p{color:var(--sub);font-size:12px;}
-.qcard .best{margin-top:10px;font-size:11px;color:var(--green);font-weight:600;}
-.quiz-area{max-width:600px;margin:0 auto;background:#fff;border-radius:14px;padding:28px;box-shadow:0 2px 10px rgba(0,0,0,0.08);}
-.qprog-bar{background:#e0e0e0;border-radius:6px;height:6px;margin-bottom:18px;}
-.qprog-fill{height:6px;border-radius:6px;background:var(--primary);transition:width 0.5s;}
-.qmeta{display:flex;justify-content:space-between;font-size:13px;color:var(--sub);margin-bottom:16px;}
-.q-text{font-size:17px;font-weight:700;color:#1a237e;margin-bottom:20px;line-height:1.6;}
-.q-opts{display:grid;gap:10px;}
-.q-opt{padding:13px 16px;border-radius:10px;border:1.5px solid var(--border);background:#fafafa;color:#333;cursor:pointer;font-size:14px;text-align:left;transition:all 0.3s;}
-.q-opt:hover{border-color:var(--primary);background:#e3f2fd;}
-.q-opt.ok{background:#e8f5e9;border-color:var(--green);color:var(--green);}
-.q-opt.no{background:#ffebee;border-color:var(--red);color:var(--red);}
-.q-result{text-align:center;padding:30px 20px;}
-.q-score{font-size:60px;font-weight:900;color:var(--primary);}
+.qgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;}
+.qcard{background:#fff;border-radius:12px;padding:20px;border:1.5px solid #e0e0e0;cursor:pointer;transition:all 0.3s;text-align:center;box-shadow:0 2px 6px rgba(0,0,0,0.04);}
+.qcard:hover{transform:translateY(-3px);border-color:#1565c0;box-shadow:0 8px 20px rgba(21,101,192,0.12);}
+.qcard .qi{font-size:34px;margin-bottom:10px;}
+.qcard h4{color:#0d47a1;font-weight:700;margin-bottom:5px;font-size:14px;}
+.qcard p{color:#78909c;font-size:12px;}
+.qcard .qbest{margin-top:8px;font-size:11px;color:#2e7d32;font-weight:600;}
+.qarea{max-width:580px;margin:0 auto;background:#fff;border-radius:14px;padding:26px;box-shadow:0 2px 10px rgba(0,0,0,0.08);}
+.qpbar{background:#e0e0e0;border-radius:5px;height:6px;margin-bottom:16px;}
+.qpfill{height:6px;border-radius:5px;background:#1565c0;transition:width 0.5s;}
+.qmeta{display:flex;justify-content:space-between;font-size:13px;color:#78909c;margin-bottom:14px;}
+.qtext{font-size:16px;font-weight:700;color:#0d47a1;margin-bottom:18px;line-height:1.6;}
+.qopts{display:grid;gap:9px;}
+.qopt{padding:12px 15px;border-radius:9px;border:1.5px solid #e0e0e0;background:#fafafa;color:#333;cursor:pointer;font-size:13px;text-align:left;transition:all 0.3s;}
+.qopt:hover{border-color:#1565c0;background:#e3f2fd;}
+.qopt.ok{background:#e8f5e9;border-color:#2e7d32;color:#2e7d32;}
+.qopt.no{background:#ffebee;border-color:#c62828;color:#c62828;}
+.qresult{text-align:center;padding:28px 18px;}
+.qscore{font-size:56px;font-weight:900;color:#1565c0;}
+
+/* TRANSCRIPT */
+.trbox{background:#fff;border-radius:12px;padding:28px;box-shadow:0 2px 8px rgba(0,0,0,0.06);}
+.trhead{display:flex;justify-content:space-between;align-items:start;margin-bottom:22px;padding-bottom:14px;border-bottom:2px solid #1565c0;}
+.trschool h2{color:#0d47a1;font-size:17px;font-weight:900;}
+.trschool p{color:#78909c;font-size:12px;margin-top:3px;}
+.trinfo{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:18px;background:#f8f9ff;padding:14px;border-radius:9px;}
+.trii{font-size:13px;}
+.trii strong{color:#78909c;font-size:11px;display:block;text-transform:uppercase;margin-bottom:2px;}
+.trii span{color:#333;font-weight:600;}
+.pbtn{background:#1565c0;color:#fff;border:none;padding:9px 18px;border-radius:8px;cursor:pointer;font-size:13px;font-weight:600;}
+@media print{.topbar,#sidebar,.sbtn,.hambtn,.pbtn{display:none!important;}#main{margin:0!important;padding:0!important;}}
 
 /* ANNOUNCE */
-.announce-item{display:flex;gap:14px;padding:16px;border-radius:10px;background:#fafafa;border:1px solid var(--border);margin-bottom:12px;}
-.announce-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;margin-top:4px;}
-.announce-body h4{font-size:14px;font-weight:700;color:#333;margin-bottom:4px;}
-.announce-body p{font-size:13px;color:var(--sub);line-height:1.6;}
-.announce-date{font-size:11px;color:#bbb;margin-top:4px;}
+.aitem{display:flex;gap:12px;padding:14px;border-radius:9px;background:#fafafa;border:1px solid #f0f0f0;margin-bottom:10px;}
+.adot{width:10px;height:10px;border-radius:50%;flex-shrink:0;margin-top:4px;}
+.abody h4{font-size:14px;font-weight:700;color:#333;margin-bottom:3px;}
+.abody p{font-size:13px;color:#78909c;line-height:1.6;}
+.adate{font-size:11px;color:#bbb;margin-top:3px;}
 
-/* NOTIF TOAST */
-.toast{position:fixed;bottom:24px;right:24px;background:#333;color:#fff;padding:13px 20px;border-radius:10px;font-size:13px;z-index:9999;display:none;box-shadow:0 8px 24px rgba(0,0,0,0.2);max-width:300px;}
-.toast.show{display:flex;align-items:center;gap:10px;animation:toastIn 0.3s ease;}
-@keyframes toastIn{from{transform:translateY(20px);opacity:0;}to{transform:translateY(0);opacity:1;}}
+/* TIMETABLE */
+.timetable{background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.06);}
 
-/* ALERT */
-.alert{padding:13px 16px;border-radius:9px;margin-bottom:14px;font-size:13px;display:flex;align-items:center;gap:10px;}
-.alert-info{background:#e3f2fd;border:1px solid #90caf9;color:var(--primary);}
-.alert-warn{background:#fff3e0;border:1px solid #ffcc80;color:var(--orange);}
+/* TOAST */
+.toast{position:fixed;bottom:22px;right:22px;background:#333;color:#fff;padding:12px 18px;border-radius:9px;font-size:13px;z-index:9999;display:none;box-shadow:0 8px 24px rgba(0,0,0,0.2);min-width:200px;}
+.toast.show{display:block;animation:tin 0.3s ease;}
+@keyframes tin{from{transform:translateY(15px);opacity:0;}to{transform:translateY(0);opacity:1;}}
+
+.alert-info{background:#e3f2fd;border:1px solid #90caf9;color:#1565c0;padding:12px 14px;border-radius:8px;font-size:13px;margin-bottom:14px;}
 
 @media(max-width:768px){
-.main{margin-left:0;padding:15px;}
-.form-grid{grid-template-columns:1fr;}
-.sidebar{transform:translateX(-260px);}
-.sidebar.open{transform:translateX(0);}
+#main{margin-left:0;padding:14px;}
+.fgrid{grid-template-columns:1fr;}
+#sidebar{transform:translateX(-255px);}
+#sidebar.show{transform:translateX(0);}
 }
 </style>
 </head>
@@ -235,944 +205,1098 @@ tr:last-child td{border-bottom:none;}
 
 <div class="toast" id="toast"></div>
 
-<!-- LOGIN -->
-<div class="login-wrap" id="login-wrap">
-<div class="login-card">
-    <div class="login-logo">
-        <div class="logo-circle">🎓</div>
+<!-- ===== LOGIN ===== -->
+<div id="login-page">
+<div class="lcard">
+    <div class="lhead">
+        <div class="lic">🎓</div>
         <h1>ZAKAYO HIGH SCHOOL</h1>
         <p>Student Information System — Academic Year 2026</p>
     </div>
 
-    <div class="role-tabs">
+    <div class="rtabs">
         <button class="rtab on" onclick="setRole('admin',this)">👨‍💼 Admin</button>
         <button class="rtab" onclick="setRole('teacher',this)">👨‍🏫 Teacher</button>
         <button class="rtab" onclick="setRole('student',this)">🎓 Student</button>
     </div>
 
-    <div class="err" id="lerr"></div>
+    <div class="lerr" id="lerr"></div>
 
-    <div class="form-group">
-        <label>Username</label>
-        <input type="text" id="lu" placeholder="Enter your username" autocomplete="username">
-    </div>
-    <div class="form-group">
-        <label>Password</label>
-        <input type="password" id="lp" placeholder="Enter your password">
-    </div>
-    <button class="btn-login" onclick="doLogin()">Sign In →</button>
+    <label class="flabel">Username</label>
+    <input class="finput" id="inp-user" type="text" placeholder="Enter your username" autocomplete="username">
 
-    <div class="demo-box">
+    <label class="flabel">Password</label>
+    <input class="finput" id="inp-pass" type="password" placeholder="Enter your password" autocomplete="current-password">
+
+    <button class="lbtn" id="signin-btn" onclick="doLogin()">Sign In →</button>
+
+    <div class="ldemo">
         <strong>🔑 Demo Accounts:</strong>
-        👨‍💼 admin / admin123 &nbsp;|&nbsp;
-        👨‍🏫 teacher / teach123<br>
+        👨‍💼 admin / admin123 &nbsp;|&nbsp; 👨‍🏫 teacher / teach123<br>
         🎓 john / john123 &nbsp;|&nbsp; mary / mary123 &nbsp;|&nbsp; peter / peter123 &nbsp;|&nbsp; anna / anna123
     </div>
 </div>
 </div>
 
-<!-- PORTAL -->
-<div class="portal" id="portal">
+<!-- ===== PORTAL ===== -->
+<div id="portal-page">
 
-<!-- TOPBAR -->
 <div class="topbar">
-    <div class="topbar-left">
-        <button class="hamburger" onclick="toggleSidebar()">☰</button>
-        <div class="portal-brand">ZAKAYO <span>HIGH SCHOOL</span></div>
+    <div class="tl">
+        <button class="hambtn" onclick="toggleSidebar()">☰</button>
+        <div class="tbrand">ZAKAYO <span>HIGH SCHOOL</span></div>
     </div>
-    <div class="topbar-right">
-        <div class="top-user">
-            <div class="top-avatar" id="top-av">?</div>
+    <div class="tr">
+        <div class="tuser">
+            <div class="tavatar" id="top-av">?</div>
             <span id="top-name">User</span>
         </div>
-        <button class="btn-logout" onclick="doLogout()">Sign Out</button>
+        <button class="tbtn" onclick="doLogout()">Sign Out</button>
     </div>
 </div>
 
-<!-- SIDEBAR -->
-<div class="sidebar" id="sidebar">
+<div class="layout">
+<div id="sidebar">
 
-    <div class="side-section">
-        <div class="side-item on" onclick="goTo('dashboard',this)">
-            <span class="sicon">🏠</span>Dashboard
-        </div>
-    </div>
-
-    <div class="side-divider"></div>
-    <div class="side-label">ACADEMIC APPS</div>
-
-    <!-- Registration Group -->
-    <div class="side-item" onclick="toggleGroup('reg-group',this)">
-        <span class="sicon">📝</span>Registration<span class="sarrow">▼</span>
-    </div>
-    <div class="sub-menu" id="reg-group">
-        <div class="sub-item on" onclick="goTo('reg-dashboard',this)"><span class="sub-dot"></span>Dashboard</div>
-        <div class="sub-item" onclick="goTo('sem-reg',this)"><span class="sub-dot"></span>Semester Registration</div>
-        <div class="sub-item" onclick="goTo('course-reg',this)"><span class="sub-dot"></span>Course Registration</div>
-        <div class="sub-item" onclick="goTo('prog-structure',this)"><span class="sub-dot"></span>Programme Structure</div>
-        <div class="sub-item" onclick="goTo('reg-history',this)"><span class="sub-dot"></span>Registration History</div>
+    <div class="sdiv" style="margin-top:8px;"></div>
+    <div class="sitem on" onclick="goTo('home',this)">
+        <span class="sicon">🏠</span>Dashboard
     </div>
 
-    <!-- Academic Records Group -->
-    <div class="side-item" onclick="toggleGroup('records-group',this)">
-        <span class="sicon">📊</span>Academic Records<span class="sarrow">▼</span>
+    <div class="sdiv"></div>
+    <div class="slabel">ACADEMIC APPS</div>
+
+    <div class="sitem" id="sg-reg" onclick="toggleGroup('sm-reg','sg-reg')">
+        <span class="sicon">📝</span>Registration<span class="sarr" id="sa-reg">▼</span>
     </div>
-    <div class="sub-menu" id="records-group">
-        <div class="sub-item" onclick="goTo('grades',this)"><span class="sub-dot"></span>Grades & Results</div>
-        <div class="sub-item" onclick="goTo('coursework',this)"><span class="sub-dot"></span>Coursework</div>
-        <div class="sub-item" onclick="goTo('transcript',this)"><span class="sub-dot"></span>Transcript</div>
-        <div class="sub-item" onclick="goTo('performance',this)"><span class="sub-dot"></span>Performance Report</div>
+    <div class="submenu" id="sm-reg">
+        <div class="subitem on" onclick="goSubTo('reg-dash','sm-reg',this)"><span class="sdot"></span>Dashboard</div>
+        <div class="subitem" onclick="goSubTo('sem-reg','sm-reg',this)"><span class="sdot"></span>Semester Registration</div>
+        <div class="subitem" onclick="goSubTo('course-reg','sm-reg',this)"><span class="sdot"></span>Course Registration</div>
+        <div class="subitem" onclick="goSubTo('prog-struct','sm-reg',this)"><span class="sdot"></span>Programme Structure</div>
+        <div class="subitem" onclick="goSubTo('reg-history','sm-reg',this)"><span class="sdot"></span>Registration History</div>
     </div>
 
-    <!-- Field & Project -->
-    <div class="side-item" onclick="toggleGroup('proj-group',this)">
-        <span class="sicon">🔬</span>Field & Project<span class="sarrow">▼</span>
+    <div class="sitem" id="sg-rec" onclick="toggleGroup('sm-rec','sg-rec')">
+        <span class="sicon">📊</span>Academic Records<span class="sarr" id="sa-rec">▼</span>
     </div>
-    <div class="sub-menu" id="proj-group">
-        <div class="sub-item" onclick="goTo('quiz',this)"><span class="sub-dot"></span>Quiz & Tests</div>
-        <div class="sub-item" onclick="goTo('assignments',this)"><span class="sub-dot"></span>Assignments</div>
-    </div>
-
-    <div class="side-divider"></div>
-    <div class="side-label">OTHER APPS</div>
-
-    <div class="side-item" onclick="goTo('timetable',this)">
-        <span class="sicon">🗓️</span>Timetable
-    </div>
-    <div class="side-item" onclick="goTo('announcements',this)">
-        <span class="sicon">📢</span>Announcements
-    </div>
-    <div class="side-item" id="si-admin" onclick="goTo('admin',this)" style="display:none">
-        <span class="sicon">⚙️</span>Admin Panel
+    <div class="submenu" id="sm-rec">
+        <div class="subitem" onclick="goSubTo('grades','sm-rec',this)"><span class="sdot"></span>Grades & Results</div>
+        <div class="subitem" onclick="goSubTo('coursework','sm-rec',this)"><span class="sdot"></span>Coursework</div>
+        <div class="subitem" onclick="goSubTo('transcript','sm-rec',this)"><span class="sdot"></span>Transcript</div>
+        <div class="subitem" onclick="goSubTo('performance','sm-rec',this)"><span class="sdot"></span>Performance Report</div>
     </div>
 
-    <div class="side-divider"></div>
-    <div class="side-label">STUDENTS' GUIDE</div>
-    <div class="side-item" onclick="goTo('guide',this)">
-        <span class="sicon">📖</span>Students' Guide
+    <div class="sitem" id="sg-prj" onclick="toggleGroup('sm-prj','sg-prj')">
+        <span class="sicon">🔬</span>Field & Project<span class="sarr" id="sa-prj">▼</span>
+    </div>
+    <div class="submenu" id="sm-prj">
+        <div class="subitem" onclick="goSubTo('quiz','sm-prj',this)"><span class="sdot"></span>Quiz & Tests</div>
+        <div class="subitem" onclick="goSubTo('assignments','sm-prj',this)"><span class="sdot"></span>Assignments</div>
     </div>
 
-</div>
+    <div class="sdiv"></div>
+    <div class="slabel">OTHER APPS</div>
 
-<!-- MAIN -->
-<div class="main" id="main">
+    <div class="sitem" onclick="goTo('timetable',this)"><span class="sicon">🗓️</span>Timetable</div>
+    <div class="sitem" onclick="goTo('announces',this)"><span class="sicon">📢</span>Announcements</div>
+    <div class="sitem" id="si-admin" style="display:none" onclick="goTo('admin',this)"><span class="sicon">⚙️</span>Admin Panel</div>
 
-<!-- DASHBOARD -->
-<div class="pg on" id="pg-dashboard">
-    <div class="breadcrumb"><span>Home</span> › <strong>Dashboard</strong></div>
-    <div class="page-header">
-        <div class="ph-left">
-            <h2 id="dash-welcome">Welcome!</h2>
-            <p id="dash-sub">Academic Year 2026 — Zakayo High School</p>
-        </div>
-        <div class="ph-icon" style="background:#e3f2fd">🏠</div>
+    <div class="sdiv"></div>
+    <div class="slabel">STUDENTS' GUIDE</div>
+    <div class="sitem" onclick="goTo('guide',this)"><span class="sicon">📖</span>Students' Guide</div>
+
+</div><!-- end sidebar -->
+
+<div id="main">
+
+<!-- HOME -->
+<div class="pg on" id="pg-home">
+    <div class="bc"><span>Home</span> › <strong>Dashboard</strong></div>
+    <div class="ph">
+        <div><h2 id="hw">Welcome!</h2><p id="hsub">Academic Year 2026</p></div>
+        <div class="phi" style="background:#e3f2fd">🏠</div>
     </div>
-    <div class="stats-grid" id="dash-stats"></div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+    <div class="sgrid" id="h-stats"></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;flex-wrap:wrap;">
         <div class="card">
-            <div class="card-title"><div class="cticon">📊</div>Recent Grades</div>
-            <div class="table-wrap"><table><thead><tr><th>Course</th><th>Assignment</th><th>Score</th><th>Grade</th></tr></thead><tbody id="dash-grades"></tbody></table></div>
+            <div class="ctitle">📊 Recent Grades</div>
+            <div class="twrap"><table><thead><tr><th>Course</th><th>Score</th><th>Grade</th></tr></thead><tbody id="h-grades"></tbody></table></div>
         </div>
         <div class="card">
-            <div class="card-title"><div class="cticon">📢</div>Announcements</div>
-            <div id="dash-announce"></div>
+            <div class="ctitle">📢 Announcements</div>
+            <div id="h-ann"></div>
         </div>
     </div>
 </div>
 
-<!-- REG DASHBOARD -->
-<div class="pg" id="pg-reg-dashboard">
-    <div class="breadcrumb"><span>Registration</span> › <strong>Dashboard</strong></div>
-    <div class="page-header">
-        <div class="ph-left"><h2>Registration Dashboard</h2><p>Overview of your academic registrations</p></div>
-        <div class="ph-icon" style="background:#e3f2fd">📝</div>
-    </div>
-    <div class="stats-grid" id="reg-stats"></div>
+<!-- REG DASH -->
+<div class="pg" id="pg-reg-dash">
+    <div class="bc"><span>Registration</span> › <strong>Dashboard</strong></div>
+    <div class="ph"><div><h2>Registration Dashboard</h2><p>Overview of your academic registrations</p></div><div class="phi" style="background:#e3f2fd">📝</div></div>
+    <div class="sgrid" id="rd-stats"></div>
     <div class="card">
-        <div class="card-title"><div class="cticon">📋</div>Currently Registered Courses</div>
-        <div class="table-wrap"><table><thead><tr><th>Course</th><th>Code</th><th>Credits</th><th>Semester</th><th>Teacher</th><th>Status</th></tr></thead><tbody id="reg-dash-table"></tbody></table></div>
+        <div class="ctitle">📋 My Registered Courses</div>
+        <div class="twrap"><table><thead><tr><th>Course</th><th>Code</th><th>Credits</th><th>Semester</th><th>Teacher</th><th>Status</th></tr></thead><tbody id="rd-table"></tbody></table></div>
     </div>
 </div>
 
-<!-- SEMESTER REGISTRATION -->
+<!-- SEMESTER REG -->
 <div class="pg" id="pg-sem-reg">
-    <div class="breadcrumb"><span>Registration</span> › <strong>Semester Registration</strong></div>
-    <div class="page-header">
-        <div class="ph-left"><h2>Semester Registration</h2><p>Select your semester to begin course registration</p></div>
-        <div class="ph-icon" style="background:#e8f5e9">📅</div>
-    </div>
-    <div class="alert alert-info">ℹ️ Registration for Semester 1 & 2 of Academic Year 2026 is currently open.</div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
-        <div class="card" style="border-top:4px solid var(--primary);cursor:pointer" onclick="goToSem('S1')">
-            <div style="text-align:center;padding:20px 0;">
-                <div style="font-size:48px;margin-bottom:12px;">📚</div>
-                <h3 style="color:var(--primary-dark);font-size:18px;margin-bottom:6px;">Semester 1 — 2026</h3>
-                <p style="color:var(--sub);font-size:13px;">January — June 2026</p>
-                <div style="margin-top:14px;" id="s1-status"></div>
-                <button class="btn-submit" style="margin-top:16px;width:100%">Register for Semester 1</button>
-            </div>
+    <div class="bc"><span>Registration</span> › <strong>Semester Registration</strong></div>
+    <div class="ph"><div><h2>Semester Registration</h2><p>Choose your semester</p></div><div class="phi" style="background:#e8f5e9">📅</div></div>
+    <div class="alert-info">ℹ️ Semester 1 &amp; 2 registration for Academic Year 2026 is currently open.</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+        <div class="card" style="border-top:4px solid #1565c0;text-align:center;cursor:pointer;" onclick="openSem('S1')">
+            <div style="font-size:44px;margin:10px 0">📚</div>
+            <h3 style="color:#0d47a1;font-size:17px;margin-bottom:6px;">Semester 1 — 2026</h3>
+            <p style="color:#78909c;font-size:13px;">January — June 2026</p>
+            <div id="s1-info" style="margin:12px 0;"></div>
+            <button class="sbtn" style="width:100%;" onclick="openSem('S1')">Register for Semester 1</button>
         </div>
-        <div class="card" style="border-top:4px solid var(--accent);cursor:pointer" onclick="goToSem('S2')">
-            <div style="text-align:center;padding:20px 0;">
-                <div style="font-size:48px;margin-bottom:12px;">📖</div>
-                <h3 style="color:var(--primary-dark);font-size:18px;margin-bottom:6px;">Semester 2 — 2026</h3>
-                <p style="color:var(--sub);font-size:13px;">July — December 2026</p>
-                <div style="margin-top:14px;" id="s2-status"></div>
-                <button class="btn-submit" style="margin-top:16px;width:100%;background:var(--accent)">Register for Semester 2</button>
-            </div>
+        <div class="card" style="border-top:4px solid #00bcd4;text-align:center;cursor:pointer;" onclick="openSem('S2')">
+            <div style="font-size:44px;margin:10px 0">📖</div>
+            <h3 style="color:#0d47a1;font-size:17px;margin-bottom:6px;">Semester 2 — 2026</h3>
+            <p style="color:#78909c;font-size:13px;">July — December 2026</p>
+            <div id="s2-info" style="margin:12px 0;"></div>
+            <button class="sbtn" style="width:100%;background:#00bcd4;" onclick="openSem('S2')">Register for Semester 2</button>
         </div>
     </div>
 </div>
 
-<!-- COURSE REGISTRATION -->
+<!-- COURSE REG -->
 <div class="pg" id="pg-course-reg">
-    <div class="breadcrumb"><span>Registration</span> › <strong>Course Registration</strong></div>
-    <div class="page-header">
-        <div class="ph-left"><h2>Course Registration</h2><p>Register for available courses</p></div>
-        <div class="ph-icon" style="background:#e3f2fd">📝</div>
+    <div class="bc"><span>Registration</span> › <strong>Course Registration</strong></div>
+    <div class="ph"><div><h2>Course Registration</h2><p>Register for available courses</p></div><div class="phi" style="background:#e3f2fd">📝</div></div>
+    <div class="stabs" id="cr-tabs">
+        <button class="stab on" onclick="setCF('all',this)">All Courses</button>
+        <button class="stab" onclick="setCF('S1',this)">Semester 1</button>
+        <button class="stab" onclick="setCF('S2',this)">Semester 2</button>
+        <button class="stab" onclick="setCF('both',this)">Both Semesters</button>
     </div>
-    <div class="sem-tabs">
-        <button class="stab on" onclick="setCourseFilter('all',this)">All Courses</button>
-        <button class="stab" onclick="setCourseFilter('S1',this)">Semester 1</button>
-        <button class="stab" onclick="setCourseFilter('S2',this)">Semester 2</button>
-        <button class="stab" onclick="setCourseFilter('both',this)">Both Semesters</button>
-    </div>
-    <div class="course-grid" id="course-grid"></div>
+    <div class="cgrid" id="cr-grid"></div>
 </div>
 
-<!-- PROGRAMME STRUCTURE -->
-<div class="pg" id="pg-prog-structure">
-    <div class="breadcrumb"><span>Registration</span> › <strong>Programme Structure</strong></div>
-    <div class="page-header">
-        <div class="ph-left"><h2>Programme Structure</h2><p>Academic programme overview and course requirements</p></div>
-        <div class="ph-icon" style="background:#fff3e0">🗂️</div>
-    </div>
+<!-- PROG STRUCTURE -->
+<div class="pg" id="pg-prog-struct">
+    <div class="bc"><span>Registration</span> › <strong>Programme Structure</strong></div>
+    <div class="ph"><div><h2>Programme Structure</h2><p>All available courses and requirements</p></div><div class="phi" style="background:#fff3e0">🗂️</div></div>
     <div class="card">
-        <div class="card-title"><div class="cticon">📋</div>All Available Courses</div>
-        <div class="table-wrap"><table>
-            <thead><tr><th>Code</th><th>Course Name</th><th>Credits</th><th>Semester</th><th>Teacher</th><th>Form</th><th>Registered</th></tr></thead>
-            <tbody id="prog-table"></tbody>
-        </table></div>
+        <div class="ctitle">📋 All Courses Offered</div>
+        <div class="twrap"><table><thead><tr><th>Code</th><th>Course</th><th>Credits</th><th>Semester</th><th>Teacher</th><th>Form</th></tr></thead><tbody id="ps-table"></tbody></table></div>
     </div>
 </div>
 
-<!-- REGISTRATION HISTORY -->
+<!-- REG HISTORY -->
 <div class="pg" id="pg-reg-history">
-    <div class="breadcrumb"><span>Registration</span> › <strong>Registration History</strong></div>
-    <div class="page-header">
-        <div class="ph-left"><h2>Registration History</h2><p>All your course registrations</p></div>
-        <div class="ph-icon" style="background:#f3e5f5">📜</div>
-    </div>
-    <div class="sem-tabs">
-        <button class="stab on" onclick="filterHistory('all',this)">All</button>
-        <button class="stab" onclick="filterHistory('S1',this)">Semester 1</button>
-        <button class="stab" onclick="filterHistory('S2',this)">Semester 2</button>
+    <div class="bc"><span>Registration</span> › <strong>Registration History</strong></div>
+    <div class="ph"><div><h2>Registration History</h2><p>All your course registrations</p></div><div class="phi" style="background:#f3e5f5">📜</div></div>
+    <div class="stabs" id="rh-tabs">
+        <button class="stab on" onclick="setHF('all',this)">All</button>
+        <button class="stab" onclick="setHF('S1',this)">Semester 1</button>
+        <button class="stab" onclick="setHF('S2',this)">Semester 2</button>
     </div>
     <div class="card">
-        <div class="table-wrap"><table>
-            <thead><tr><th>#</th><th>Course</th><th>Code</th><th>Credits</th><th>Semester</th><th>Date Registered</th><th>Status</th><th>Action</th></tr></thead>
-            <tbody id="history-table"></tbody>
-        </table></div>
+        <div class="twrap"><table><thead><tr><th>#</th><th>Course</th><th>Code</th><th>Credits</th><th>Semester</th><th>Date</th><th>Status</th><th>Action</th></tr></thead><tbody id="rh-table"></tbody></table></div>
     </div>
 </div>
 
 <!-- GRADES -->
 <div class="pg" id="pg-grades">
-    <div class="breadcrumb"><span>Academic Records</span> › <strong>Grades & Results</strong></div>
-    <div class="page-header">
-        <div class="ph-left"><h2>Grades & Results</h2><p>Your academic performance</p></div>
-        <div class="ph-icon" style="background:#e8f5e9">⭐</div>
+    <div class="bc"><span>Academic Records</span> › <strong>Grades</strong></div>
+    <div class="ph"><div><h2>Grades &amp; Results</h2><p>Your academic performance</p></div><div class="phi" style="background:#e8f5e9">⭐</div></div>
+    <div class="stabs" id="gr-tabs">
+        <button class="stab on" onclick="setGF('all',this)">All Grades</button>
+        <button class="stab" onclick="setGF('S1',this)">Semester 1</button>
+        <button class="stab" onclick="setGF('S2',this)">Semester 2</button>
     </div>
-    <div class="sem-tabs">
-        <button class="stab on" onclick="filterGrades('all',this)">All Grades</button>
-        <button class="stab" onclick="filterGrades('S1',this)">Semester 1</button>
-        <button class="stab" onclick="filterGrades('S2',this)">Semester 2</button>
-    </div>
-    <div class="stats-grid" id="grade-stats"></div>
-    <div class="card" id="add-grade-card" style="display:none">
-        <div class="card-title"><div class="cticon">➕</div>Enter Grade</div>
-        <div class="form-grid">
+    <div class="sgrid" id="gr-stats"></div>
+    <div class="card" id="ag-card" style="display:none;">
+        <div class="ctitle">➕ Enter Grade</div>
+        <div class="fgrid">
             <div class="fg"><label>Student</label><select id="gr-st"></select></div>
             <div class="fg"><label>Course</label><select id="gr-co"></select></div>
         </div>
-        <div class="form-grid">
+        <div class="fgrid">
             <div class="fg"><label>Assignment / Exam</label><input type="text" id="gr-ass" placeholder="e.g. Mid-Term Exam"></div>
             <div class="fg"><label>Score (0-100)</label><input type="number" id="gr-sc" min="0" max="100" placeholder="85"></div>
         </div>
-        <div class="form-grid">
+        <div class="fgrid">
             <div class="fg"><label>Semester</label><select id="gr-sem"><option value="S1">Semester 1</option><option value="S2">Semester 2</option></select></div>
-            <div class="fg"><label>Date</label><input type="date" id="gr-date"></div>
+            <div class="fg"><label>Date</label><input type="date" id="gr-dt"></div>
         </div>
-        <button class="btn-submit" onclick="addGrade()">💾 Save Grade</button>
+        <button class="sbtn" onclick="addGrade()">💾 Save Grade</button>
     </div>
     <div class="card">
-        <div class="card-title"><div class="cticon">📊</div>Grade Sheet</div>
-        <div class="table-wrap"><table>
-            <thead><tr><th>Student</th><th>Course</th><th>Assignment</th><th>Score</th><th>Grade</th><th>GPA</th><th>Semester</th></tr></thead>
-            <tbody id="grade-table"></tbody>
-        </table></div>
+        <div class="ctitle">📊 Grade Sheet</div>
+        <div class="twrap"><table><thead><tr><th>Student</th><th>Course</th><th>Assignment</th><th>Score</th><th>Grade</th><th>GPA</th><th>Sem</th></tr></thead><tbody id="gr-table"></tbody></table></div>
     </div>
     <div class="card">
-        <div class="card-title"><div class="cticon">📈</div>Performance by Course</div>
-        <div id="perf-bars"></div>
+        <div class="ctitle">📈 Performance by Course</div>
+        <div id="gr-bars"></div>
     </div>
 </div>
 
 <!-- COURSEWORK -->
 <div class="pg" id="pg-coursework">
-    <div class="breadcrumb"><span>Academic Records</span> › <strong>Coursework</strong></div>
-    <div class="page-header">
-        <div class="ph-left"><h2>Coursework</h2><p>Assignments, projects and practical work</p></div>
-        <div class="ph-icon" style="background:#e3f2fd">📋</div>
+    <div class="bc"><span>Academic Records</span> › <strong>Coursework</strong></div>
+    <div class="ph"><div><h2>Coursework</h2><p>Assignments, projects and practical work</p></div><div class="phi" style="background:#e3f2fd">📋</div></div>
+    <div class="stabs" id="cw-tabs">
+        <button class="stab on" onclick="setCWF('all',this)">All</button>
+        <button class="stab" onclick="setCWF('S1',this)">Semester 1</button>
+        <button class="stab" onclick="setCWF('S2',this)">Semester 2</button>
+        <button class="stab" onclick="setCWF('pending',this)">Pending</button>
+        <button class="stab" onclick="setCWF('done',this)">Submitted</button>
     </div>
-    <div class="sem-tabs">
-        <button class="stab on" onclick="filterCW('all',this)">All</button>
-        <button class="stab" onclick="filterCW('S1',this)">Semester 1</button>
-        <button class="stab" onclick="filterCW('S2',this)">Semester 2</button>
-        <button class="stab" onclick="filterCW('pending',this)">Pending</button>
-        <button class="stab" onclick="filterCW('done',this)">Submitted</button>
-    </div>
-    <div class="card" id="add-cw-card" style="display:none">
-        <div class="card-title"><div class="cticon">➕</div>Add Coursework</div>
-        <div class="form-grid">
+    <div class="card" id="cw-add-card" style="display:none;">
+        <div class="ctitle">➕ Add Coursework</div>
+        <div class="fgrid">
             <div class="fg"><label>Title</label><input type="text" id="cw-t" placeholder="e.g. Chemistry Lab Report"></div>
             <div class="fg"><label>Course</label><select id="cw-c"></select></div>
         </div>
-        <div class="form-grid">
+        <div class="fgrid">
             <div class="fg"><label>Type</label><select id="cw-tp"><option value="assignment">Assignment</option><option value="project">Project</option><option value="test">Test</option><option value="practical">Practical</option><option value="presentation">Presentation</option></select></div>
             <div class="fg"><label>Semester</label><select id="cw-s"><option value="S1">Semester 1</option><option value="S2">Semester 2</option></select></div>
         </div>
-        <div class="form-grid">
-            <div class="fg"><label>Due Date</label><input type="date" id="cw-due"></div>
-            <div class="fg"><label>Max Score</label><input type="number" id="cw-max" value="100" min="1"></div>
+        <div class="fgrid">
+            <div class="fg"><label>Due Date</label><input type="date" id="cw-d"></div>
+            <div class="fg"><label>Max Score</label><input type="number" id="cw-m" value="100" min="1"></div>
         </div>
         <div class="fg"><label>Description</label><textarea id="cw-desc" placeholder="Describe the task..."></textarea></div>
-        <button class="btn-submit" onclick="addCW()">💾 Save Coursework</button>
+        <button class="sbtn" onclick="addCW()">💾 Save Coursework</button>
     </div>
     <div class="card">
-        <div class="table-wrap"><table>
-            <thead><tr><th>Title</th><th>Course</th><th>Type</th><th>Semester</th><th>Due Date</th><th>Status</th><th>Action</th></tr></thead>
-            <tbody id="cw-table"></tbody>
-        </table></div>
+        <div class="twrap"><table><thead><tr><th>Title</th><th>Course</th><th>Type</th><th>Sem</th><th>Due Date</th><th>Status</th><th>Action</th></tr></thead><tbody id="cw-table"></tbody></table></div>
     </div>
 </div>
 
 <!-- TRANSCRIPT -->
 <div class="pg" id="pg-transcript">
-    <div class="breadcrumb"><span>Academic Records</span> › <strong>Transcript</strong></div>
-    <div class="page-header">
-        <div class="ph-left"><h2>Academic Transcript</h2><p>Official academic record</p></div>
-        <div class="ph-icon" style="background:#f3e5f5">📜</div>
+    <div class="bc"><span>Academic Records</span> › <strong>Transcript</strong></div>
+    <div class="ph"><div><h2>Academic Transcript</h2><p>Official academic record</p></div><div class="phi" style="background:#f3e5f5">📜</div></div>
+    <div class="card">
+        <div class="fg"><label>Select Student</label><select id="tr-st" onchange="loadTr()" style="max-width:300px;padding:10px;border:1.5px solid #e0e0e0;border-radius:8px;font-size:13px;background:#fafafa;"></select></div>
     </div>
-    <div class="card" style="margin-bottom:16px;">
-        <div class="form-grid">
-            <div class="fg"><label>Select Student</label><select id="tr-st" onchange="loadTranscript()"></select></div>
-            <div class="fg"><label>Academic Year</label><select><option>2026</option><option>2025</option></select></div>
-        </div>
-    </div>
-    <div class="trans-wrap" id="trans-wrap">
-        <p style="color:var(--sub);text-align:center;padding:30px">Select a student to view transcript</p>
-    </div>
+    <div class="trbox" id="tr-box"><p style="color:#78909c;text-align:center;padding:30px;">Select a student to view transcript.</p></div>
 </div>
 
 <!-- PERFORMANCE -->
 <div class="pg" id="pg-performance">
-    <div class="breadcrumb"><span>Academic Records</span> › <strong>Performance Report</strong></div>
-    <div class="page-header">
-        <div class="ph-left"><h2>Performance Report</h2><p>Detailed academic performance analysis</p></div>
-        <div class="ph-icon" style="background:#e8f5e9">📈</div>
-    </div>
-    <div class="card">
-        <div class="card-title"><div class="cticon">📊</div>Semester Comparison</div>
-        <div id="perf-report"></div>
-    </div>
+    <div class="bc"><span>Academic Records</span> › <strong>Performance</strong></div>
+    <div class="ph"><div><h2>Performance Report</h2><p>Academic performance analysis</p></div><div class="phi" style="background:#e8f5e9">📈</div></div>
+    <div class="card"><div class="ctitle">📊 Semester Comparison</div><div id="perf-div"></div></div>
 </div>
 
 <!-- QUIZ -->
 <div class="pg" id="pg-quiz">
-    <div class="breadcrumb"><span>Field & Project</span> › <strong>Quiz & Tests</strong></div>
-    <div class="page-header">
-        <div class="ph-left"><h2>Quiz & Tests</h2><p>Test your knowledge</p></div>
-        <div class="ph-icon" style="background:#fff3e0">🧠</div>
-    </div>
-    <div id="q-select-area">
-        <div class="quiz-select-grid" id="quiz-grid"></div>
-    </div>
-    <div id="q-play-area" style="display:none">
-        <div class="quiz-area">
-            <div class="qprog-bar"><div class="qprog-fill" id="qpfill"></div></div>
-            <div class="qmeta"><span id="qpnum"></span><span id="qppts"></span></div>
-            <div class="q-text" id="qptext"></div>
-            <div class="q-opts" id="qpopts"></div>
-            <button class="btn-submit" id="qpnext" onclick="nextQ()" style="display:none;margin-top:14px;width:100%">Next Question →</button>
+    <div class="bc"><span>Field &amp; Project</span> › <strong>Quiz &amp; Tests</strong></div>
+    <div class="ph"><div><h2>Quiz &amp; Tests</h2><p>Test your knowledge</p></div><div class="phi" style="background:#fff3e0">🧠</div></div>
+    <div id="q-sel"><div class="qgrid" id="q-grid"></div></div>
+    <div id="q-play" style="display:none;">
+        <div class="qarea">
+            <div class="qpbar"><div class="qpfill" id="qpf"></div></div>
+            <div class="qmeta"><span id="qnum"></span><span id="qpts"></span></div>
+            <div class="qtext" id="qtext"></div>
+            <div class="qopts" id="qopts"></div>
+            <button class="sbtn" id="qnxt" onclick="nextQ()" style="display:none;margin-top:14px;width:100%;">Next →</button>
         </div>
     </div>
-    <div id="q-done-area" style="display:none">
-        <div class="quiz-area q-result">
-            <div style="font-size:50px;margin-bottom:12px">🏆</div>
-            <h2 style="color:var(--primary-dark);margin-bottom:10px">Quiz Complete!</h2>
-            <div class="q-score" id="qfinal"></div>
-            <p style="color:var(--sub);margin:14px 0" id="qfmsg"></p>
-            <button class="btn-submit" onclick="resetQuiz()">Try Again</button>
+    <div id="q-fin" style="display:none;">
+        <div class="qarea qresult">
+            <div style="font-size:48px;margin-bottom:10px;">🏆</div>
+            <h2 style="color:#0d47a1;margin-bottom:8px;">Quiz Complete!</h2>
+            <div class="qscore" id="q-score"></div>
+            <p style="color:#78909c;margin:12px 0;" id="q-msg"></p>
+            <button class="sbtn" onclick="resetQ()">Try Again</button>
         </div>
     </div>
 </div>
 
 <!-- ASSIGNMENTS -->
 <div class="pg" id="pg-assignments">
-    <div class="breadcrumb"><span>Field & Project</span> › <strong>Assignments</strong></div>
-    <div class="page-header">
-        <div class="ph-left"><h2>Assignments</h2><p>View all assignments and their status</p></div>
-        <div class="ph-icon" style="background:#e3f2fd">📝</div>
-    </div>
+    <div class="bc"><span>Field &amp; Project</span> › <strong>Assignments</strong></div>
+    <div class="ph"><div><h2>Assignments</h2><p>All assignments and status</p></div><div class="phi" style="background:#e3f2fd">📝</div></div>
     <div class="card">
-        <div class="table-wrap"><table>
-            <thead><tr><th>Title</th><th>Course</th><th>Due Date</th><th>Max Score</th><th>Status</th><th>Semester</th></tr></thead>
-            <tbody id="assign-table"></tbody>
-        </table></div>
+        <div class="twrap"><table><thead><tr><th>Title</th><th>Course</th><th>Due Date</th><th>Max Score</th><th>Status</th><th>Semester</th></tr></thead><tbody id="as-table"></tbody></table></div>
     </div>
 </div>
 
 <!-- TIMETABLE -->
 <div class="pg" id="pg-timetable">
-    <div class="breadcrumb"><strong>Timetable</strong></div>
-    <div class="page-header">
-        <div class="ph-left"><h2>Class Timetable</h2><p>Weekly schedule for all courses</p></div>
-        <div class="ph-icon" style="background:#e3f2fd">🗓️</div>
-    </div>
+    <div class="bc"><strong>Timetable</strong></div>
+    <div class="ph"><div><h2>Class Timetable</h2><p>Weekly schedule</p></div><div class="phi" style="background:#e3f2fd">🗓️</div></div>
     <div class="card">
-        <div class="table-wrap"><table>
-            <thead><tr><th>Time</th><th>Monday</th><th>Tuesday</th><th>Wednesday</th><th>Thursday</th><th>Friday</th></tr></thead>
-            <tbody id="timetable-body"></tbody>
-        </table></div>
+        <div class="twrap"><table><thead><tr><th>Time</th><th>Monday</th><th>Tuesday</th><th>Wednesday</th><th>Thursday</th><th>Friday</th></tr></thead><tbody id="tt-body"></tbody></table></div>
     </div>
 </div>
 
-<!-- ANNOUNCEMENTS PAGE -->
-<div class="pg" id="pg-announcements">
-    <div class="breadcrumb"><strong>Announcements</strong></div>
-    <div class="page-header">
-        <div class="ph-left"><h2>School Announcements</h2><p>Latest news and updates</p></div>
-        <div class="ph-icon" style="background:#fff3e0">📢</div>
-    </div>
-    <div id="all-announce"></div>
+<!-- ANNOUNCEMENTS -->
+<div class="pg" id="pg-announces">
+    <div class="bc"><strong>Announcements</strong></div>
+    <div class="ph"><div><h2>Announcements</h2><p>Latest news and updates</p></div><div class="phi" style="background:#fff3e0">📢</div></div>
+    <div id="all-ann"></div>
 </div>
 
 <!-- ADMIN -->
 <div class="pg" id="pg-admin">
-    <div class="breadcrumb"><strong>Admin Panel</strong></div>
-    <div class="page-header">
-        <div class="ph-left"><h2>Admin Panel</h2><p>School management and oversight</p></div>
-        <div class="ph-icon" style="background:#ffebee">⚙️</div>
-    </div>
-    <div class="stats-grid" id="admin-stats"></div>
+    <div class="bc"><strong>Admin Panel</strong></div>
+    <div class="ph"><div><h2>Admin Panel</h2><p>School management</p></div><div class="phi" style="background:#ffebee">⚙️</div></div>
+    <div class="sgrid" id="adm-stats"></div>
     <div class="card">
-        <div class="card-title"><div class="cticon">👥</div>All Students</div>
-        <div class="table-wrap"><table>
-            <thead><tr><th>Name</th><th>Username</th><th>Form</th><th>Enrolled</th><th>Avg Score</th><th>GPA</th><th>Status</th></tr></thead>
-            <tbody id="admin-students"></tbody>
-        </table></div>
+        <div class="ctitle">👥 All Students</div>
+        <div class="twrap"><table><thead><tr><th>Name</th><th>Username</th><th>Form</th><th>Courses</th><th>Avg Score</th><th>Grade</th><th>Status</th></tr></thead><tbody id="adm-students"></tbody></table></div>
     </div>
     <div class="card">
-        <div class="card-title"><div class="cticon">📊</div>Semester Performance</div>
-        <div class="table-wrap"><table>
-            <thead><tr><th>Student</th><th>S1 Average</th><th>S2 Average</th><th>Overall</th><th>Grade</th><th>Rank</th></tr></thead>
-            <tbody id="admin-perf"></tbody>
-        </table></div>
+        <div class="ctitle">📊 Semester Performance</div>
+        <div class="twrap"><table><thead><tr><th>Student</th><th>S1 Avg</th><th>S2 Avg</th><th>Overall</th><th>Grade</th><th>Rank</th></tr></thead><tbody id="adm-perf"></tbody></table></div>
     </div>
 </div>
 
 <!-- GUIDE -->
 <div class="pg" id="pg-guide">
-    <div class="breadcrumb"><strong>Students' Guide</strong></div>
-    <div class="page-header">
-        <div class="ph-left"><h2>Students' Guide</h2><p>How to use the student portal</p></div>
-        <div class="ph-icon" style="background:#e8f5e9">📖</div>
-    </div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
-        <div class="card">
-            <div class="card-title"><div class="cticon">1️⃣</div>How to Register for Courses</div>
-            <p style="color:var(--sub);font-size:13px;line-height:1.8">1. Click <strong>Registration → Semester Registration</strong><br>2. Choose Semester 1 or 2<br>3. Go to <strong>Course Registration</strong><br>4. Click "Register" on any course<br>5. View your courses in <strong>Registration History</strong></p>
-        </div>
-        <div class="card">
-            <div class="card-title"><div class="cticon">2️⃣</div>How to View Your Grades</div>
-            <p style="color:var(--sub);font-size:13px;line-height:1.8">1. Click <strong>Academic Records → Grades & Results</strong><br>2. Filter by Semester 1 or 2<br>3. View your transcript in <strong>Transcript</strong><br>4. Print your transcript using the Print button</p>
-        </div>
-        <div class="card">
-            <div class="card-title"><div class="cticon">3️⃣</div>How to Take a Quiz</div>
-            <p style="color:var(--sub);font-size:13px;line-height:1.8">1. Click <strong>Field & Project → Quiz & Tests</strong><br>2. Choose a subject<br>3. Answer all questions<br>4. Your score is saved automatically</p>
-        </div>
-        <div class="card">
-            <div class="card-title"><div class="cticon">4️⃣</div>Grade Scale</div>
+    <div class="bc"><strong>Students' Guide</strong></div>
+    <div class="ph"><div><h2>Students' Guide</h2><p>How to use the student portal</p></div><div class="phi" style="background:#e8f5e9">📖</div></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+        <div class="card"><div class="ctitle">1️⃣ How to Register for Courses</div><p style="color:#78909c;font-size:13px;line-height:1.9">1. Click <strong>Registration → Semester Registration</strong><br>2. Choose Semester 1 or 2<br>3. Go to <strong>Course Registration</strong><br>4. Click "Register Now" on any course<br>5. View in <strong>Registration History</strong></p></div>
+        <div class="card"><div class="ctitle">2️⃣ How to View Grades</div><p style="color:#78909c;font-size:13px;line-height:1.9">1. Click <strong>Academic Records → Grades</strong><br>2. Filter by Semester 1 or 2<br>3. View transcript in <strong>Transcript</strong><br>4. Print with the Print button</p></div>
+        <div class="card"><div class="ctitle">3️⃣ How to Take a Quiz</div><p style="color:#78909c;font-size:13px;line-height:1.9">1. Click <strong>Field &amp; Project → Quiz</strong><br>2. Choose a subject<br>3. Answer all questions<br>4. Score is saved automatically</p></div>
+        <div class="card"><div class="ctitle">4️⃣ Grade Scale</div>
             <table><thead><tr><th>Score</th><th>Grade</th><th>GPA</th><th>Remarks</th></tr></thead>
             <tbody>
-                <tr><td>80-100</td><td><span class="badge b-green">A</span></td><td>4.0</td><td>Excellent</td></tr>
-                <tr><td>70-79</td><td><span class="badge b-blue">B</span></td><td>3.0</td><td>Good</td></tr>
-                <tr><td>60-69</td><td><span class="badge b-cyan">C</span></td><td>2.0</td><td>Average</td></tr>
-                <tr><td>50-59</td><td><span class="badge b-orange">D</span></td><td>1.0</td><td>Below Average</td></tr>
-                <tr><td>0-49</td><td><span class="badge b-red">F</span></td><td>0.0</td><td>Fail</td></tr>
+                <tr><td>80-100</td><td><span class="badge bgr">A</span></td><td>4.0</td><td>Excellent</td></tr>
+                <tr><td>70-79</td><td><span class="badge bbl">B</span></td><td>3.0</td><td>Good</td></tr>
+                <tr><td>60-69</td><td><span class="badge bcy">C</span></td><td>2.0</td><td>Average</td></tr>
+                <tr><td>50-59</td><td><span class="badge bor">D</span></td><td>1.0</td><td>Below Avg</td></tr>
+                <tr><td>0-49</td><td><span class="badge bre">F</span></td><td>0.0</td><td>Fail</td></tr>
             </tbody></table>
         </div>
     </div>
 </div>
 
 </div><!-- end main -->
+</div><!-- end layout -->
 </div><!-- end portal -->
 
 <script>
-// ===== DATA =====
-var USERS=[
-    {id:1,u:"admin",p:"admin123",n:"Mr. Zakayo Maloloi",role:"admin",form:"",initials:"ZM"},
-    {id:2,u:"teacher",p:"teach123",n:"Ms. Sarah Ahmed",role:"teacher",form:"",initials:"SA"},
-    {id:3,u:"john",p:"john123",n:"John Doe",role:"student",form:"Form 4A",initials:"JD"},
-    {id:4,u:"mary",p:"mary123",n:"Mary Jane",role:"student",form:"Form 3B",initials:"MJ"},
-    {id:5,u:"peter",p:"peter123",n:"Peter Smith",role:"student",form:"Form 4A",initials:"PS"},
-    {id:6,u:"anna",p:"anna123",n:"Anna Brown",role:"student",form:"Form 3B",initials:"AB"}
-];
-var COURSES=[
-    {id:1,code:"MATH101",name:"Advanced Mathematics",teacher:"Mr. Juma",credits:4,sem:"both",form:"Form 4",icon:"➗",color:"#1565c0",desc:"Algebra, Calculus & Statistics — Foundation for Science"},
-    {id:2,code:"ENG101",name:"English Language",teacher:"Ms. Sarah",credits:3,sem:"both",form:"All Forms",icon:"📝",color:"#2e7d32",desc:"Reading, Writing, Grammar & Communication Skills"},
-    {id:3,code:"PHY101",name:"Physics",teacher:"Mr. Hassan",credits:4,sem:"S1",form:"Form 4",icon:"⚡",color:"#e65100",desc:"Mechanics, Electricity, Waves & Modern Physics"},
-    {id:4,code:"CHEM101",name:"Chemistry",teacher:"Ms. Amina",credits:3,sem:"S1",form:"Form 3-4",icon:"🧪",color:"#6a1b9a",desc:"Organic, Inorganic & Physical Chemistry"},
-    {id:5,code:"BIO101",name:"Biology",teacher:"Mr. Peter",credits:3,sem:"S2",form:"Form 3-4",icon:"🌿",color:"#1b5e20",desc:"Cell Biology, Genetics, Ecology & Human Biology"},
-    {id:6,code:"HIST101",name:"History",teacher:"Ms. Grace",credits:2,sem:"both",form:"All Forms",icon:"🏛️",color:"#bf360c",desc:"Tanzania, African & World History"},
-    {id:7,code:"GEO101",name:"Geography",teacher:"Mr. Ali",credits:2,sem:"S2",form:"All Forms",icon:"🌍",color:"#00695c",desc:"Physical Geography, Human Geography & Environment"},
-    {id:8,code:"ICT101",name:"ICT & Computer Science",teacher:"Mr. Zakayo",credits:3,sem:"both",form:"All Forms",icon:"💻",color:"#0277bd",desc:"Programming, Web Dev & Digital Literacy"},
-    {id:9,code:"KSWH101",name:"Kiswahili",teacher:"Mwalimu Fatuma",credits:3,sem:"both",form:"All Forms",icon:"🇹🇿",color:"#1a237e",desc:"Fasihi, Sarufi na Uandishi wa Kiswahili"},
-    {id:10,code:"COMR101",name:"Commerce & Economics",teacher:"Ms. Linda",credits:2,sem:"S2",form:"Form 3-4",icon:"📊",color:"#33691e",desc:"Business Studies, Economics & Accounting"}
-];
-var QUESTIONS=[
-    {c:"MATH101",q:"Solve: 2x + 6 = 14. Find x",opts:["2","3","4","5"],a:2},
-    {c:"MATH101",q:"What is √144?",opts:["11","12","13","14"],a:1},
-    {c:"MATH101",q:"What is 3² + 4²?",opts:["20","25","30","35"],a:1},
-    {c:"ENG101",q:"Which is the correct sentence?",opts:["He go to school","He goes to school","He going school","He gone school"],a:1},
-    {c:"ENG101",q:"Plural of 'child'?",opts:["childs","children","childrens","child"],a:1},
-    {c:"PHY101",q:"Speed of light ≈ ?",opts:["3×10⁶ m/s","3×10⁸ m/s","3×10¹⁰ m/s","3×10⁴ m/s"],a:1},
-    {c:"CHEM101",q:"Atomic number of Carbon?",opts:["4","6","8","12"],a:1},
-    {c:"BIO101",q:"DNA is stored in the?",opts:["Cytoplasm","Ribosome","Nucleus","Mitochondria"],a:2},
-    {c:"ICT101",q:"What does HTML stand for?",opts:["Hyper Text Markup Language","High Tech Modern Language","Home Tool Markup","Hyper Transfer Link"],a:0},
-    {c:"ICT101",q:"CSS is used for?",opts:["Structure","Styling","Logic","Database"],a:1},
-    {c:"HIST101",q:"Tanzania independence year?",opts:["1959","1960","1961","1962"],a:2},
-    {c:"KSWH101",q:"'Mtoto' ni aina gani ya neno?",opts:["Kivumishi","Nomino","Kitenzi","Kielezi"],a:1}
-];
-var TIMETABLE=[
-    {time:"7:30-8:30",mon:"Mathematics",tue:"English",wed:"Physics",thu:"Chemistry",fri:"Biology"},
-    {time:"8:30-9:30",mon:"Kiswahili",tue:"ICT",wed:"History",thu:"Geography",fri:"Commerce"},
-    {time:"9:30-10:30",mon:"Physics",tue:"Chemistry",wed:"Mathematics",thu:"English",fri:"ICT"},
-    {time:"10:30-11:00",mon:"BREAK",tue:"BREAK",wed:"BREAK",thu:"BREAK",fri:"BREAK"},
-    {time:"11:00-12:00",mon:"Biology",tue:"History",wed:"Kiswahili",thu:"ICT",fri:"Mathematics"},
-    {time:"12:00-1:00",mon:"Geography",tue:"Mathematics",wed:"English",thu:"Biology",fri:"Physics"},
-    {time:"1:00-2:00",mon:"LUNCH",tue:"LUNCH",wed:"LUNCH",thu:"LUNCH",fri:"LUNCH"},
-    {time:"2:00-3:00",mon:"ICT",tue:"Geography",wed:"Commerce",thu:"Kiswahili",fri:"History"}
-];
-var ANNOUNCES=[
-    {type:"blue",icon:"📅",title:"Mid-Term Examinations",msg:"Mid-semester exams scheduled for June 1-7, 2026. All students must register at least 2 weeks before.",date:"May 10, 2026"},
-    {type:"green",icon:"📝",title:"Course Registration Open",msg:"Semester 2 course registration is now open. Deadline: May 30, 2026.",date:"May 8, 2026"},
-    {type:"orange",icon:"🏆",title:"Annual Academic Awards",msg:"Academic awards ceremony on May 25, 2026 at 9:00 AM in the Main Hall.",date:"May 5, 2026"},
-    {type:"cyan",icon:"💻",title:"Free ICT Workshop",msg:"Saturday coding workshop 2-4 PM in the ICT Lab. All students welcome!",date:"May 3, 2026"},
-    {type:"red",icon:"⚠️",title:"Library Hours Update",msg:"Library will be open extended hours during exam period: 7 AM to 9 PM.",date:"May 1, 2026"}
+// ========== DATA ==========
+var USERS = [
+    {id:1, u:"admin",   p:"admin123",  n:"Mr. Zakayo Maloloi", role:"admin",   form:"",      av:"ZM"},
+    {id:2, u:"teacher", p:"teach123",  n:"Ms. Sarah Ahmed",    role:"teacher", form:"",      av:"SA"},
+    {id:3, u:"john",    p:"john123",   n:"John Doe",           role:"student", form:"Form 4A", av:"JD"},
+    {id:4, u:"mary",    p:"mary123",   n:"Mary Jane",          role:"student", form:"Form 3B", av:"MJ"},
+    {id:5, u:"peter",   p:"peter123",  n:"Peter Smith",        role:"student", form:"Form 4A", av:"PS"},
+    {id:6, u:"anna",    p:"anna123",   n:"Anna Brown",         role:"student", form:"Form 3B", av:"AB"}
 ];
 
-// ===== STORAGE =====
-var regs=load("zhs_regs")||[];
-var cws=load("zhs_cws")||[];
-var grades=load("zhs_grades")||[];
-var quiz_scores=load("zhs_quiz_scores")||[];
-function load(k){try{return JSON.parse(localStorage.getItem(k));}catch(e){return null;}}
-function save(k,v){localStorage.setItem(k,JSON.stringify(v));}
+var COURSES = [
+    {id:1, code:"MATH101", name:"Advanced Mathematics",    teacher:"Mr. Juma",       credits:4, sem:"both", form:"Form 4",   icon:"➗", desc:"Algebra, Calculus & Statistics"},
+    {id:2, code:"ENG101",  name:"English Language",        teacher:"Ms. Sarah",      credits:3, sem:"both", form:"All",      icon:"📝", desc:"Reading, Writing & Grammar"},
+    {id:3, code:"PHY101",  name:"Physics",                 teacher:"Mr. Hassan",     credits:4, sem:"S1",   form:"Form 4",   icon:"⚡", desc:"Mechanics, Electricity & Waves"},
+    {id:4, code:"CHEM101", name:"Chemistry",               teacher:"Ms. Amina",      credits:3, sem:"S1",   form:"Form 3-4", icon:"🧪", desc:"Organic & Inorganic Chemistry"},
+    {id:5, code:"BIO101",  name:"Biology",                 teacher:"Mr. Peter",      credits:3, sem:"S2",   form:"Form 3-4", icon:"🌿", desc:"Cell Biology, Genetics & Ecology"},
+    {id:6, code:"HIST101", name:"History",                 teacher:"Ms. Grace",      credits:2, sem:"both", form:"All",      icon:"🏛️", desc:"Tanzania & African History"},
+    {id:7, code:"GEO101",  name:"Geography",               teacher:"Mr. Ali",        credits:2, sem:"S2",   form:"All",      icon:"🌍", desc:"Physical & Human Geography"},
+    {id:8, code:"ICT101",  name:"ICT & Computer Science",  teacher:"Mr. Zakayo",     credits:3, sem:"both", form:"All",      icon:"💻", desc:"Programming & Web Development"},
+    {id:9, code:"KSWH101", name:"Kiswahili",               teacher:"Mwalimu Fatuma", credits:3, sem:"both", form:"All",      icon:"🇹🇿", desc:"Fasihi na Sarufi ya Kiswahili"},
+    {id:10,code:"COMR101", name:"Commerce & Economics",    teacher:"Ms. Linda",      credits:2, sem:"S2",   form:"Form 3-4", icon:"📊", desc:"Business Studies & Economics"}
+];
 
-// ===== STATE =====
-var me=null, role_sel="admin", sidebar_open=true;
-var cf="all", gf="all", cwf="all", hf="all";
-var qqs=[],qi=0,qsc=0,qans=false;
+var QUESTIONS = [
+    {c:"MATH101", q:"Solve: 2x + 6 = 14. Find x",     opts:["2","3","4","5"],              a:2},
+    {c:"MATH101", q:"What is √144?",                    opts:["11","12","13","14"],          a:1},
+    {c:"MATH101", q:"What is 3² + 4²?",                 opts:["20","25","30","35"],          a:1},
+    {c:"ENG101",  q:"Plural of 'child' is?",            opts:["childs","children","childrens","child"], a:1},
+    {c:"ENG101",  q:"'Beautiful' is a type of?",        opts:["Noun","Verb","Adjective","Adverb"],       a:2},
+    {c:"PHY101",  q:"Speed of light ≈ ?",               opts:["3×10⁶ m/s","3×10⁸ m/s","3×10¹⁰ m/s","3×10⁴ m/s"], a:1},
+    {c:"PHY101",  q:"F = ma is Newton's __ Law",        opts:["First","Second","Third","Fourth"],         a:1},
+    {c:"CHEM101", q:"Atomic number of Carbon?",         opts:["4","6","8","12"],             a:1},
+    {c:"BIO101",  q:"DNA is stored in the?",            opts:["Cytoplasm","Ribosome","Nucleus","Mitochondria"], a:2},
+    {c:"ICT101",  q:"HTML stands for?",                 opts:["Hyper Text Markup Language","High Tech Modern Language","Home Tool Markup","Hyper Transfer Link"], a:0},
+    {c:"ICT101",  q:"CSS is used for?",                 opts:["Structure","Styling","Logic","Database"],   a:1},
+    {c:"HIST101", q:"Tanzania independence year?",       opts:["1959","1960","1961","1962"],  a:2},
+    {c:"KSWH101", q:"'Mtoto' ni aina gani ya neno?",    opts:["Kivumishi","Nomino","Kitenzi","Kielezi"],   a:1}
+];
 
-// ===== LOGIN =====
-function setRole(r,b){
-    role_sel=r;
-    document.querySelectorAll(".rtab").forEach(t=>t.classList.remove("on"));
-    b.classList.add("on");
+var TIMETABLE = [
+    {t:"7:30-8:30",  M:"Mathematics",  Tu:"English",  W:"Physics",     Th:"Chemistry", F:"Biology"},
+    {t:"8:30-9:30",  M:"Kiswahili",    Tu:"ICT",      W:"History",     Th:"Geography", F:"Commerce"},
+    {t:"9:30-10:30", M:"Physics",      Tu:"Chemistry",W:"Mathematics", Th:"English",   F:"ICT"},
+    {t:"10:30-11:00",M:"BREAK",        Tu:"BREAK",    W:"BREAK",       Th:"BREAK",     F:"BREAK"},
+    {t:"11:00-12:00",M:"Biology",      Tu:"History",  W:"Kiswahili",   Th:"ICT",       F:"Mathematics"},
+    {t:"12:00-1:00", M:"Geography",    Tu:"Mathematics",W:"English",   Th:"Biology",   F:"Physics"},
+    {t:"1:00-2:00",  M:"LUNCH",        Tu:"LUNCH",    W:"LUNCH",       Th:"LUNCH",     F:"LUNCH"},
+    {t:"2:00-3:00",  M:"ICT",          Tu:"Geography",W:"Commerce",    Th:"Kiswahili", F:"History"}
+];
+
+var ANNOUNCES = [
+    {type:"blue",   icon:"📅", title:"Mid-Term Examinations",   msg:"Mid-semester exams scheduled for June 1-7, 2026.",                date:"May 10, 2026"},
+    {type:"green",  icon:"📝", title:"Semester 2 Registration", msg:"Semester 2 course registration is now open. Deadline: May 30.",   date:"May 8, 2026"},
+    {type:"orange", icon:"🏆", title:"Academic Awards Ceremony",msg:"Annual awards on May 25, 2026 at 9 AM in Main Hall.",              date:"May 5, 2026"},
+    {type:"cyan",   icon:"💻", title:"Free ICT Workshop",       msg:"Saturday coding workshop 2-4 PM in ICT Lab. All welcome!",        date:"May 3, 2026"},
+    {type:"red",    icon:"⚠️", title:"Library Extended Hours",  msg:"Library open 7 AM to 9 PM during exam period.",                   date:"May 1, 2026"}
+];
+
+// ========== STORAGE ==========
+function sto_get(k){ try{ return JSON.parse(localStorage.getItem("zhs_"+k)); }catch(e){ return null; } }
+function sto_set(k,v){ localStorage.setItem("zhs_"+k, JSON.stringify(v)); }
+
+var regs = sto_get("regs") || [];
+var cws  = sto_get("cws")  || [];
+var grd  = sto_get("grd")  || [];
+var qsc  = sto_get("qsc")  || [];
+
+// ========== STATE ==========
+var me = null;
+var role_sel = "admin";
+var cf = "all", gf = "all", cwf = "all", hf = "all";
+var qqs = [], qi = 0, qscore = 0, qans = false;
+var sid_open = true;
+
+// ========== HELPERS ==========
+function glet(s){ return s>=80?"A": s>=70?"B": s>=60?"C": s>=50?"D":"F"; }
+function ggpa(s){ return s>=80?"4.0": s>=70?"3.0": s>=60?"2.0": s>=50?"1.0":"0.0"; }
+function gbadge(s){ return s>=80?"bgr": s>=70?"bbl": s>=60?"bcy": s>=50?"bor":"bre"; }
+function gcol(s){ return s>=70?"#2e7d32": s>=50?"#e65100":"#c62828"; }
+function myGrd(){ return me.role==="student" ? grd.filter(g=>g.sid===me.id) : grd; }
+function myReg(){ return me.role==="student" ? regs.filter(r=>r.uid===me.id) : regs; }
+
+function showToast(msg){
+    var el=document.getElementById("toast");
+    el.textContent=msg; el.className="toast show";
+    setTimeout(()=>{ el.className="toast"; }, 3500);
 }
+
+// ========== LOGIN ==========
+function setRole(r, btn){
+    role_sel = r;
+    document.querySelectorAll(".rtab").forEach(b=>b.classList.remove("on"));
+    btn.classList.add("on");
+}
+
 function doLogin(){
-    var u=document.getElementById("lu").value.trim();
-    var p=document.getElementById("lp").value;
-    var err=document.getElementById("lerr");
-    if(!u||!p){err.style.display="block";err.textContent="⚠️ Please enter username and password!";return;}
-    var found=USERS.find(x=>x.u===u&&x.p===p&&x.role===role_sel);
+    var u = document.getElementById("inp-user").value.trim();
+    var p = document.getElementById("inp-pass").value.trim();
+    var err = document.getElementById("lerr");
+
+    if(!u || !p){
+        err.style.display="block";
+        err.textContent="⚠️ Please enter username and password!";
+        return;
+    }
+
+    var found = USERS.find(function(x){
+        return x.u === u && x.p === p && x.role === role_sel;
+    });
+
     if(found){
-        err.style.display="none"; me=found;
-        document.getElementById("login-wrap").style.display="none";
-        document.getElementById("portal").style.display="block";
-        initPortal();
+        err.style.display="none";
+        me = found;
+        document.getElementById("login-page").style.display = "none";
+        document.getElementById("portal-page").style.display = "block";
+        startPortal();
     } else {
         err.style.display="block";
-        err.textContent="❌ Invalid credentials or wrong role! Try again.";
+        err.textContent="❌ Wrong username, password, or role! Check your details and try again.";
+        document.getElementById("inp-pass").value="";
     }
 }
-function doLogout(){
-    me=null;
-    document.getElementById("login-wrap").style.display="flex";
-    document.getElementById("portal").style.display="none";
-}
-document.addEventListener("keypress",e=>{if(e.key==="Enter"&&document.getElementById("portal").style.display!=="block")doLogin();});
 
-// ===== INIT =====
-function initPortal(){
-    document.getElementById("top-av").textContent=me.initials;
-    document.getElementById("top-name").textContent=me.n;
-    if(me.role==="admin"||me.role==="teacher"){
-        document.getElementById("si-admin").style.display="flex";
-        document.getElementById("add-grade-card").style.display="block";
-        document.getElementById("add-cw-card").style.display="block";
+function doLogout(){
+    me = null;
+    document.getElementById("portal-page").style.display="none";
+    document.getElementById("login-page").style.display="flex";
+    document.getElementById("inp-user").value="";
+    document.getElementById("inp-pass").value="";
+    document.getElementById("lerr").style.display="none";
+}
+
+document.addEventListener("keypress", function(e){
+    if(e.key==="Enter" && document.getElementById("portal-page").style.display!=="block"){
+        doLogin();
     }
-    fillDropdowns();
-    loadDashboard();
+});
+
+// ========== START PORTAL ==========
+function startPortal(){
+    document.getElementById("top-av").textContent = me.av;
+    document.getElementById("top-name").textContent = me.n;
+
+    if(me.role==="admin" || me.role==="teacher"){
+        document.getElementById("si-admin").style.display = "flex";
+        document.getElementById("ag-card").style.display = "block";
+        document.getElementById("cw-add-card").style.display = "block";
+    }
+
+    // Fill dropdowns
+    var dCourses = document.getElementById("cw-c");
+    var dGrCo   = document.getElementById("gr-co");
+    var dGrSt   = document.getElementById("gr-st");
+    var dTrSt   = document.getElementById("tr-st");
+
+    if(dCourses){
+        dCourses.innerHTML='<option value="">-- Select Course --</option>';
+        COURSES.forEach(c=>{ dCourses.innerHTML+=`<option value="${c.id}">${c.name}</option>`; });
+    }
+    if(dGrCo){
+        dGrCo.innerHTML='<option value="">-- Select Course --</option>';
+        COURSES.forEach(c=>{ dGrCo.innerHTML+=`<option value="${c.id}">${c.name}</option>`; });
+    }
+    if(dGrSt){
+        dGrSt.innerHTML='<option value="">-- Select Student --</option>';
+        USERS.filter(u=>u.role==="student").forEach(u=>{ dGrSt.innerHTML+=`<option value="${u.id}">${u.n}</option>`; });
+    }
+    if(dTrSt){
+        dTrSt.innerHTML='<option value="">-- Select Student --</option>';
+        var sts = me.role==="student" ? USERS.filter(u=>u.id===me.id) : USERS.filter(u=>u.role==="student");
+        sts.forEach(u=>{ dTrSt.innerHTML+=`<option value="${u.id}">${u.n}</option>`; });
+        if(me.role==="student"){ dTrSt.value=me.id; loadTr(); }
+    }
+
+    // Set date defaults
+    var today = new Date().toISOString().split("T")[0];
+    var dueD  = new Date(); dueD.setDate(dueD.getDate()+14);
+    var el = document.getElementById("gr-dt"); if(el) el.value=today;
+    var el2= document.getElementById("cw-d");  if(el2) el2.value=dueD.toISOString().split("T")[0];
+
+    // Open first submenu
+    document.getElementById("sm-reg").classList.add("open");
+    document.getElementById("sa-reg").classList.add("r");
+
+    // Render all pages
+    renderHome();
     renderRegDash();
+    renderSemInfo();
     renderCourseGrid("all");
-    renderProgTable();
-    renderHistory("all");
+    renderProgStruct();
+    renderRegHistory("all");
     renderGrades("all");
     renderCW("all");
-    renderQuiz();
+    renderQuizGrid();
     renderAssignments();
     renderTimetable();
-    renderAnnouncements();
+    renderAnnounces();
     renderAdmin();
-    loadTranscriptSel();
-    loadPerformance();
-    // Set default dates
-    var td=new Date().toISOString().split("T")[0];
-    var due=new Date(); due.setDate(due.getDate()+14);
-    var di=document.getElementById("gr-date"); if(di) di.value=td;
-    var ci=document.getElementById("cw-due"); if(ci) ci.value=due.toISOString().split("T")[0];
+    renderPerformance();
 }
 
-function fillDropdowns(){
-    ["cw-c","gr-co"].forEach(id=>{
-        var el=document.getElementById(id); if(!el)return;
-        el.innerHTML='<option value="">-- Select Course --</option>';
-        COURSES.forEach(c=>el.innerHTML+=`<option value="${c.id}">${c.name}</option>`);
-    });
-    var gs=document.getElementById("gr-st");
-    if(gs){gs.innerHTML='<option value="">-- Select Student --</option>';USERS.filter(u=>u.role==="student").forEach(u=>gs.innerHTML+=`<option value="${u.id}">${u.n}</option>`);}
-}
-
-// ===== HELPERS =====
-function glet(s){return s>=80?"A":s>=70?"B":s>=60?"C":s>=50?"D":"F";}
-function ggpa(s){return s>=80?"4.0":s>=70?"3.0":s>=60?"2.0":s>=50?"1.0":"0.0";}
-function gbadge(s){return s>=80?"b-green":s>=70?"b-blue":s>=60?"b-cyan":s>=50?"b-orange":"b-red";}
-function gcolor(s){return s>=70?"var(--green)":s>=50?"var(--orange)":"var(--red)";}
-function myGrades(){return me.role==="student"?grades.filter(g=>g.sid===me.id):grades;}
-function myRegs(){return me.role==="student"?regs.filter(r=>r.uid===me.id):regs;}
-
-// ===== DASHBOARD =====
-function loadDashboard(){
-    var mg=myGrades(); var mr=myRegs();
-    var avg=mg.length?(mg.reduce((s,g)=>s+g.score,0)/mg.length).toFixed(1):"N/A";
-    document.getElementById("dash-welcome").textContent="Welcome back, "+me.n+"!";
-    document.getElementById("dash-sub").textContent=me.form?" — "+me.form+" | "+new Date().toDateString():" — "+me.role+" | "+new Date().toDateString();
-    document.getElementById("dash-stats").innerHTML=`
-        <div class="stat-card blue"><span class="si">📝</span><div class="sn">${mr.length}</div><div class="sl">Registered Courses</div></div>
-        <div class="stat-card green"><span class="si">⭐</span><div class="sn">${mg.length}</div><div class="sl">Grades Recorded</div></div>
-        <div class="stat-card orange"><span class="si">📊</span><div class="sn">${avg}</div><div class="sl">Average Score</div></div>
-        <div class="stat-card cyan"><span class="si">🧠</span><div class="sn">${quiz_scores.filter(q=>q.uid===me.id).length}</div><div class="sl">Quizzes Done</div></div>
+// ========== HOME ==========
+function renderHome(){
+    var mg = myGrd(); var mr = myReg();
+    var avg = mg.length ? (mg.reduce((s,g)=>s+g.score,0)/mg.length).toFixed(1) : "N/A";
+    document.getElementById("hw").textContent = "Welcome back, "+me.n+"!";
+    document.getElementById("hsub").textContent = (me.form||me.role)+" — "+new Date().toDateString();
+    document.getElementById("h-stats").innerHTML=`
+        <div class="scard"><span class="si">📝</span><div class="sn">${mr.length}</div><div class="sl">Registered Courses</div></div>
+        <div class="scard g"><span class="si">⭐</span><div class="sn">${mg.length}</div><div class="sl">Grades Recorded</div></div>
+        <div class="scard o"><span class="si">📊</span><div class="sn">${avg}</div><div class="sl">Average Score</div></div>
+        <div class="scard c"><span class="si">🧠</span><div class="sn">${qsc.filter(q=>q.uid===me.id).length}</div><div class="sl">Quizzes Done</div></div>
     `;
-    var rg=mg.slice(-5).reverse();
-    document.getElementById("dash-grades").innerHTML=rg.length?rg.map(g=>{
-        var c=COURSES.find(x=>x.id===g.cid); var s=USERS.find(x=>x.id===g.sid);
-        return `<tr><td>${c?c.name:"?"}</td><td>${g.assign}</td><td><strong style="color:${gcolor(g.score)}">${g.score}</strong></td><td><span class="badge ${gbadge(g.score)}">${glet(g.score)}</span></td></tr>`;
-    }).join(""):'<tr><td colspan="4" style="text-align:center;color:var(--sub);padding:16px">No grades yet</td></tr>';
-    document.getElementById("dash-announce").innerHTML=ANNOUNCES.slice(0,3).map(a=>`
-        <div class="announce-item"><div class="announce-dot" style="background:${a.type==="blue"?"var(--primary)":a.type==="green"?"var(--green)":a.type==="orange"?"var(--orange)":a.type==="red"?"var(--red)":"var(--accent)"}"></div>
-        <div class="announce-body"><h4>${a.icon} ${a.title}</h4><p>${a.msg}</p><div class="announce-date">${a.date}</div></div></div>
+    var rg = mg.slice(-5).reverse();
+    document.getElementById("h-grades").innerHTML = rg.length ?
+        rg.map(g=>{
+            var c=COURSES.find(x=>x.id===g.cid);
+            return `<tr><td>${c?c.name:"?"}</td><td><strong style="color:${gcol(g.score)}">${g.score}</strong></td><td><span class="badge ${gbadge(g.score)}">${glet(g.score)}</span></td></tr>`;
+        }).join("") :
+        '<tr><td colspan="3" style="text-align:center;color:#78909c;padding:14px;">No grades yet</td></tr>';
+
+    var colors={blue:"#1565c0",green:"#2e7d32",orange:"#e65100",cyan:"#00bcd4",red:"#c62828"};
+    document.getElementById("h-ann").innerHTML = ANNOUNCES.slice(0,3).map(a=>`
+        <div class="aitem"><div class="adot" style="background:${colors[a.type]}"></div>
+        <div class="abody"><h4>${a.icon} ${a.title}</h4><p>${a.msg}</p><div class="adate">${a.date}</div></div></div>
     `).join("");
 }
 
-// ===== REG DASHBOARD =====
+// ========== REG DASH ==========
 function renderRegDash(){
-    var mr=myRegs();
-    var s1=mr.filter(r=>r.sem==="S1").length, s2=mr.filter(r=>r.sem==="S2").length;
-    document.getElementById("reg-stats").innerHTML=`
-        <div class="stat-card blue"><span class="si">📚</span><div class="sn">${mr.length}</div><div class="sl">Total Registered</div></div>
-        <div class="stat-card green"><span class="si">1️⃣</span><div class="sn">${s1}</div><div class="sl">Semester 1</div></div>
-        <div class="stat-card cyan"><span class="si">2️⃣</span><div class="sn">${s2}</div><div class="sl">Semester 2</div></div>
-        <div class="stat-card orange"><span class="si">⭐</span><div class="sn">${mr.reduce((s,r)=>{var c=COURSES.find(x=>x.id===r.cid);return s+(c?c.credits:0);},0)}</div><div class="sl">Total Credits</div></div>
+    var mr = myReg();
+    var s1 = mr.filter(r=>r.sem==="S1").length;
+    var s2 = mr.filter(r=>r.sem==="S2").length;
+    var totCr = mr.reduce((s,r)=>{ var c=COURSES.find(x=>x.id===r.cid); return s+(c?c.credits:0); }, 0);
+    document.getElementById("rd-stats").innerHTML=`
+        <div class="scard"><span class="si">📚</span><div class="sn">${mr.length}</div><div class="sl">Total Registered</div></div>
+        <div class="scard g"><span class="si">1️⃣</span><div class="sn">${s1}</div><div class="sl">Semester 1</div></div>
+        <div class="scard c"><span class="si">2️⃣</span><div class="sn">${s2}</div><div class="sl">Semester 2</div></div>
+        <div class="scard o"><span class="si">⭐</span><div class="sn">${totCr}</div><div class="sl">Total Credits</div></div>
     `;
-    document.getElementById("s1-status").innerHTML=`<span class="badge b-blue">${s1} courses enrolled</span>`;
-    document.getElementById("s2-status").innerHTML=`<span class="badge b-cyan">${s2} courses enrolled</span>`;
-    document.getElementById("reg-dash-table").innerHTML=mr.length?mr.map(r=>{
-        var c=COURSES.find(x=>x.id===r.cid);
-        return `<tr><td><strong>${c?c.name:"?"}</strong></td><td><span class="badge b-blue">${c?c.code:"?"}</span></td><td>${c?c.credits:"?"}</td><td><span class="badge ${r.sem==="S1"?"b-green":"b-cyan"}">${r.sem}</span></td><td>${c?c.teacher:"?"}</td><td><span class="badge b-green">✅ Active</span></td></tr>`;
-    }).join(""):'<tr><td colspan="6" style="text-align:center;color:var(--sub);padding:16px">No courses registered yet</td></tr>';
+    document.getElementById("rd-table").innerHTML = mr.length ?
+        mr.map(r=>{
+            var c=COURSES.find(x=>x.id===r.cid);
+            return `<tr><td><strong>${c?c.name:"?"}</strong></td><td><span class="badge bbl">${c?c.code:"?"}</span></td><td>${c?c.credits:"?"}</td><td><span class="badge ${r.sem==="S1"?"bgr":"bcy"}">${r.sem}</span></td><td>${c?c.teacher:"?"}</td><td><span class="badge bgr">✅ Active</span></td></tr>`;
+        }).join("") :
+        '<tr><td colspan="6" style="text-align:center;color:#78909c;padding:16px;">No courses registered</td></tr>';
 }
 
-// ===== SEMESTER REG =====
-function goToSem(s){
-    var semTabs=document.querySelectorAll("#pg-course-reg .stab");
-    if(s==="S1"){semTabs[1].click();}else{semTabs[2].click();}
-    goTo("course-reg",document.querySelector("#reg-group .sub-item:nth-child(3)"));
+// ========== SEM INFO ==========
+function renderSemInfo(){
+    var mr = myReg();
+    var s1c = mr.filter(r=>r.sem==="S1").length;
+    var s2c = mr.filter(r=>r.sem==="S2").length;
+    document.getElementById("s1-info").innerHTML=`<span class="badge bbl">${s1c} courses enrolled</span>`;
+    document.getElementById("s2-info").innerHTML=`<span class="badge bcy">${s2c} courses enrolled</span>`;
 }
 
-// ===== COURSE REGISTRATION =====
-function setCourseFilter(f,b){
+function openSem(sem){
+    // Switch to course reg with filter
+    cf = sem;
+    renderCourseGrid(sem);
+    // Update tabs
+    var tabs = document.querySelectorAll("#cr-tabs .stab");
+    tabs.forEach(t=>t.classList.remove("on"));
+    if(sem==="S1") tabs[1].classList.add("on");
+    else tabs[2].classList.add("on");
+    // Navigate
+    goTo("course-reg", null);
+}
+
+// ========== COURSE REG ==========
+function setCF(f, btn){
     cf=f;
-    document.querySelectorAll("#pg-course-reg .stab").forEach(t=>t.classList.remove("on"));
-    b.classList.add("on");
+    document.querySelectorAll("#cr-tabs .stab").forEach(t=>t.classList.remove("on"));
+    btn.classList.add("on");
     renderCourseGrid(f);
 }
 function renderCourseGrid(f){
-    var list=f==="all"?COURSES:f==="S1"?COURSES.filter(c=>c.sem==="S1"||c.sem==="both"):f==="S2"?COURSES.filter(c=>c.sem==="S2"||c.sem==="both"):COURSES.filter(c=>c.sem==="both");
-    document.getElementById("course-grid").innerHTML=list.map(c=>{
-        var isReg=regs.some(r=>r.uid===me.id&&r.cid===c.id);
+    var list = f==="all" ? COURSES :
+               f==="S1"  ? COURSES.filter(c=>c.sem==="S1"||c.sem==="both") :
+               f==="S2"  ? COURSES.filter(c=>c.sem==="S2"||c.sem==="both") :
+                           COURSES.filter(c=>c.sem==="both");
+    document.getElementById("cr-grid").innerHTML = list.map(c=>{
+        var isReg = regs.some(r=>r.uid===me.id&&r.cid===c.id);
         return `<div class="ccard">
-            <div class="ccard-top">
-                <div class="ccard-icon" style="background:${c.color}22">${c.icon}</div>
-                <span class="badge ${c.sem==="S1"?"b-green":c.sem==="S2"?"b-cyan":"b-blue"}">${c.sem==="both"?"S1+S2":c.sem}</span>
-            </div>
+            <div style="font-size:30px;">${c.icon}</div>
             <h4>${c.name}</h4>
             <p>${c.desc}</p>
-            <div class="ccard-meta">
-                <span class="badge b-blue">${c.code}</span>
-                <span class="badge b-gray">${c.credits} Credits</span>
+            <div class="cmeta">
+                <span class="badge bbl">${c.code}</span>
+                <span class="badge bgr2">${c.credits} Credits</span>
+                <span class="badge ${c.sem==="both"?"bbl":c.sem==="S1"?"bgr":"bcy"}">${c.sem==="both"?"S1+S2":c.sem}</span>
             </div>
-            <div style="font-size:11px;color:var(--sub);margin-top:8px">👨‍🏫 ${c.teacher} · ${c.form}</div>
-            ${me.role==="student"?`<button class="ccard-btn ${isReg?"enrolled":""}" onclick="toggleReg(${c.id},this)">${isReg?"✅ Enrolled — Drop Course":"📝 Register Now"}</button>`:"<div style='margin-top:12px;font-size:12px;color:var(--sub)'>Admin/Teacher view</div>"}
+            <div style="font-size:11px;color:#78909c;margin-top:8px;">👨‍🏫 ${c.teacher} · ${c.form}</div>
+            ${me.role==="student"?
+                `<button class="ccbtn ${isReg?"drop":""}" onclick="toggleReg(${c.id})">${isReg?"✅ Enrolled — Drop":"📝 Register Now"}</button>`
+                :"<div style='margin-top:12px;font-size:11px;color:#78909c'>Admin/Teacher view only</div>"}
         </div>`;
     }).join("");
 }
-function toggleReg(cid,btn){
-    var idx=regs.findIndex(r=>r.uid===me.id&&r.cid===cid);
-    if(idx>=0){regs.splice(idx,1);toast("🗑️ Course dropped!");}
-    else{
-        var c=COURSES.find(x=>x.id===cid);
-        regs.push({id:Date.now(),uid:me.id,cid,sem:c.sem==="S2"?"S2":"S1",date:new Date().toLocaleDateString()});
-        toast("✅ Registered for "+c.name+"!");
+function toggleReg(cid){
+    var idx = regs.findIndex(r=>r.uid===me.id&&r.cid===cid);
+    var c = COURSES.find(x=>x.id===cid);
+    if(idx>=0){
+        regs.splice(idx,1);
+        showToast("🗑️ Course dropped!");
+    } else {
+        regs.push({id:Date.now(), uid:me.id, cid:cid, sem:c.sem==="S2"?"S2":"S1", date:new Date().toLocaleDateString()});
+        showToast("✅ Registered for "+c.name+"!");
     }
-    save("zhs_regs",regs);
-    renderCourseGrid(cf); renderRegDash(); renderHistory(hf); loadDashboard();
+    sto_set("regs",regs);
+    renderCourseGrid(cf); renderRegDash(); renderRegHistory(hf); renderHome(); renderSemInfo();
 }
 
-// ===== PROGRAMME TABLE =====
-function renderProgTable(){
-    document.getElementById("prog-table").innerHTML=COURSES.map(c=>{
-        var cnt=regs.filter(r=>r.cid===c.id).length;
-        return `<tr><td><span class="badge b-blue">${c.code}</span></td><td><strong>${c.name}</strong></td><td>${c.credits}</td><td><span class="badge ${c.sem==="both"?"b-blue":c.sem==="S1"?"b-green":"b-cyan"}">${c.sem==="both"?"S1+S2":c.sem}</span></td><td>${c.teacher}</td><td>${c.form}</td><td>${cnt} students</td></tr>`;
-    }).join("");
+// ========== PROG STRUCTURE ==========
+function renderProgStruct(){
+    document.getElementById("ps-table").innerHTML = COURSES.map(c=>`
+        <tr>
+            <td><span class="badge bbl">${c.code}</span></td>
+            <td><strong>${c.name}</strong></td>
+            <td>${c.credits}</td>
+            <td><span class="badge ${c.sem==="both"?"bbl":c.sem==="S1"?"bgr":"bcy"}">${c.sem==="both"?"S1+S2":c.sem}</span></td>
+            <td>${c.teacher}</td>
+            <td>${c.form}</td>
+        </tr>
+    `).join("");
 }
 
-// ===== HISTORY =====
-function filterHistory(f,b){
+// ========== REG HISTORY ==========
+function setHF(f, btn){
     hf=f;
-    document.querySelectorAll("#pg-reg-history .stab").forEach(t=>t.classList.remove("on"));
-    b.classList.add("on");
-    renderHistory(f);
+    document.querySelectorAll("#rh-tabs .stab").forEach(t=>t.classList.remove("on"));
+    btn.classList.add("on");
+    renderRegHistory(f);
 }
-function renderHistory(f){
-    var mr=myRegs();
-    var list=f==="all"?mr:mr.filter(r=>r.sem===f);
-    document.getElementById("history-table").innerHTML=list.length?list.map((r,i)=>{
-        var c=COURSES.find(x=>x.id===r.cid);
-        return `<tr><td>${i+1}</td><td><strong>${c?c.name:"?"}</strong></td><td><span class="badge b-blue">${c?c.code:"?"}</span></td><td>${c?c.credits:"?"}</td><td><span class="badge ${r.sem==="S1"?"b-green":"b-cyan"}">${r.sem}</span></td><td>${r.date}</td><td><span class="badge b-green">✅ Active</span></td><td><button class="btn-danger" onclick="dropCourse(${r.id})">Drop</button></td></tr>`;
-    }).join(""):'<tr><td colspan="8" style="text-align:center;color:var(--sub);padding:20px">No registration history</td></tr>';
+function renderRegHistory(f){
+    var mr = myReg();
+    var list = f==="all" ? mr : mr.filter(r=>r.sem===f);
+    document.getElementById("rh-table").innerHTML = list.length ?
+        list.map((r,i)=>{
+            var c=COURSES.find(x=>x.id===r.cid);
+            return `<tr>
+                <td>${i+1}</td>
+                <td><strong>${c?c.name:"?"}</strong></td>
+                <td><span class="badge bbl">${c?c.code:"?"}</span></td>
+                <td>${c?c.credits:"?"}</td>
+                <td><span class="badge ${r.sem==="S1"?"bgr":"bcy"}">${r.sem}</span></td>
+                <td>${r.date}</td>
+                <td><span class="badge bgr">✅ Active</span></td>
+                <td><button class="dbtn" onclick="dropReg(${r.id})">Drop</button></td>
+            </tr>`;
+        }).join("") :
+        '<tr><td colspan="8" style="text-align:center;color:#78909c;padding:18px;">No registration history</td></tr>';
 }
-function dropCourse(id){
-    if(!confirm("Are you sure you want to drop this course?"))return;
-    regs=regs.filter(r=>r.id!==id); save("zhs_regs",regs);
-    renderHistory(hf); renderRegDash(); renderCourseGrid(cf); loadDashboard();
-    toast("🗑️ Course dropped!");
+function dropReg(id){
+    if(!confirm("Are you sure you want to drop this course?")) return;
+    regs = regs.filter(r=>r.id!==id);
+    sto_set("regs",regs);
+    renderRegHistory(hf); renderRegDash(); renderCourseGrid(cf); renderHome(); renderSemInfo();
+    showToast("🗑️ Course dropped!");
 }
 
-// ===== GRADES =====
-function filterGrades(f,b){
+// ========== GRADES ==========
+function setGF(f, btn){
     gf=f;
-    document.querySelectorAll("#pg-grades .stab").forEach(t=>t.classList.remove("on"));
-    b.classList.add("on"); renderGrades(f);
+    document.querySelectorAll("#gr-tabs .stab").forEach(t=>t.classList.remove("on"));
+    btn.classList.add("on");
+    renderGrades(f);
 }
 function addGrade(){
-    var sid=parseInt(document.getElementById("gr-st").value);
-    var cid=parseInt(document.getElementById("gr-co").value);
-    var assign=document.getElementById("gr-ass").value.trim();
-    var score=parseInt(document.getElementById("gr-sc").value);
-    var sem=document.getElementById("gr-sem").value;
-    var date=document.getElementById("gr-date").value;
-    if(!sid||!cid||!assign||isNaN(score)){toast("⚠️ Fill all required fields!");return;}
-    if(score<0||score>100){toast("⚠️ Score must be 0-100!");return;}
-    grades.push({id:Date.now(),sid,cid,assign,score,sem,date});
-    save("zhs_grades",grades);
+    var sid   = parseInt(document.getElementById("gr-st").value);
+    var cid   = parseInt(document.getElementById("gr-co").value);
+    var asgn  = document.getElementById("gr-ass").value.trim();
+    var score = parseInt(document.getElementById("gr-sc").value);
+    var sem   = document.getElementById("gr-sem").value;
+    var dt    = document.getElementById("gr-dt").value;
+    if(!sid||!cid||!asgn||isNaN(score)){ showToast("⚠️ Fill all required fields!"); return; }
+    if(score<0||score>100){ showToast("⚠️ Score must be 0-100!"); return; }
+    grd.push({id:Date.now(), sid, cid, assign:asgn, score, sem, date:dt});
+    sto_set("grd",grd);
     document.getElementById("gr-ass").value="";
     document.getElementById("gr-sc").value="";
-    renderGrades(gf); loadDashboard(); toast("✅ Grade saved!");
+    renderGrades(gf); renderHome();
+    showToast("✅ Grade saved!");
 }
 function renderGrades(f){
-    var list=gf==="all"?grades:grades.filter(g=>g.sem===f);
+    var list = gf==="all" ? grd : grd.filter(g=>g.sem===f);
     if(me.role==="student") list=list.filter(g=>g.sid===me.id);
-    var s1g=list.filter(g=>g.sem==="S1"), s2g=list.filter(g=>g.sem==="S2");
-    var s1a=s1g.length?(s1g.reduce((s,g)=>s+g.score,0)/s1g.length).toFixed(1):"N/A";
-    var s2a=s2g.length?(s2g.reduce((s,g)=>s+g.score,0)/s2g.length).toFixed(1):"N/A";
-    var ov=list.length?(list.reduce((s,g)=>s+g.score,0)/list.length).toFixed(1):"N/A";
-    document.getElementById("grade-stats").innerHTML=`
-        <div class="stat-card blue"><span class="si">1️⃣</span><div class="sn">${s1a}</div><div class="sl">Sem 1 Average</div></div>
-        <div class="stat-card green"><span class="si">2️⃣</span><div class="sn">${s2a}</div><div class="sl">Sem 2 Average</div></div>
-        <div class="stat-card orange"><span class="si">📊</span><div class="sn">${ov}</div><div class="sl">Overall Average</div></div>
-        <div class="stat-card cyan"><span class="si">🎓</span><div class="sn">${ov!=="N/A"?glet(parseFloat(ov)):"N/A"}</div><div class="sl">Overall Grade</div></div>
+    var s1g = list.filter(g=>g.sem==="S1");
+    var s2g = list.filter(g=>g.sem==="S2");
+    var s1a = s1g.length ? (s1g.reduce((s,g)=>s+g.score,0)/s1g.length).toFixed(1) : "N/A";
+    var s2a = s2g.length ? (s2g.reduce((s,g)=>s+g.score,0)/s2g.length).toFixed(1) : "N/A";
+    var ova = list.length ? (list.reduce((s,g)=>s+g.score,0)/list.length).toFixed(1) : "N/A";
+    document.getElementById("gr-stats").innerHTML=`
+        <div class="scard"><span class="si">1️⃣</span><div class="sn">${s1a}</div><div class="sl">Sem 1 Average</div></div>
+        <div class="scard g"><span class="si">2️⃣</span><div class="sn">${s2a}</div><div class="sl">Sem 2 Average</div></div>
+        <div class="scard o"><span class="si">📊</span><div class="sn">${ova}</div><div class="sl">Overall Average</div></div>
+        <div class="scard c"><span class="si">🎓</span><div class="sn">${ova!=="N/A"?glet(parseFloat(ova)):"N/A"}</div><div class="sl">Overall Grade</div></div>
     `;
-    document.getElementById("grade-table").innerHTML=list.length?list.map(g=>{
-        var c=COURSES.find(x=>x.id===g.cid); var s=USERS.find(x=>x.id===g.sid);
-        return `<tr><td>${s?s.n:"?"}</td><td>${c?c.name:"?"}</td><td>${g.assign}</td><td><strong style="color:${gcolor(g.score)}">${g.score}/100</strong></td><td><span class="badge ${gbadge(g.score)}">${glet(g.score)}</span></td><td>${ggpa(g.score)}</td><td><span class="badge ${g.sem==="S1"?"b-green":"b-cyan"}">${g.sem}</span></td></tr>`;
-    }).join(""):'<tr><td colspan="7" style="text-align:center;color:var(--sub);padding:20px">No grades found</td></tr>';
-    // Performance bars
+    document.getElementById("gr-table").innerHTML = list.length ?
+        list.map(g=>{
+            var c=COURSES.find(x=>x.id===g.cid);
+            var s=USERS.find(x=>x.id===g.sid);
+            return `<tr>
+                <td>${s?s.n:"?"}</td>
+                <td>${c?c.name:"?"}</td>
+                <td>${g.assign}</td>
+                <td><strong style="color:${gcol(g.score)}">${g.score}/100</strong></td>
+                <td><span class="badge ${gbadge(g.score)}">${glet(g.score)}</span></td>
+                <td>${ggpa(g.score)}</td>
+                <td><span class="badge ${g.sem==="S1"?"bgr":"bcy"}">${g.sem}</span></td>
+            </tr>`;
+        }).join("") :
+        '<tr><td colspan="7" style="text-align:center;color:#78909c;padding:16px;">No grades found</td></tr>';
+    // Bars
     var byC={};
-    list.forEach(g=>{if(!byC[g.cid])byC[g.cid]=[];byC[g.cid].push(g.score);});
-    document.getElementById("perf-bars").innerHTML=Object.entries(byC).map(([cid,scores])=>{
+    list.forEach(g=>{ if(!byC[g.cid]) byC[g.cid]=[]; byC[g.cid].push(g.score); });
+    document.getElementById("gr-bars").innerHTML = Object.entries(byC).map(([cid,scores])=>{
         var c=COURSES.find(x=>x.id===parseInt(cid));
         var avg=(scores.reduce((s,x)=>s+x,0)/scores.length).toFixed(0);
-        return `<div class="grade-bar-wrap"><div class="grade-bar-info"><span>${c?c.name:"?"}</span><span style="color:${gcolor(parseInt(avg))};font-weight:700">${avg}% — ${glet(parseInt(avg))}</span></div><div class="grade-bar"><div class="grade-fill" style="width:${avg}%;background:${gcolor(parseInt(avg))}"></div></div></div>`;
-    }).join("")||'<p style="color:var(--sub);padding:16px">No data available</p>';
+        return `<div class="gbar-wrap">
+            <div class="gbar-info"><span>${c?c.name:"?"}</span><span style="color:${gcol(parseInt(avg))};font-weight:700">${avg}% — ${glet(parseInt(avg))}</span></div>
+            <div class="gbar"><div class="gfill" style="width:${avg}%;background:${gcol(parseInt(avg))}"></div></div>
+        </div>`;
+    }).join("") || '<p style="color:#78909c;padding:14px;">No data yet.</p>';
 }
 
-// ===== COURSEWORK =====
-function filterCW(f,b){
+// ========== COURSEWORK ==========
+function setCWF(f, btn){
     cwf=f;
-    document.querySelectorAll("#pg-coursework .stab").forEach(t=>t.classList.remove("on"));
-    b.classList.add("on"); renderCW(f);
+    document.querySelectorAll("#cw-tabs .stab").forEach(t=>t.classList.remove("on"));
+    btn.classList.add("on");
+    renderCW(f);
 }
 function addCW(){
     var t=document.getElementById("cw-t").value.trim();
     var c=parseInt(document.getElementById("cw-c").value);
     var tp=document.getElementById("cw-tp").value;
     var s=document.getElementById("cw-s").value;
-    var d=document.getElementById("cw-due").value;
+    var d=document.getElementById("cw-d").value;
     var desc=document.getElementById("cw-desc").value.trim();
-    var mx=parseInt(document.getElementById("cw-max").value)||100;
-    if(!t||!c||!d){toast("⚠️ Fill required fields!");return;}
-    cws.push({id:Date.now(),title:t,cid:c,type:tp,sem:s,due:d,desc,max:mx,status:"Pending",uid:me.id});
-    save("zhs_cws",cws);
+    var mx=parseInt(document.getElementById("cw-m").value)||100;
+    if(!t||!c||!d){ showToast("⚠️ Fill required fields!"); return; }
+    cws.push({id:Date.now(), title:t, cid:c, type:tp, sem:s, due:d, desc, max:mx, status:"Pending", uid:me.id});
+    sto_set("cws",cws);
     document.getElementById("cw-t").value="";
     document.getElementById("cw-desc").value="";
-    renderCW(cwf); renderAssignments(); toast("✅ Coursework added!");
+    renderCW(cwf); renderAssignments();
+    showToast("✅ Coursework added!");
 }
 function renderCW(f){
-    var list=f==="all"?cws:f==="S1"?cws.filter(c=>c.sem==="S1"):f==="S2"?cws.filter(c=>c.sem==="S2"):f==="pending"?cws.filter(c=>c.status==="Pending"):cws.filter(c=>c.status==="Submitted");
-    document.getElementById("cw-table").innerHTML=list.length?list.map(c=>{
-        var co=COURSES.find(x=>x.id===c.cid);
-        var past=new Date(c.due)<new Date()&&c.status!=="Submitted";
-        return `<tr><td><strong>${c.title}</strong><br><small style="color:var(--sub)">${c.desc||""}</small></td><td>${co?co.name:"?"}</td><td><span class="badge b-blue">${c.type}</span></td><td><span class="badge ${c.sem==="S1"?"b-green":"b-cyan"}">${c.sem}</span></td><td style="color:${past?"var(--red)":"inherit"}">${c.due}${past?" ⚠️":""}</td><td><span class="badge ${c.status==="Submitted"?"b-green":"b-orange"}">${c.status}</span></td><td><button class="btn-sec" onclick="toggleCW(${c.id})">${c.status==="Submitted"?"↩ Undo":"✅ Submit"}</button>${me.role!=="student"?`<button class="btn-danger" onclick="delCW(${c.id})" style="margin-left:5px">Del</button>`:""}</td></tr>`;
-    }).join(""):'<tr><td colspan="7" style="text-align:center;color:var(--sub);padding:20px">No coursework found</td></tr>';
+    var list = cwf==="all" ? cws :
+               cwf==="S1"  ? cws.filter(c=>c.sem==="S1") :
+               cwf==="S2"  ? cws.filter(c=>c.sem==="S2") :
+               cwf==="pending" ? cws.filter(c=>c.status==="Pending") :
+                                 cws.filter(c=>c.status==="Submitted");
+    document.getElementById("cw-table").innerHTML = list.length ?
+        list.map(c=>{
+            var co=COURSES.find(x=>x.id===c.cid);
+            var past = new Date(c.due)<new Date() && c.status!=="Submitted";
+            return `<tr>
+                <td><strong>${c.title}</strong><br><small style="color:#78909c">${c.desc||""}</small></td>
+                <td>${co?co.name:"?"}</td>
+                <td><span class="badge bbl">${c.type}</span></td>
+                <td><span class="badge ${c.sem==="S1"?"bgr":"bcy"}">${c.sem}</span></td>
+                <td style="color:${past?"#c62828":"inherit"}">${c.due}${past?" ⚠️":""}</td>
+                <td><span class="badge ${c.status==="Submitted"?"bgr":"bor"}">${c.status}</span></td>
+                <td>
+                    <button class="ebtn" onclick="toggleCW(${c.id})">${c.status==="Submitted"?"↩ Undo":"✅ Submit"}</button>
+                    ${me.role!=="student"?`<button class="dbtn" onclick="delCW(${c.id})" style="margin-left:4px">Del</button>`:""}
+                </td>
+            </tr>`;
+        }).join("") :
+        '<tr><td colspan="7" style="text-align:center;color:#78909c;padding:16px;">No coursework found</td></tr>';
 }
-function toggleCW(id){var c=cws.find(x=>x.id===id);if(c){c.status=c.status==="Submitted"?"Pending":"Submitted";save("zhs_cws",cws);renderCW(cwf);toast("✅ Status updated!");}}
-function delCW(id){if(!confirm("Delete this?"))return;cws=cws.filter(x=>x.id!==id);save("zhs_cws",cws);renderCW(cwf);renderAssignments();toast("🗑️ Deleted!");}
+function toggleCW(id){
+    var c=cws.find(x=>x.id===id);
+    if(c){ c.status=c.status==="Submitted"?"Pending":"Submitted"; sto_set("cws",cws); renderCW(cwf); showToast("✅ Status updated!"); }
+}
+function delCW(id){
+    if(!confirm("Delete this coursework?")) return;
+    cws=cws.filter(x=>x.id!==id); sto_set("cws",cws); renderCW(cwf); renderAssignments(); showToast("🗑️ Deleted!");
+}
 
-// ===== TRANSCRIPT =====
-function loadTranscriptSel(){
-    var el=document.getElementById("tr-st");
-    el.innerHTML='<option value="">-- Select Student --</option>';
-    var sts=me.role==="student"?USERS.filter(u=>u.id===me.id):USERS.filter(u=>u.role==="student");
-    sts.forEach(u=>el.innerHTML+=`<option value="${u.id}">${u.n}</option>`);
-    if(me.role==="student"){el.value=me.id;loadTranscript();}
-}
-function loadTranscript(){
+// ========== TRANSCRIPT ==========
+function loadTr(){
     var sid=parseInt(document.getElementById("tr-st").value);
-    if(!sid){document.getElementById("trans-wrap").innerHTML='<p style="color:var(--sub);text-align:center;padding:30px">Select a student to view transcript</p>';return;}
+    if(!sid){ document.getElementById("tr-box").innerHTML='<p style="color:#78909c;text-align:center;padding:28px;">Select a student to view transcript.</p>'; return; }
     var st=USERS.find(u=>u.id===sid);
-    var mg=grades.filter(g=>g.sid===sid);
+    var mg=grd.filter(g=>g.sid===sid);
     var s1g=mg.filter(g=>g.sem==="S1"), s2g=mg.filter(g=>g.sem==="S2");
     var s1a=s1g.length?(s1g.reduce((s,g)=>s+g.score,0)/s1g.length).toFixed(1):"N/A";
     var s2a=s2g.length?(s2g.reduce((s,g)=>s+g.score,0)/s2g.length).toFixed(1):"N/A";
-    var ov=mg.length?(mg.reduce((s,g)=>s+g.score,0)/mg.length).toFixed(1):"N/A";
+    var ova=mg.length?(mg.reduce((s,g)=>s+g.score,0)/mg.length).toFixed(1):"N/A";
     var byC={};
-    mg.forEach(g=>{if(!byC[g.cid])byC[g.cid]={s1:[],s2:[]};byC[g.cid][g.sem==="S1"?"s1":"s2"].push(g.score);});
-    document.getElementById("trans-wrap").innerHTML=`
-        <div class="trans-head">
-            <div class="trans-school">
-                <h2>🎓 ZAKAYO HIGH SCHOOL</h2>
-                <p>Official Academic Transcript — Academic Year 2026</p>
-            </div>
-            <button class="btn-print" onclick="window.print()">🖨️ Print Transcript</button>
+    mg.forEach(g=>{ if(!byC[g.cid]) byC[g.cid]={s1:[],s2:[]}; byC[g.cid][g.sem==="S1"?"s1":"s2"].push(g.score); });
+    document.getElementById("tr-box").innerHTML=`
+        <div class="trhead">
+            <div class="trschool"><h2>🎓 ZAKAYO HIGH SCHOOL</h2><p>Official Academic Transcript — 2026</p></div>
+            <button class="pbtn" onclick="window.print()">🖨️ Print</button>
         </div>
-        <div class="trans-info">
-            <div class="trans-info-item"><strong>Student Name</strong><span>${st.n}</span></div>
-            <div class="trans-info-item"><strong>Student ID</strong><span>ZHS-${String(st.id).padStart(4,"0")}</span></div>
-            <div class="trans-info-item"><strong>Form / Class</strong><span>${st.form||"N/A"}</span></div>
-            <div class="trans-info-item"><strong>Academic Year</strong><span>2026</span></div>
-            <div class="trans-info-item"><strong>Date Issued</strong><span>${new Date().toLocaleDateString()}</span></div>
-            <div class="trans-info-item"><strong>Status</strong><span><span class="badge b-green">Active</span></span></div>
+        <div class="trinfo">
+            <div class="trii"><strong>Student Name</strong><span>${st.n}</span></div>
+            <div class="trii"><strong>Student ID</strong><span>ZHS-${String(st.id).padStart(4,"0")}</span></div>
+            <div class="trii"><strong>Form / Class</strong><span>${st.form||"N/A"}</span></div>
+            <div class="trii"><strong>Academic Year</strong><span>2026</span></div>
+            <div class="trii"><strong>Date Issued</strong><span>${new Date().toLocaleDateString()}</span></div>
+            <div class="trii"><strong>Status</strong><span><span class="badge bgr">Active</span></span></div>
         </div>
-        <div class="table-wrap"><table>
-            <thead><tr><th>Code</th><th>Course</th><th>Credits</th><th>S1 Avg</th><th>S2 Avg</th><th>Final Score</th><th>Grade</th><th>GPA Points</th></tr></thead>
+        <div class="twrap"><table>
+            <thead><tr><th>Code</th><th>Course</th><th>Credits</th><th>S1 Avg</th><th>S2 Avg</th><th>Final</th><th>Grade</th><th>GPA</th></tr></thead>
             <tbody>${Object.entries(byC).map(([cid,data])=>{
                 var c=COURSES.find(x=>x.id===parseInt(cid));
-                var s1a=data.s1.length?(data.s1.reduce((s,x)=>s+x,0)/data.s1.length).toFixed(0):"—";
-                var s2a=data.s2.length?(data.s2.reduce((s,x)=>s+x,0)/data.s2.length).toFixed(0):"—";
+                var a1=data.s1.length?(data.s1.reduce((s,x)=>s+x,0)/data.s1.length).toFixed(0):"—";
+                var a2=data.s2.length?(data.s2.reduce((s,x)=>s+x,0)/data.s2.length).toFixed(0):"—";
                 var all=[...data.s1,...data.s2];
                 var fin=all.length?(all.reduce((s,x)=>s+x,0)/all.length).toFixed(0):"—";
-                return `<tr><td><span class="badge b-blue">${c?c.code:"?"}</span></td><td><strong>${c?c.name:"?"}</strong></td><td>${c?c.credits:"?"}</td><td>${s1a!=="—"?s1a+"%":"—"}</td><td>${s2a!=="—"?s2a+"%":"—"}</td><td><strong style="color:${fin!=="—"?gcolor(parseInt(fin)):"#999"}">${fin!=="—"?fin+"%":"—"}</strong></td><td>${fin!=="—"?`<span class="badge ${gbadge(parseInt(fin))}">${glet(parseInt(fin))}</span>`:"—"}</td><td>${fin!=="—"?ggpa(parseInt(fin)):"—"}</td></tr>`;
-            }).join("")}
-            </tbody>
+                return `<tr><td><span class="badge bbl">${c?c.code:"?"}</span></td><td><strong>${c?c.name:"?"}</strong></td><td>${c?c.credits:"?"}</td><td>${a1!=="—"?a1+"%":"—"}</td><td>${a2!=="—"?a2+"%":"—"}</td><td><strong style="color:${fin!=="—"?gcol(parseInt(fin)):"#999"}">${fin!=="—"?fin+"%":"—"}</strong></td><td>${fin!=="—"?`<span class="badge ${gbadge(parseInt(fin))}">${glet(parseInt(fin))}</span>`:"—"}</td><td>${fin!=="—"?ggpa(parseInt(fin)):"—"}</td></tr>`;
+            }).join("")}</tbody>
         </table></div>
-        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:20px;">
-            <div style="background:#e3f2fd;border-radius:10px;padding:16px;text-align:center;"><div style="font-size:24px;font-weight:900;color:var(--primary)">${s1a}</div><div style="font-size:12px;color:var(--sub);margin-top:4px">Semester 1 GPA</div></div>
-            <div style="background:#e8f5e9;border-radius:10px;padding:16px;text-align:center;"><div style="font-size:24px;font-weight:900;color:var(--green)">${s2a}</div><div style="font-size:12px;color:var(--sub);margin-top:4px">Semester 2 GPA</div></div>
-            <div style="background:#fff3e0;border-radius:10px;padding:16px;text-align:center;"><div style="font-size:24px;font-weight:900;color:var(--orange)">${ov}</div><div style="font-size:12px;color:var(--sub);margin-top:4px">Overall Average</div></div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px;">
+            <div style="background:#e3f2fd;border-radius:9px;padding:14px;text-align:center;"><div style="font-size:22px;font-weight:900;color:#1565c0">${s1a}</div><div style="font-size:12px;color:#78909c;margin-top:3px">Semester 1 Avg</div></div>
+            <div style="background:#e8f5e9;border-radius:9px;padding:14px;text-align:center;"><div style="font-size:22px;font-weight:900;color:#2e7d32">${s2a}</div><div style="font-size:12px;color:#78909c;margin-top:3px">Semester 2 Avg</div></div>
+            <div style="background:#fff3e0;border-radius:9px;padding:14px;text-align:center;"><div style="font-size:22px;font-weight:900;color:#e65100">${ova}</div><div style="font-size:12px;color:#78909c;margin-top:3px">Overall Average</div></div>
         </div>
-        <div style="margin-top:20px;padding-top:16px;border-top:1px solid var(--border);font-size:11px;color:var(--sub);text-align:center;">This is an official academic transcript of Zakayo High School. Generated: ${new Date().toLocaleString()}</div>
+        <div style="margin-top:18px;padding-top:14px;border-top:1px solid #f0f0f0;font-size:11px;color:#bbb;text-align:center;">Official transcript of Zakayo High School. Generated: ${new Date().toLocaleString()}</div>
     `;
 }
 
-// ===== PERFORMANCE =====
-function loadPerformance(){
+// ========== PERFORMANCE ==========
+function renderPerformance(){
     var sts=USERS.filter(u=>u.role==="student");
-    document.getElementById("perf-report").innerHTML=sts.map((s,i)=>{
-        var s1g=grades.filter(g=>g.sid===s.id&&g.sem==="S1");
-        var s2g=grades.filter(g=>g.sid===s.id&&g.sem==="S2");
+    document.getElementById("perf-div").innerHTML=sts.map(s=>{
+        var s1g=grd.filter(g=>g.sid===s.id&&g.sem==="S1");
+        var s2g=grd.filter(g=>g.sid===s.id&&g.sem==="S2");
         var s1a=s1g.length?(s1g.reduce((x,g)=>x+g.score,0)/s1g.length).toFixed(0):"N/A";
         var s2a=s2g.length?(s2g.reduce((x,g)=>x+g.score,0)/s2g.length).toFixed(0):"N/A";
         if(s1a==="N/A"&&s2a==="N/A") return "";
-        return `<div class="grade-bar-wrap" style="margin-bottom:16px;">
-            <div class="grade-bar-info"><span><strong>${s.n}</strong> — ${s.form}</span><span style="font-size:12px;color:var(--sub)">S1: ${s1a}% | S2: ${s2a}%</span></div>
-            ${s1a!=="N/A"?`<div style="font-size:12px;color:var(--sub);margin-bottom:4px">Semester 1</div><div class="grade-bar"><div class="grade-fill" style="width:${s1a}%;background:var(--primary)"></div></div>`:""}
-            ${s2a!=="N/A"?`<div style="font-size:12px;color:var(--sub);margin:8px 0 4px">Semester 2</div><div class="grade-bar"><div class="grade-fill" style="width:${s2a}%;background:var(--accent)"></div></div>`:""}
+        return `<div class="gbar-wrap" style="margin-bottom:18px;">
+            <div class="gbar-info"><strong>${s.n}</strong><span style="font-size:12px;color:#78909c">S1: ${s1a}% | S2: ${s2a}%</span></div>
+            ${s1a!=="N/A"?`<div style="font-size:11px;color:#78909c;margin-bottom:3px;">Semester 1</div><div class="gbar"><div class="gfill" style="width:${s1a}%;background:#1565c0;"></div></div>`:""}
+            ${s2a!=="N/A"?`<div style="font-size:11px;color:#78909c;margin:7px 0 3px;">Semester 2</div><div class="gbar"><div class="gfill" style="width:${s2a}%;background:#00bcd4;"></div></div>`:""}
         </div>`;
-    }).join("")||'<p style="color:var(--sub);padding:16px">No performance data yet</p>';
+    }).join("") || '<p style="color:#78909c;padding:14px;">No performance data yet.</p>';
 }
 
-// ===== QUIZ =====
-function renderQuiz(){
+// ========== QUIZ ==========
+function renderQuizGrid(){
     var topics=[...new Set(QUESTIONS.map(q=>q.c))];
-    document.getElementById("quiz-grid").innerHTML=topics.map(t=>{
+    document.getElementById("q-grid").innerHTML=topics.map(t=>{
         var c=COURSES.find(x=>x.code===t);
         var cnt=QUESTIONS.filter(q=>q.c===t).length;
-        var best=quiz_scores.filter(q=>q.uid===me.id&&q.course===t);
-        var bestPct=best.length?Math.max(...best.map(x=>x.pct))+"%":"Not attempted";
-        return `<div class="qcard" onclick="startQuiz('${t}')">
-            <div class="qcard-icon">${c?c.icon:"📝"}</div>
+        var best=qsc.filter(q=>q.uid===me.id&&q.course===t);
+        var bpct=best.length ? Math.max(...best.map(x=>x.pct))+"%" : "Not attempted";
+        return `<div class="qcard" onclick="startQ('${t}')">
+            <div class="qi">${c?c.icon:"📝"}</div>
             <h4>${c?c.name:t}</h4>
             <p>${cnt} questions</p>
-            <div class="best">🏆 Best: ${bestPct}</div>
+            <div class="qbest">🏆 Best: ${bpct}</div>
         </div>`;
     }).join("");
 }
-function startQuiz(code){
+function startQ(code){
     qqs=QUESTIONS.filter(q=>q.c===code).sort(()=>Math.random()-0.5);
-    qi=0;qsc=0;qans=false;
-    document.getElementById("q-select-area").style.display="none";
-    document.getElementById("q-play-area").style.display="block";
-    document.getElementById("q-done-area").style.display="none";
+    qi=0; qscore=0; qans=false;
+    document.getElementById("q-sel").style.display="none";
+    document.getElementById("q-play").style.display="block";
+    document.getElementById("q-fin").style.display="none";
     showQ();
 }
 function showQ(){
     var q=qqs[qi];
-    document.getElementById("qpfill").style.width=((qi/qqs.length)*100)+"%";
-    document.getElementById("qpnum").textContent="Q "+(qi+1)+"/"+qqs.length;
-    document.getElementById("qppts").textContent="Score: "+qsc;
-    document.getElementById("qptext").textContent=q.q;
-    document.getElementById("qpnext").style.display="none";
+    document.getElementById("qpf").style.width=((qi/qqs.length)*100)+"%";
+    document.getElementById("qnum").textContent="Q "+(qi+1)+"/"+qqs.length;
+    document.getElementById("qpts").textContent="Score: "+qscore;
+    document.getElementById("qtext").textContent=q.q;
+    document.getElementById("qnxt").style.display="none";
     qans=false;
-    document.getElementById("qpopts").innerHTML=q.opts.map((o,i)=>`<button class="q-opt" onclick="ansQ(${i})">${o}</button>`).join("");
+    document.getElementById("qopts").innerHTML=q.opts.map((o,i)=>`<button class="qopt" onclick="ansQ(${i})">${o}</button>`).join("");
 }
 function ansQ(i){
-    if(qans)return;qans=true;
+    if(qans) return; qans=true;
     var q=qqs[qi];
-    document.querySelectorAll(".q-opt").forEach((b,j)=>{if(j===q.a)b.classList.add("ok");else if(j===i&&i!==q.a)b.classList.add("no");b.onclick=null;});
-    if(i===q.a)qsc++;
-    document.getElementById("qpnext").style.display="block";
-    document.getElementById("qpnext").textContent=qi<qqs.length-1?"Next Question →":"Finish Quiz 🏁";
+    document.querySelectorAll(".qopt").forEach((b,j)=>{
+        if(j===q.a) b.classList.add("ok");
+        else if(j===i&&i!==q.a) b.classList.add("no");
+        b.onclick=null;
+    });
+    if(i===q.a) qscore++;
+    document.getElementById("qnxt").style.display="block";
+    document.getElementById("qnxt").textContent=qi<qqs.length-1?"Next Question →":"Finish Quiz 🏁";
 }
+function nextQ(){
+    qi++;
+    if(qi<qqs.length) showQ(); else finishQ();
+}
+function finishQ(){
+    document.getElementById("q-play").style.display="none";
+    document.getElementById("q-fin").style.display="block";
+    var pct=Math.round((qscore/qqs.length)*100);
+    document.getElementById("q-score").textContent=qscore+"/"+qqs.length+" ("+pct+"%)";
+    document.getElementById("q-msg").textContent=pct>=80?"🏆 Excellent!":pct>=60?"👍 Good work!":"📚 Review and try again!";
+    qsc.push({uid:me.id, pct, date:new Date().toLocaleDateString(), course:qqs[0]?.c});
+    sto_set("qsc",qsc);
+    renderHome();
+}
+function resetQ(){
+    document.getElementById("q-sel").style.display="block";
+    document.getElementById("q-fin").style.display="none";
+    renderQuizGrid();
+}
+
+// ========== ASSIGNMENTS ==========
+function renderAssignments(){
+    document.getElementById("as-table").innerHTML=cws.length ?
+        cws.map(c=>{
+            var co=COURSES.find(x=>x.id===c.cid);
+            return `<tr><td><strong>${c.title}</strong></td><td>${co?co.name:"?"}</td><td>${c.due}</td><td>${c.max}</td><td><span class="badge ${c.status==="Submitted"?"bgr":"bor"}">${c.status}</span></td><td><span class="badge ${c.sem==="S1"?"bgr":"bcy"}">${c.sem}</span></td></tr>`;
+        }).join("") :
+        '<tr><td colspan="6" style="text-align:center;color:#78909c;padding:18px;">No assignments yet.</td></tr>';
+}
+
+// ========== TIMETABLE ==========
+function renderTimetable(){
+    document.getElementById("tt-body").innerHTML=TIMETABLE.map(row=>{
+        var isBL=row.M==="BREAK"||row.M==="LUNCH";
+        var cls=isBL?"background:#fffde7;":"";
+        return `<tr style="${cls}">
+            <td><strong>${row.t}</strong></td>
+            <td>${isBL?`<span class="badge bor">${row.M}</span>`:row.M}</td>
+            <td>${isBL?`<span class="badge bor">${row.M}</span>`:row.Tu}</td>
+            <td>${isBL?`<span class="badge bor">${row.M}</span>`:row.W}</td>
+            <td>${isBL?`<span class="badge bor">${row.M}</span>`:row.Th}</td>
+            <td>${isBL?`<span class="badge bor">${row.M}</span>`:row.F}</td>
+        </tr>`;
+    }).join("");
+}
+
+// ========== ANNOUNCES ==========
+function renderAnnounces(){
+    var colors={blue:"#1565c0",green:"#2e7d32",orange:"#e65100",cyan:"#00bcd4",red:"#c62828"};
+    var html=ANNOUNCES.map(a=>`<div class="aitem"><div class="adot" style="background:${colors[a.type]}"></div><div class="abody"><h4>${a.icon} ${a.title}</h4><p>${a.msg}</p><div class="adate">📅 ${a.date}</div></div></div>`).join("");
+    document.getElementById("all-ann").innerHTML=html;
+}
+
+// ========== ADMIN ==========
+function renderAdmin(){
+    var sts=USERS.filter(u=>u.role==="student");
+    document.getElementById("adm-stats").innerHTML=`
+        <div class="scard"><span class="si">👥</span><div class="sn">${sts.length}</div><div class="sl">Students</div></div>
+        <div class="scard g"><span class="si">📚</span><div class="sn">${COURSES.length}</div><div class="sl">Courses</div></div>
+        <div class="scard o"><span class="si">📋</span><div class="sn">${cws.length}</div><div class="sl">Coursework</div></div>
+        <div class="scard c"><span class="si">⭐</span><div class="sn">${grd.length}</div><div class="sl">Grades</div></div>
+        <div class="scard"><span class="si">📝</span><div class="sn">${regs.length}</div><div class="sl">Registrations</div></div>
+    `;
+    document.getElementById("adm-students").innerHTML=sts.map(s=>{
+        var sg=grd.filter(g=>g.sid===s.id);
+        var avg=sg.length?(sg.reduce((x,g)=>x+g.score,0)/sg.length).toFixed(1):"N/A";
+        var rc=regs.filter(r=>r.uid===s.id).length;
+        return `<tr><td><strong>${s.n}</strong></td><td>${s.u}</td><td>${s.form}</td><td>${rc}</td><td style="color:${avg!=="N/A"?gcol(parseFloat(avg)):"#78909c"}">${avg!=="N/A"?avg+"%":"N/A"}</td><td>${avg!=="N/A"?`<span class="badge ${gbadge(parseFloat(avg))}">${glet(parseFloat(avg))}</span>`:"—"}</td><td><span class="badge bgr">Active</span></td></tr>`;
+    }).join("");
+    document.getElementById("adm-perf").innerHTML=sts.map((s,i)=>{
+        var s1g=grd.filter(g=>g.sid===s.id&&g.sem==="S1");
+        var s2g=grd.filter(g=>g.sid===s.id&&g.sem==="S2");
+        var ag=grd.filter(g=>g.sid===s.id);
+        var s1a=s1g.length?(s1g.reduce((x,g)=>x+g.score,0)/s1g.length).toFixed(1):"N/A";
+        var s2a=s2g.length?(s2g.reduce((x,g)=>x+g.score,0)/s2g.length).toFixed(1):"N/A";
+        var ov=ag.length?(ag.reduce((x,g)=>x+g.score,0)/ag.length).toFixed(1):"N/A";
+        return `<tr><td><strong>${s.n}</strong></td><td style="color:#1565c0">${s1a!=="N/A"?s1a+"%":"N/A"}</td><td style="color:#00bcd4">${s2a!=="N/A"?s2a+"%":"N/A"}</td><td style="color:${ov!=="N/A"?gcol(parseFloat(ov)):"#78909c"};font-weight:700">${ov!=="N/A"?ov+"%":"N/A"}</td><td>${ov!=="N/A"?`<span class="badge ${gbadge(parseFloat(ov))}">${glet(parseFloat(ov))}</span>`:"N/A"}</td><td><strong>#${i+1}</strong></td></tr>`;
+    }).join("");
+}
+
+// ========== NAVIGATION ==========
+function goTo(id, el){
+    document.querySelectorAll(".pg").forEach(p=>p.classList.remove("on"));
+    var target=document.getElementById("pg-"+id);
+    if(target) target.classList.add("on");
+    if(el){
+        document.querySelectorAll(".sitem").forEach(s=>s.classList.remove("on"));
+        el.classList.add("on");
+    }
+    if(id==="grades") renderGrades(gf);
+    if(id==="admin") renderAdmin();
+    if(id==="performance") renderPerformance();
+    if(id==="reg-dash") renderRegDash();
+    if(id==="transcript"){ loadTranscriptSel2(); }
+}
+function loadTranscriptSel2(){
+    var el=document.getElementById("tr-st");
+    if(!el) return;
+    el.innerHTML='<option value="">-- Select Student --</option>';
+    var sts=me.role==="student"?USERS.filter(u=>u.id===me.id):USERS.filter(u=>u.role==="student");
+    sts.forEach(u=>{ el.innerHTML+=`<option value="${u.id}">${u.n}</option>`; });
+    if(me.role==="student"){ el.value=me.id; loadTr(); }
+}
+function goSubTo(id, menuId, el){
+    document.querySelectorAll(".pg").forEach(p=>p.classList.remove("on"));
+    var target=document.getElementById("pg-"+id);
+    if(target) target.classList.add("on");
+    document.querySelectorAll(".subitem").forEach(s=>s.classList.remove("on"));
+    if(el) el.classList.add("on");
+    if(id==="grades") renderGrades(gf);
+    if(id==="admin") renderAdmin();
+    if(id==="transcript") loadTranscriptSel2();
+    if(id==="reg-dash") renderRegDash();
+}
+function toggleGroup(menuId, btnId){
+    var menu=document.getElementById(menuId);
+    var arr=document.getElementById("sa-"+btnId.replace("sg-",""));
+    menu.classList.toggle("open");
+    arr.classList.toggle("r");
+}
+function toggleSidebar(){
+    var sb=document.getElementById("sidebar");
+    var mn=document.getElementById("main");
+    sid_open=!sid_open;
+    if(sid_open){ sb.style.transform=""; mn.style.marginLeft="255px"; }
+    else { sb.style.transform="translateX(-255px)"; mn.style.marginLeft="0"; }
+}
+</script>
+</body>
+</html>
