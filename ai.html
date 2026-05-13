@@ -1,350 +1,547 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Gallery — Zakayo</title>
+<title>AI Assistant — Zakayo</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
-body{background:#0a0a1a;color:white;font-family:Arial;}
-nav{background:linear-gradient(135deg,#e94560,#c0392b);padding:15px 30px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100;}
-nav a{color:white;margin:10px;text-decoration:none;font-size:15px;}
-nav a:hover{opacity:0.8;}
-.hero{background:linear-gradient(135deg,#1a1a2e,#0f3460);padding:60px 20px;text-align:center;}
-.hero h1{font-size:42px;font-weight:900;margin-bottom:15px;}
+body{background:#0a0a1a;color:#fff;font-family:Arial,sans-serif;min-height:100vh;}
+
+nav{
+  background:linear-gradient(135deg,#e94560,#c0392b);
+  padding:13px 20px;display:flex;
+  justify-content:space-between;align-items:center;
+  position:sticky;top:0;z-index:100;
+}
+nav a{
+  color:#fff;text-decoration:none;font-size:14px;
+  margin:0 8px;opacity:0.9;
+}
+nav a:hover{opacity:1;}
+.nav-title{font-weight:900;font-size:15px;}
+
+.hero{
+  background:linear-gradient(135deg,#1a1a2e,#0f3460);
+  padding:30px 20px;text-align:center;
+}
+.hero h1{font-size:26px;font-weight:900;margin-bottom:8px;}
 .hero h1 span{color:#e94560;}
-.hero p{color:#aaa;font-size:18px;max-width:600px;margin:0 auto 30px;}
-.upload-btn{background:#e94560;color:white;padding:14px 30px;border-radius:30px;border:none;font-size:16px;cursor:pointer;transition:all 0.3s;font-weight:bold;}
-.upload-btn:hover{transform:translateY(-3px);box-shadow:0 10px 30px rgba(233,69,96,0.4);}
-.container{max-width:1200px;margin:0 auto;padding:40px 20px;}
-.filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:30px;justify-content:center;}
-.filter-btn{padding:10px 22px;border-radius:25px;border:1px solid rgba(233,69,96,0.3);background:transparent;color:#aaa;cursor:pointer;font-size:14px;transition:all 0.3s;}
-.filter-btn:hover,.filter-btn.active{background:#e94560;color:white;border-color:#e94560;}
-.upload-area{border:2px dashed rgba(233,69,96,0.4);border-radius:20px;padding:40px;text-align:center;margin-bottom:30px;transition:all 0.3s;cursor:pointer;background:rgba(15,52,96,0.3);}
-.upload-area:hover,.upload-area.dragover{border-color:#e94560;background:rgba(233,69,96,0.1);}
-.upload-area .icon{font-size:50px;margin-bottom:15px;}
-.upload-area p{color:#aaa;font-size:16px;}
-.upload-area span{color:#e94560;}
-#file-input{display:none;}
-.gallery-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px;}
-.gallery-item{background:rgba(15,52,96,0.6);border-radius:15px;overflow:hidden;border:1px solid rgba(233,69,96,0.1);transition:all 0.3s;cursor:pointer;}
-.gallery-item:hover{transform:translateY(-8px);box-shadow:0 20px 40px rgba(233,69,96,0.2);border-color:#e94560;}
-.gallery-item img{width:100%;height:220px;object-fit:cover;transition:transform 0.3s;}
-.gallery-item:hover img{transform:scale(1.05);}
-.item-info{padding:15px;}
-.item-title{font-size:16px;font-weight:bold;margin-bottom:5px;}
-.item-cat{color:#e94560;font-size:13px;margin-bottom:8px;}
-.item-desc{color:#aaa;font-size:13px;line-height:1.6;}
-.item-actions{display:flex;gap:8px;margin-top:12px;}
-.item-actions button{flex:1;padding:8px;border-radius:8px;border:none;cursor:pointer;font-size:13px;transition:all 0.3s;}
-.btn-view{background:#e94560;color:white;}
-.btn-view:hover{background:#c0392b;}
-.btn-del{background:rgba(233,69,96,0.15);color:#e94560;border:1px solid rgba(233,69,96,0.3)!important;}
-.btn-del:hover{background:#e94560;color:white;}
-.lightbox{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.95);z-index:1000;align-items:center;justify-content:center;flex-direction:column;}
-.lightbox.show{display:flex;}
-.lightbox img{max-width:90%;max-height:80vh;border-radius:10px;object-fit:contain;}
-.lightbox-info{margin-top:15px;text-align:center;}
-.lightbox-info h3{font-size:20px;margin-bottom:5px;}
-.lightbox-info p{color:#aaa;}
-.lightbox-close{position:absolute;top:20px;right:25px;font-size:35px;cursor:pointer;color:#aaa;background:none;border:none;transition:color 0.3s;}
-.lightbox-close:hover{color:#e94560;}
-.lightbox-nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(233,69,96,0.8);border:none;color:white;width:50px;height:50px;border-radius:50%;font-size:22px;cursor:pointer;transition:all 0.3s;}
-.lightbox-nav:hover{background:#e94560;}
-.lightbox-prev{left:20px;}
-.lightbox-next{right:20px;}
-.modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);z-index:999;align-items:center;justify-content:center;}
-.modal.show{display:flex;}
-.modal-box{background:#0f3460;border-radius:20px;padding:35px;width:100%;max-width:450px;border:1px solid rgba(233,69,96,0.3);}
-.modal-box h2{color:#e94560;margin-bottom:20px;font-size:22px;}
-.modal-inp{width:100%;padding:12px 15px;border-radius:10px;border:1px solid rgba(233,69,96,0.3);background:rgba(10,10,26,0.8);color:white;font-size:15px;margin-bottom:12px;}
-.modal-inp:focus{outline:none;border-color:#e94560;}
-.preview-box{width:100%;height:150px;border-radius:10px;border:2px dashed rgba(233,69,96,0.3);display:flex;align-items:center;justify-content:center;margin-bottom:15px;overflow:hidden;background:rgba(10,10,26,0.5);}
-.preview-box img{width:100%;height:100%;object-fit:cover;}
-.modal-btns{display:flex;gap:10px;}
-.modal-btns button{flex:1;padding:12px;border-radius:10px;border:none;cursor:pointer;font-size:15px;font-weight:bold;transition:all 0.3s;}
-.btn-save{background:#e94560;color:white;}
-.btn-save:hover{background:#c0392b;}
-.btn-cancel{background:rgba(255,255,255,0.1);color:#aaa;}
-.btn-cancel:hover{background:rgba(255,255,255,0.2);}
-.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:15px;margin-bottom:30px;}
-.stat-card{background:rgba(15,52,96,0.6);border:1px solid rgba(233,69,96,0.2);border-radius:12px;padding:20px;text-align:center;}
-.stat-num{font-size:32px;font-weight:900;color:#e94560;}
-.stat-name{color:#aaa;font-size:13px;margin-top:5px;}
-.empty{text-align:center;padding:60px;color:#555;}
-.empty p{font-size:18px;margin-bottom:15px;}
-footer{background:rgba(15,52,96,0.5);text-align:center;padding:25px;margin-top:40px;color:#555;font-size:13px;}
-footer strong{color:#e94560;}
-@media(max-width:600px){.gallery-grid{grid-template-columns:1fr 1fr;}.hero h1{font-size:28px;}}
+.hero p{color:#aaa;font-size:14px;}
+
+.container{max-width:750px;margin:0 auto;padding:16px;}
+
+/* SETUP CARD */
+.setup-card{
+  background:#0f3460;border-radius:14px;
+  padding:20px;margin-bottom:16px;
+  border:1px solid rgba(233,69,96,0.2);
+}
+.setup-card h3{color:#e94560;font-size:15px;margin-bottom:12px;}
+.setup-steps{margin-bottom:14px;}
+.step{
+  display:flex;gap:10px;align-items:flex-start;
+  margin-bottom:10px;font-size:13px;color:#aaa;
+  line-height:1.6;
+}
+.step-num{
+  background:#e94560;color:#fff;
+  width:22px;height:22px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:bold;flex-shrink:0;margin-top:1px;
+}
+.inp-row{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;}
+.key-input{
+  flex:1;min-width:200px;padding:10px 13px;
+  border-radius:9px;border:1px solid rgba(233,69,96,0.3);
+  background:rgba(10,10,26,0.8);color:#fff;font-size:13px;
+}
+.key-input:focus{outline:none;border-color:#e94560;}
+.model-select{
+  padding:10px 12px;border-radius:9px;
+  border:1px solid rgba(233,69,96,0.3);
+  background:rgba(10,10,26,0.8);color:#fff;font-size:13px;
+  cursor:pointer;
+}
+.model-select:focus{outline:none;border-color:#e94560;}
+.save-btn{
+  background:#27ae60;color:#fff;border:none;
+  padding:10px 20px;border-radius:9px;
+  font-size:13px;font-weight:bold;cursor:pointer;
+  transition:all 0.3s;white-space:nowrap;
+}
+.save-btn:hover{background:#1e8449;}
+.status-msg{
+  font-size:12px;margin-top:6px;padding:6px 10px;
+  border-radius:6px;display:none;
+}
+.status-ok{
+  background:rgba(39,174,96,0.2);
+  border:1px solid #27ae60;color:#27ae60;display:block;
+}
+.status-err{
+  background:rgba(233,69,96,0.2);
+  border:1px solid #e94560;color:#e94560;display:block;
+}
+
+/* CHAT */
+.chat-card{
+  background:#0f3460;border-radius:14px;
+  padding:18px;margin-bottom:16px;
+  border:1px solid rgba(233,69,96,0.2);
+}
+.quick-btns{
+  display:flex;gap:7px;flex-wrap:wrap;margin-bottom:14px;
+}
+.qbtn{
+  background:rgba(10,10,26,0.7);
+  border:1px solid rgba(233,69,96,0.25);
+  color:#aaa;padding:7px 12px;border-radius:20px;
+  cursor:pointer;font-size:12px;transition:all 0.3s;
+}
+.qbtn:hover{border-color:#e94560;color:#fff;background:rgba(233,69,96,0.1);}
+
+.chatbox{
+  background:rgba(10,10,26,0.7);border-radius:12px;
+  padding:16px;height:380px;overflow-y:auto;
+  margin-bottom:14px;
+  border:1px solid rgba(233,69,96,0.1);
+}
+.chatbox::-webkit-scrollbar{width:5px;}
+.chatbox::-webkit-scrollbar-thumb{background:#e94560;border-radius:3px;}
+
+.msg{display:flex;gap:10px;margin-bottom:14px;align-items:flex-start;}
+.msg.user{flex-direction:row-reverse;}
+.avatar{
+  width:34px;height:34px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:16px;flex-shrink:0;
+}
+.msg.ai .avatar{background:linear-gradient(135deg,#e94560,#c0392b);}
+.msg.user .avatar{background:linear-gradient(135deg,#0f3460,#1a5276);}
+.bubble{
+  padding:11px 14px;border-radius:14px;
+  max-width:78%;font-size:14px;line-height:1.7;
+}
+.msg.ai .bubble{
+  background:rgba(15,52,96,0.9);
+  border-top-left-radius:4px;
+}
+.msg.user .bubble{
+  background:linear-gradient(135deg,#e94560,#c0392b);
+  border-top-right-radius:4px;
+}
+.typing-dots{
+  display:flex;gap:4px;padding:12px 14px;
+  background:rgba(15,52,96,0.9);border-radius:14px;
+  border-top-left-radius:4px;
+}
+.dot{
+  width:8px;height:8px;background:#e94560;
+  border-radius:50%;animation:bounce 1.4s infinite;
+}
+.dot:nth-child(2){animation-delay:0.2s;}
+.dot:nth-child(3){animation-delay:0.4s;}
+@keyframes bounce{0%,80%,100%{transform:translateY(0);}40%{transform:translateY(-8px);}}
+
+.input-row{display:flex;gap:8px;}
+.msg-input{
+  flex:1;padding:12px 16px;border-radius:25px;
+  border:1px solid rgba(233,69,96,0.3);
+  background:rgba(10,10,26,0.8);color:#fff;font-size:14px;
+}
+.msg-input:focus{outline:none;border-color:#e94560;}
+.send-btn{
+  background:#e94560;color:#fff;border:none;
+  padding:12px 20px;border-radius:25px;
+  font-size:18px;cursor:pointer;transition:all 0.3s;
+  flex-shrink:0;
+}
+.send-btn:hover{background:#c0392b;transform:scale(1.05);}
+.send-btn:disabled{opacity:0.5;cursor:not-allowed;}
+
+.bottom-row{
+  display:flex;justify-content:space-between;
+  align-items:center;margin-top:10px;flex-wrap:wrap;gap:8px;
+}
+.clear-btn{
+  background:transparent;border:1px solid rgba(255,255,255,0.1);
+  color:#666;padding:6px 14px;border-radius:8px;
+  cursor:pointer;font-size:12px;transition:all 0.3s;
+}
+.clear-btn:hover{color:#e94560;border-color:#e94560;}
+.model-badge{
+  background:rgba(233,69,96,0.15);
+  border:1px solid rgba(233,69,96,0.2);
+  padding:4px 10px;border-radius:8px;
+  font-size:11px;color:#aaa;
+}
+
+/* INFO CARD */
+.info-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:12px;margin-bottom:16px;
+}
+.info-box{
+  background:#0f3460;border-radius:12px;
+  padding:16px;text-align:center;
+  border:1px solid rgba(233,69,96,0.1);
+}
+.info-box .icon{font-size:28px;margin-bottom:8px;}
+.info-box p{color:#aaa;font-size:12px;line-height:1.6;}
+
+footer{
+  text-align:center;padding:20px;
+  color:#555;font-size:12px;margin-top:10px;
+}
+footer a{color:#e94560;text-decoration:none;}
+
+@media(max-width:500px){
+  .info-grid{grid-template-columns:1fr 1fr;}
+  .hero h1{font-size:20px;}
+  .bubble{max-width:85%;}
+  .inp-row{flex-direction:column;}
+}
 </style>
 </head>
 <body>
 
 <nav>
-    <div>
-        <a href="index.html">🏠 Nyumbani</a>
-        <a href="portfolio.html">💼 Portfolio</a>
-        <a href="gallery.html">📸 Gallery</a>
-        <a href="contact.html">📧 Wasiliana</a>
-    </div>
-    <button class="upload-btn" onclick="fungaModal()" style="padding:8px 18px;font-size:14px;">+ Ongeza Picha</button>
+  <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+    <span class="nav-title">🤖 AI Assistant</span>
+    <a href="index.html">🏠 Nyumbani</a>
+    <a href="portfolio.html">💼 Portfolio</a>
+    <a href="contact.html">📧 Wasiliana</a>
+  </div>
+  <span id="nav-model" style="color:rgba(255,255,255,0.6);font-size:11px;"></span>
 </nav>
 
 <div class="hero">
-    <h1>📸 Gallery ya <span>Biashara</span></h1>
-    <p>Picha za miradi, kazi, na mafanikio yetu</p>
-    <button class="upload-btn" onclick="fungaModal()">📤 Pakia Picha Mpya</button>
+  <h1>🤖 AI Assistant ya <span>Zakayo</span></h1>
+  <p>Zungumza na AI — inajibu kwa Kiswahili!</p>
 </div>
 
 <div class="container">
 
-    <!-- TAKWIMU -->
-    <div class="stats" id="stats-box"></div>
-
-    <!-- FILTERS -->
-    <div class="filters" id="filters">
-        <button class="filter-btn active" onclick="chuja('yote',this)">🌐 Yote</button>
-        <button class="filter-btn" onclick="chuja('miradi',this)">🚀 Miradi</button>
-        <button class="filter-btn" onclick="chuja('ofisi',this)">🏢 Ofisi</button>
-        <button class="filter-btn" onclick="chuja('wateja',this)">👥 Wateja</button>
-        <button class="filter-btn" onclick="chuja('teknolojia',this)">💻 Teknolojia</button>
-        <button class="filter-btn" onclick="chuja('matukio',this)">🎉 Matukio</button>
+  <!-- SETUP -->
+  <div class="setup-card">
+    <h3>⚙️ Mpangilio wa API (Mara moja tu)</h3>
+    <div class="setup-steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div>Nenda <a href="https://openrouter.ai" target="_blank" style="color:#e94560;">openrouter.ai</a> → Bonyeza <strong>Sign Up</strong> → Ingia na Google au Email</div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div>Bonyeza jina lako juu kulia → <strong>API Keys</strong> → <strong>+ New Key</strong> → Weka jina lolote → Bonyeza <strong>Create</strong> → Copy key inayoanza na <strong>sk-or-...</strong></div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div>Weka key hapa chini → Chagua model bure → Bonyeza <strong>💾 Hifadhi</strong></div>
+      </div>
     </div>
 
-    <!-- UPLOAD AREA -->
-    <div class="upload-area" id="upload-area" onclick="document.getElementById('file-input').click()">
-        <div class="icon">📤</div>
-        <p>Bonyeza hapa au <span>drag na drop</span> picha yako</p>
-        <p style="color:#555;font-size:13px;margin-top:8px">JPG, PNG, GIF — hadi 10MB</p>
-        <input type="file" id="file-input" accept="image/*" multiple onchange="picha_zilizochaguliwa(event)">
+    <div class="inp-row">
+      <input type="password" class="key-input" id="api-key"
+        placeholder="sk-or-v1-xxxxxxxxxxxxxxxx">
+      <select class="model-select" id="model-sel">
+        <optgroup label="✅ BURE KABISA">
+          <option value="meta-llama/llama-3.1-8b-instruct:free">Llama 3.1 8B (Meta) — Bure ✅</option>
+          <option value="meta-llama/llama-3.2-3b-instruct:free">Llama 3.2 3B (Meta) — Bure ✅</option>
+          <option value="mistralai/mistral-small-3.1-24b-instruct:free">Mistral Small 3.1 — Bure ✅</option>
+          <option value="google/gemma-3-4b-it:free">Google Gemma 3 4B — Bure ✅</option>
+          <option value="google/gemma-3-12b-it:free">Google Gemma 3 12B — Bure ✅</option>
+          <option value="qwen/qwen3-8b:free">Qwen 3 8B — Bure ✅</option>
+          <option value="deepseek/deepseek-r1:free">DeepSeek R1 — Bure ✅</option>
+        </optgroup>
+        <optgroup label="💰 Kulipa (Bora zaidi)">
+          <option value="anthropic/claude-3-haiku">Claude 3 Haiku</option>
+          <option value="openai/gpt-4o-mini">GPT-4o Mini</option>
+          <option value="openai/gpt-4o">GPT-4o</option>
+        </optgroup>
+      </select>
+      <button class="save-btn" onclick="saveKey()">💾 Hifadhi</button>
+    </div>
+    <div class="status-msg" id="status-msg"></div>
+  </div>
+
+  <!-- CHAT -->
+  <div class="chat-card">
+    <p style="color:#aaa;font-size:13px;margin-bottom:10px;">💬 Maswali ya haraka:</p>
+    <div class="quick-btns">
+      <button class="qbtn" onclick="quickAsk('Zakayo ni nani na anafanya nini?')">👤 Zakayo ni nani?</button>
+      <button class="qbtn" onclick="quickAsk('Huduma gani za web development unazotoa?')">🛠️ Huduma zako</button>
+      <button class="qbtn" onclick="quickAsk('Bei ya kutengeneza tovuti ni ngapi Tanzania?')">💰 Bei za huduma</button>
+      <button class="qbtn" onclick="quickAsk('Ninawezaje kuwasiliana na Zakayo?')">📞 Wasiliana</button>
+      <button class="qbtn" onclick="quickAsk('Eleza HTML kwa Kiswahili rahisi')">🌐 HTML ni nini?</button>
+      <button class="qbtn" onclick="quickAsk('JavaScript ni nini na inafanya nini?')">⚡ JavaScript</button>
+      <button class="qbtn" onclick="quickAsk('Node.js ni nini na inatumikaje?')">🖥️ Node.js</button>
+      <button class="qbtn" onclick="quickAsk('Ninawezaje kuanza kujifunza coding Tanzania?')">🎓 Jifunza coding</button>
     </div>
 
-    <!-- GALLERY -->
-    <div class="gallery-grid" id="gallery"></div>
-
-</div>
-
-<!-- LIGHTBOX -->
-<div class="lightbox" id="lightbox" onclick="funga_lightbox(event)">
-    <button class="lightbox-close" onclick="funga_lightbox()">✕</button>
-    <button class="lightbox-nav lightbox-prev" onclick="badilisha_picha(-1);event.stopPropagation()">‹</button>
-    <img id="lb-img" src="" alt="">
-    <div class="lightbox-info">
-        <h3 id="lb-title"></h3>
-        <p id="lb-cat"></p>
-    </div>
-    <button class="lightbox-nav lightbox-next" onclick="badilisha_picha(1);event.stopPropagation()">›</button>
-</div>
-
-<!-- MODAL YA KUONGEZA PICHA -->
-<div class="modal" id="modal">
-    <div class="modal-box">
-        <h2>📸 Ongeza Picha Mpya</h2>
-
-        <div class="preview-box" id="preview-box">
-            <span style="color:#555">📷 Picha itaonekana hapa</span>
+    <div class="chatbox" id="chatbox">
+      <div class="msg ai">
+        <div class="avatar">🤖</div>
+        <div class="bubble">
+          Habari! Mimi ni AI Assistant ya <strong>Zakayo Maloloi Malogo</strong> — Full Stack Web Developer kutoka Tanzania! 🇹🇿<br><br>
+          Ninaweza kukusaidia na:<br>
+          • Maswali kuhusu huduma za Zakayo<br>
+          • Bei na muda wa kukamilisha kazi<br>
+          • Maswali ya coding na teknolojia<br>
+          • Jinsi ya kuwasiliana na Zakayo<br><br>
+          <strong>Hatua ya kwanza:</strong> Weka API Key yako hapo juu, kisha niulize chochote! 😊
         </div>
-
-        <button class="upload-btn" onclick="document.getElementById('modal-file').click()" style="width:100%;margin-bottom:12px;border-radius:10px;">
-            📂 Chagua Picha
-        </button>
-        <input type="file" id="modal-file" accept="image/*" style="display:none" onchange="onyesha_preview(event)">
-
-        <input type="text" class="modal-inp" id="picha-title" placeholder="Jina la picha (mfano: Tovuti ya Biashara)">
-
-        <select class="modal-inp" id="picha-cat">
-            <option value="">Chagua Kategoria</option>
-            <option value="miradi">🚀 Miradi</option>
-            <option value="ofisi">🏢 Ofisi</option>
-            <option value="wateja">👥 Wateja</option>
-            <option value="teknolojia">💻 Teknolojia</option>
-            <option value="matukio">🎉 Matukio</option>
-        </select>
-
-        <input type="text" class="modal-inp" id="picha-desc" placeholder="Maelezo mafupi (si lazima)">
-
-        <div class="modal-btns">
-            <button class="btn-save" onclick="hifadhi_picha()">💾 Hifadhi</button>
-            <button class="btn-cancel" onclick="funga_modal()">✕ Funga</button>
-        </div>
+      </div>
     </div>
+
+    <div class="input-row">
+      <input type="text" class="msg-input" id="msg-input"
+        placeholder="Andika swali lako hapa..."
+        onkeypress="if(event.key==='Enter')sendMsg()">
+      <button class="send-btn" id="send-btn" onclick="sendMsg()">➤</button>
+    </div>
+
+    <div class="bottom-row">
+      <button class="clear-btn" onclick="clearChat()">🗑️ Futa Chat</button>
+      <span class="model-badge" id="model-badge">Model: Haijachaguliwa</span>
+    </div>
+  </div>
+
+  <!-- INFO -->
+  <div class="info-grid">
+    <div class="info-box">
+      <div class="icon">🆓</div>
+      <p>Bure kabisa — hakuna malipo yoyote kwa models zilizo na ✅</p>
+    </div>
+    <div class="info-box">
+      <div class="icon">🇹🇿</div>
+      <p>Inajibu kwa <strong>Kiswahili</strong> vizuri sana</p>
+    </div>
+    <div class="info-box">
+      <div class="icon">⚡</div>
+      <p>Inajibu haraka — chini ya sekunde 5</p>
+    </div>
+    <div class="info-box">
+      <div class="icon">24/7</div>
+      <p>Inajibu wakati wowote — usiku na mchana</p>
+    </div>
+  </div>
+
 </div>
 
 <footer>
-    <p>© 2026 <strong>Zakayo Maloloi Malogo</strong> — Full Stack Web Developer Tanzania</p>
-    <p>📱 +255 718 996 785 | 📧 zakayomalogo@gmail.com</p>
+  <p>© 2026 <a href="index.html">Zakayo Maloloi Malogo</a> — Full Stack Developer Tanzania</p>
+  <p style="margin-top:5px;">📱 0718996785 | 📧 zakayomalogo@gmail.com</p>
 </footer>
 
 <script>
-var picha_zote = JSON.parse(localStorage.getItem("gallery_picha") || "[]");
-var picha_ya_sasa = null;
-var chuja_ya_sasa = "yote";
-var picha_index = 0;
+// ====== STATE ======
+var history_msgs = [];
+var API_KEY = localStorage.getItem("zk_or_key") || "";
+var MODEL   = localStorage.getItem("zk_or_model") || "meta-llama/llama-3.1-8b-instruct:free";
 
-function hifadhi_zote(){
-    localStorage.setItem("gallery_picha", JSON.stringify(picha_zote));
+var SYSTEM_PROMPT = "Wewe ni AI Assistant ya Zakayo Maloloi Malogo — Full Stack Web Developer kutoka Tanzania. Jibu maswali YOTE kwa Kiswahili tu. Taarifa za Zakayo: Jina kamili: Zakayo Maloloi Malogo. Kazi: Full Stack Web Developer. Nchi: Tanzania. Simu: +255 718 996 785. Email: zakayomalogo@gmail.com. Tovuti: zakayomalogo-source.github.io/zakayo.github.io. Ujuzi: HTML 95%, CSS 90%, JavaScript 85%, React 75%, Node.js 80%, Express 75%, MongoDB 70%, Next.js 75%, TypeScript 70%, GitHub 85%. Bei za huduma Tanzania: Tovuti rahisi TZS 50,000-100,000. Tovuti ya biashara TZS 150,000-300,000. Full Stack website TZS 300,000-500,000. Matengenezo ya kila mwezi TZS 30,000-50,000. Jibu kwa Kiswahili, kwa upole, wazi na ufupi. Ukiulizwa swali la jumla la coding, jibu kwa Kiswahili na mifano.";
+
+// Load saved settings
+if(API_KEY){
+  document.getElementById("api-key").value = API_KEY;
+  // Set saved model in dropdown, fallback to first option if old model no longer exists
+  var sel = document.getElementById("model-sel");
+  var found = false;
+  for(var i = 0; i < sel.options.length; i++){
+    if(sel.options[i].value === MODEL){ sel.selectedIndex = i; found = true; break; }
+  }
+  if(!found){
+    MODEL = sel.options[0].value;
+    localStorage.setItem("zk_or_model", MODEL);
+  }
+  updateBadge();
+  showStatus("✅ API Key imehifadhiwa! Uko tayari kuzungumza.", "ok");
 }
 
-function onyesha_gallery(){
-    var grid = document.getElementById("gallery");
-    var zilizochujwa = chuja_ya_sasa === "yote" ? picha_zote : picha_zote.filter(p => p.cat === chuja_ya_sasa);
+// ====== SAVE KEY ======
+function saveKey(){
+  var key   = document.getElementById("api-key").value.trim();
+  var model = document.getElementById("model-sel").value;
 
-    if(zilizochujwa.length === 0){
-        grid.innerHTML = "<div class='empty' style='grid-column:1/-1'><p>📷 Hakuna picha bado</p><button class='upload-btn' onclick='fungaModal()'>+ Ongeza Picha ya Kwanza</button></div>";
-        return;
+  if(!key){
+    showStatus("⚠️ Weka API key kwanza! Nenda openrouter.ai kupata key bure.", "err");
+    return;
+  }
+  if(!key.startsWith("sk-")){
+    showStatus("⚠️ API key si sahihi. Lazima ianze na 'sk-or-...'", "err");
+    return;
+  }
+
+  API_KEY = key;
+  MODEL   = model;
+  localStorage.setItem("zk_or_key",   API_KEY);
+  localStorage.setItem("zk_or_model", MODEL);
+
+  updateBadge();
+  showStatus("✅ Imehifadhiwa! Sasa unaweza kuzungumza na AI!", "ok");
+}
+
+function updateBadge(){
+  var modelName = MODEL.split("/").pop().replace(":free","");
+  document.getElementById("model-badge").textContent = "Model: " + modelName;
+  document.getElementById("nav-model").textContent = modelName;
+}
+
+function showStatus(msg, type){
+  var el = document.getElementById("status-msg");
+  el.textContent = msg;
+  el.className = "status-msg status-" + type;
+}
+
+// ====== ADD MESSAGE TO CHAT ======
+function addMsg(text, role){
+  var box = document.getElementById("chatbox");
+  var div = document.createElement("div");
+  div.className = "msg " + role;
+
+  var icon = role === "ai" ? "🤖" : "👤";
+  var formatted = text
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/\n/g,"<br>");
+
+  div.innerHTML =
+    "<div class='avatar'>" + icon + "</div>" +
+    "<div class='bubble'>" + formatted + "</div>";
+
+  box.appendChild(div);
+  box.scrollTop = box.scrollHeight;
+}
+
+// ====== TYPING INDICATOR ======
+function showTyping(){
+  var box = document.getElementById("chatbox");
+  var div = document.createElement("div");
+  div.className = "msg ai";
+  div.id = "typing-indicator";
+  div.innerHTML =
+    "<div class='avatar'>🤖</div>" +
+    "<div class='typing-dots'>" +
+    "<div class='dot'></div>" +
+    "<div class='dot'></div>" +
+    "<div class='dot'></div>" +
+    "</div>";
+  box.appendChild(div);
+  box.scrollTop = box.scrollHeight;
+}
+
+function hideTyping(){
+  var el = document.getElementById("typing-indicator");
+  if(el) el.remove();
+}
+
+// ====== SEND MESSAGE ======
+async function sendMsg(){
+  var input   = document.getElementById("msg-input");
+  var sendBtn = document.getElementById("send-btn");
+  var text    = input.value.trim();
+
+  if(!text) return;
+
+  if(!API_KEY){
+    addMsg("⚠️ Tafadhali weka OpenRouter API Key kwanza!\n\n1. Nenda openrouter.ai\n2. Sajili akaunti bure\n3. Bonyeza API Keys → + New Key\n4. Weka jina lolote → Create\n5. Copy key na weka hapo juu\n6. Bonyeza 💾 Hifadhi", "ai");
+    return;
+  }
+
+  input.value = "";
+  addMsg(text, "user");
+  history_msgs.push({ role: "user", content: text });
+
+  sendBtn.disabled = true;
+  sendBtn.textContent = "⏳";
+  showTyping();
+
+  try {
+    var messages = [{ role: "system", content: SYSTEM_PROMPT }].concat(history_msgs);
+
+    var response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Content-Type":  "application/json",
+        "Authorization": "Bearer " + API_KEY,
+        "HTTP-Referer":  "https://zakayomalogo-source.github.io",
+        "X-Title":       "Zakayo AI Assistant"
+      },
+      body: JSON.stringify({
+        model:       MODEL,
+        messages:    messages,
+        max_tokens:  700,
+        temperature: 0.7
+      })
+    });
+
+    var data = await response.json();
+    hideTyping();
+
+    if(data.choices && data.choices[0] && data.choices[0].message){
+      var reply = data.choices[0].message.content;
+      history_msgs.push({ role: "assistant", content: reply });
+      addMsg(reply, "ai");
+
+    } else if(data.error){
+      var errMsg = data.error.message || JSON.stringify(data.error);
+
+      if(errMsg.includes("401") || errMsg.includes("unauthorized") || errMsg.includes("auth")){
+        addMsg("❌ API Key si sahihi!\n\nHakikisha:\n• Key inaanza na 'sk-or-'\n• Umeicopy vizuri kutoka openrouter.ai\n• Bonyeza 💾 Hifadhi tena", "ai");
+      } else if(errMsg.includes("rate") || errMsg.includes("limit")){
+        addMsg("⚠️ Umefika kikomo! Jaribu model nyingine au subiri dakika moja.", "ai");
+      } else if(errMsg.includes("No endpoints") || errMsg.includes("model")){
+        addMsg("⚠️ Model hii haitumiki sasa.\n\nBadilisha model nyingine kutoka kwenye orodha (chaguo la juu — Llama 3.1 inafanya kazi vizuri).", "ai");
+      } else {
+        addMsg("❌ Kosa: " + errMsg + "\n\nJaribu:\n• Badilisha model nyingine\n• Angalia API key yako", "ai");
+      }
+
+    } else {
+      addMsg("❌ Jibu halikuja vizuri. Jaribu tena au badilisha model.", "ai");
     }
 
-    grid.innerHTML = zilizachujwa().map((p,i) => `
-        <div class="gallery-item" data-id="${p.id}">
-            <img src="${p.src}" alt="${p.title}" onclick="fungua_lightbox(${p.id})">
-            <div class="item-info">
-                <div class="item-title">${p.title}</div>
-                <div class="item-cat">${onyesha_cat(p.cat)}</div>
-                ${p.desc ? <div class="item-desc">${p.desc}</div> : ""}
-                <div class="item-actions">
-                    <button class="btn-view" onclick="fungua_lightbox(${p.id})">👁️ Ona</button>
-                    <button class="btn-del" onclick="futa_picha(${p.id});event.stopPropagation()">🗑️</button>
-                </div>
-            </div>
-        </div>
-    `).join("");
+  } catch(err){
+    hideTyping();
+    if(err.message.includes("Failed to fetch") || err.message.includes("network")){
+      addMsg("❌ Hakuna mtandao!\n\nHakikisha:\n• Uko connected kwa internet\n• Firewall haizuii openrouter.ai", "ai");
+    } else {
+      addMsg("❌ Kosa: " + err.message, "ai");
+    }
+  }
 
-    // Takwimu
-    var cats = {};
-    picha_zote.forEach(p => { cats[p.cat] = (cats[p.cat]||0)+1; });
-    document.getElementById("stats-box").innerHTML =
-        <div class="stat-card"><div class="stat-num">${picha_zote.length}</div><div class="stat-name">Picha Zote</div></div> +
-        Object.entries(cats).map(([k,v]) => <div class="stat-card"><div class="stat-num">${v}</div><div class="stat-name">${onyesha_cat(k)}</div></div>).join("");
+  sendBtn.disabled = false;
+  sendBtn.textContent = "➤";
+  document.getElementById("msg-input").focus();
 }
 
-function zilizachujwa(){
-    return chuja_ya_sasa === "yote" ? picha_zote : picha_zote.filter(p => p.cat === chuja_ya_sasa);
+// ====== QUICK ASK ======
+function quickAsk(question){
+  document.getElementById("msg-input").value = question;
+  sendMsg();
 }
 
-function onyesha_cat(cat){
-    var cats = {miradi:"🚀 Miradi", ofisi:"🏢 Ofisi", wateja:"👥 Wateja", teknolojia:"💻 Teknolojia", matukio:"🎉 Matukio"};
-    return cats[cat] || "📷 Picha";
+// ====== CLEAR CHAT ======
+function clearChat(){
+  history_msgs = [];
+  var box = document.getElementById("chatbox");
+  box.innerHTML =
+    "<div class='msg ai'>" +
+    "<div class='avatar'>🤖</div>" +
+    "<div class='bubble'>Chat imefutwa! Niulize swali jipya 😊</div>" +
+    "</div>";
 }
 
-function chuja(cat, btn){
-    chuja_ya_sasa = cat;
-    document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
-    btn.classList.add("active");
-    onyesha_gallery();
-}
-
-function fungaModal(){
-    document.getElementById("modal").className = "modal show";
-    document.getElementById("picha-title").value = "";
-    document.getElementById("picha-cat").value = "";
-    document.getElementById("picha-desc").value = "";
-    document.getElementById("preview-box").innerHTML = "<span style='color:#555'>📷 Picha itaonekana hapa</span>";
-    picha_ya_sasa = null;
-}
-
-function funga_modal(){
-    document.getElementById("modal").className = "modal";
-}
-
-function onyesha_preview(e){
-    var file = e.target.files[0];
-    if(!file) return;
-    var reader = new FileReader();
-    reader.onload = function(ev){
-        picha_ya_sasa = ev.target.result;
-        document.getElementById("preview-box").innerHTML = <img src="${ev.target.result}" alt="Preview">;
-    };
-    reader.readAsDataURL(file);
-}
-
-function picha_zilizochaguliwa(e){
-    Array.from(e.target.files).forEach(file => {
-        var reader = new FileReader();
-        reader.onload = function(ev){
-            picha_zote.push({
-                id: Date.now() + Math.random(),
-                src: ev.target.result,
-                title: file.name.replace(/\.[^/.]+$/,""),
-                cat: "miradi",
-                desc: ""
-            });
-            hifadhi_zote();
-            onyesha_gallery();
-        };
-        reader.readAsDataURL(file);
-    });
-}
-
-function hifadhi_picha(){
-    var title = document.getElementById("picha-title").value.trim();
-    var cat = document.getElementById("picha-cat").value;
-    var desc = document.getElementById("picha-desc").value.trim();
-    if(!picha_ya_sasa){ alert("⚠️ Chagua picha kwanza!"); return; }
-    if(!title){ alert("⚠️ Weka jina la picha!"); return; }
-    if(!cat){ alert("⚠️ Chagua kategoria!"); return; }
-    picha_zote.push({ id:Date.now(), src:picha_ya_sasa, title, cat, desc });
-    hifadhi_zote();
-    onyesha_gallery();
-    funga_modal();
-}
-
-function futa_picha(id){
-    if(!confirm("Futa picha hii?")) return;
-    picha_zote = picha_zote.filter(p => p.id !== id);
-    hifadhi_zote();
-    onyesha_gallery();
-}
-
-function fungua_lightbox(id){
-    var zote = zilizachujwa();
-    picha_index = zote.findIndex(p => p.id === id);
-    var p = zote[picha_index];
-    document.getElementById("lb-img").src = p.src;
-    document.getElementById("lb-title").innerHTML = p.title;
-    document.getElementById("lb-cat").innerHTML = onyesha_cat(p.cat);
-    document.getElementById("lightbox").className = "lightbox show";
-}
-
-function funga_lightbox(e){
-    if(!e || e.target === document.getElementById("lightbox"))
-        document.getElementById("lightbox").className = "lightbox";
-}
-
-function badilisha_picha(dir){
-    var zote = zilizachujwa();
-    picha_index = (picha_index + dir + zote.length) % zote.length;
-    var p = zote[picha_index];
-    document.getElementById("lb-img").src = p.src;
-    document.getElementById("lb-title").innerHTML = p.title;
-    document.getElementById("lb-cat").innerHTML = onyesha_cat(p.cat);
-}
-
-// Drag and drop
-var ua = document.getElementById("upload-area");
-ua.addEventListener("dragover", e => { e.preventDefault(); ua.className = "upload-area dragover"; });
-ua.addEventListener("dragleave", () => { ua.className = "upload-area"; });
-ua.addEventListener("drop", e => {
-    e.preventDefault();
-    ua.className = "upload-area";
-    Array.from(e.dataTransfer.files).forEach(file => {
-        if(!file.type.startsWith("image/")) return;
-        var reader = new FileReader();
-        reader.onload = ev => {
-            picha_zote.push({ id:Date.now()+Math.random(), src:ev.target.result, title:file.name.replace(/\.[^/.]+$/,""), cat:"miradi", desc:"" });
-            hifadhi_zote();
-            onyesha_gallery();
-        };
-        reader.readAsDataURL(file);
-    });
+// Change model live
+document.getElementById("model-sel").addEventListener("change", function(){
+  MODEL = this.value;
+  localStorage.setItem("zk_or_model", MODEL);
+  updateBadge();
+  if(API_KEY){
+    showStatus("✅ Model imebadilishwa!", "ok");
+  }
 });
-
-document.addEventListener("keydown", e => {
-    if(e.key==="Escape") { funga_lightbox(); funga_modal(); }
-    if(e.key==="ArrowLeft") badilisha_picha(-1);
-    if(e.key==="ArrowRight") badilisha_picha(1);
-});
-
-// Anza
-onyesha_gallery();
 </script>
 </body>
 </html>
