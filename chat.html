@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="sw">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>ZakaYo Chat</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{--bg:#0a0a1a;--c1:#111827;--c2:#1f2937;--bd:#374151;--red:#e94560;--grn:#22c55e;--txt:#f9fafb;--sub:#9ca3af;}
+body{background:var(--bg);color:var(--txt);font-family:'Segoe UI',Arial,sans-serif;height:100vh;overflow:hidden;}
+
+/* AUTH */
+#auth{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;background:linear-gradient(135deg,#0a0a1a,#1a1a2e,#0f3460);}
+.acard{background:var(--c1);border-radius:20px;padding:32px;width:100%;max-width:400px;border:1px solid var(--bd);box-shadow:0 20px 60px rgba(0,0,0,0.5);}
+.ahead{text-align:center;margin-bottom:24px;}
+.alogo{width:60px;height:60px;background:linear-gradient(135deg,#e94560,#c0392b);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:26px;margin:0 auto 10px;}
+.ahead h1{font-size:20px;font-weight:900;}
+.ahead p{color:var(--sub);font-size:12px;margin-top:3px;}
+.dbadge{display:inline-block;background:rgba(233,69,96,0.15);border:1px solid rgba(233,69,96,0.3);color:#e94560;padding:2px 10px;border-radius:20px;font-size:11px;margin-top:5px;}
+.atabs{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:20px;}
+.atab{padding:10px;border-radius:10px;border:1.5px solid var(--bd);background:transparent;color:var(--sub);cursor:pointer;font-size:14px;font-weight:600;transition:all 0.2s;}
+.atab.on{background:var(--red);color:#fff;border-color:var(--red);}
+.aerr{background:rgba(233,69,96,0.12);border:1px solid rgba(233,69,96,0.4);color:#f87171;padding:10px;border-radius:9px;font-size:13px;margin-bottom:12px;display:none;line-height:1.5;}
+.fl{display:block;font-size:11px;font-weight:700;color:var(--sub);margin-bottom:4px;text-transform:uppercase;letter-spacing:0.5px;}
+.fi{width:100%;padding:11px 13px;border-radius:10px;border:1.5px solid var(--bd);background:#0f172a;color:var(--txt);font-size:14px;margin-bottom:12px;transition:border-color 0.2s;}
+.fi:focus{outline:none;border-color:var(--red);}
+.abtn{width:100%;padding:12px;border-radius:10px;border:none;background:linear-gradient(135deg,#e94560,#c0392b);color:#fff;font-size:15px;font-weight:700;cursor:pointer;transition:all 0.2s;}
+.abtn:hover{transform:translateY(-1px);box-shadow:0 5px 18px rgba(233,69,96,0.35);}
+.abtn:disabled{opacity:0.6;cursor:not-allowed;transform:none;}
+
+/* APP */
+#app{display:none;height:100vh;flex-direction:column;}
+.topbar{height:52px;background:linear-gradient(135deg,#111827,#1f2937);display:flex;align-items:center;justify-content:space-between;padding:0 14px;border-bottom:1px solid var(--bd);flex-shrink:0;}
+.tl{display:flex;align-items:center;gap:9px;}
+.tlogo{width:30px;height:30px;border-radius:8px;background:linear-gradient(135deg,#e94560,#c0392b);display:flex;align-items:center;justify-content:center;font-size:14px;}
+.tbrand{font-size:13px;font-weight:900;line-height:1.1;}
+.tbrand small{color:var(--sub);font-size:9px;display:block;font-weight:400;}
+.tr{display:flex;align-items:center;gap:5px;}
+.tuser{display:flex;align-items:center;gap:6px;background:var(--c2);padding:4px 10px;border-radius:18px;cursor:pointer;}
+.tuser:hover{background:var(--bd);}
+.av{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:bold;color:#fff;flex-shrink:0;}
+.tnm{font-size:11px;max-width:70px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.ibtn{width:32px;height:32px;border-radius:8px;border:none;background:var(--c2);color:var(--sub);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;transition:all 0.2s;}
+.ibtn:hover{background:var(--bd);color:var(--txt);}
+.nb{position:relative;}
+.nb::after{content:'';position:absolute;top:5px;right:5px;width:7px;height:7px;background:var(--red);border-radius:50%;border:2px solid var(--c1);display:none;}
+.nb.has::after{display:block;}
+
+.abody{display:flex;flex:1;overflow:hidden;}
+
+/* SIDEBAR */
+#sb{width:250px;background:var(--c1);border-right:1px solid var(--bd);display:flex;flex-direction:column;flex-shrink:0;overflow:hidden;}
+.sbtop{padding:9px;}
+.sbox{display:flex;align-items:center;gap:6px;background:var(--c2);border-radius:9px;padding:7px 11px;border:1px solid var(--bd);}
+.sbox input{background:none;border:none;color:var(--txt);font-size:13px;outline:none;flex:1;}
+.sbox input::placeholder{color:var(--sub);}
+.stabs{display:flex;border-bottom:1px solid var(--bd);padding:0 5px;}
+.stab{flex:1;padding:8px 0;text-align:center;font-size:10px;font-weight:600;color:var(--sub);cursor:pointer;border-bottom:2px solid transparent;transition:all 0.2s;}
+.stab.on{color:var(--red);border-bottom-color:var(--red);}
+.slist{flex:1;overflow-y:auto;padding:7px;}
+.slist::-webkit-scrollbar{width:3px;}
+.slist::-webkit-scrollbar-thumb{background:var(--bd);}
+.ci{display:flex;align-items:center;gap:8px;padding:9px 10px;border-radius:10px;cursor:pointer;transition:background 0.2s;margin-bottom:2px;}
+.ci:hover{background:var(--c2);}
+.ci.on{background:rgba(233,69,96,0.12);border:1px solid rgba(233,69,96,0.2);}
+.cav{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:bold;color:#fff;flex-shrink:0;position:relative;}
+.odot{position:absolute;bottom:0;right:0;width:9px;height:9px;background:var(--grn);border-radius:50%;border:2px solid var(--c1);}
+.ci-info{flex:1;min-width:0;}
+.cnm{font-size:12px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.clast{font-size:10px;color:var(--sub);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin-top:1px;}
+.ctime{font-size:9px;color:var(--sub);flex-shrink:0;}
+.empty{text-align:center;padding:24px 10px;color:var(--sub);}
+.empty .ei{font-size:32px;margin-bottom:8px;}
+.empty p{font-size:11px;line-height:1.5;}
+
+/* MAIN */
+#main{flex:1;display:flex;flex-direction:column;overflow:hidden;}
+#wv{flex:1;display:flex;align-items:center;justify-content:center;text-align:center;padding:28px;flex-direction:column;}
+#wv h2{font-size:19px;font-weight:900;margin-bottom:7px;}
+#wv p{color:var(--sub);font-size:13px;line-height:1.6;max-width:260px;}
+.wbtns{display:flex;gap:9px;margin-top:16px;flex-wrap:wrap;justify-content:center;}
+.wbtn{padding:9px 16px;border-radius:18px;font-size:12px;font-weight:700;cursor:pointer;border:none;transition:all 0.2s;}
+.wbr{background:var(--red);color:#fff;}
+.wbg{background:var(--c2);color:var(--txt);border:1px solid var(--bd);}
+
+/* CHAT */
+#cv{flex:1;display:none;flex-direction:column;}
+.chdr{padding:10px 14px;border-bottom:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between;background:var(--c1);flex-shrink:0;}
+.chl{display:flex;align-items:center;gap:9px;}
+.chav{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:bold;color:#fff;}
+.chnm{font-size:13px;font-weight:700;}
+.chst{font-size:10px;margin-top:2px;}
+.chacts{display:flex;gap:4px;}
+.mwrap{flex:1;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:7px;}
+.mwrap::-webkit-scrollbar{width:3px;}
+.mwrap::-webkit-scrollbar-thumb{background:var(--bd);}
+.mr{display:flex;align-items:flex-end;gap:6px;}
+.mr.me{flex-direction:row-reverse;}
+.mav{width:25px;height:25px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:bold;color:#fff;flex-shrink:0;}
+.bub{max-width:68%;padding:9px 12px;border-radius:12px;font-size:14px;line-height:1.6;word-break:break-word;}
+.bub.them{background:var(--c2);border-bottom-left-radius:3px;}
+.bub.me{background:linear-gradient(135deg,#e94560,#c0392b);color:#fff;border-bottom-right-radius:3px;}
+.bub.code{background:#0f172a;border:1px solid var(--bd);font-family:monospace;font-size:12px;white-space:pre-wrap;border-radius:9px;max-width:78%;}
+.mt{font-size:9px;color:var(--sub);margin-top:2px;padding:0 2px;}
+.mt.r{text-align:right;}
+.dd{text-align:center;margin:7px 0;}
+.dd span{background:var(--c2);color:var(--sub);padding:3px 9px;border-radius:13px;font-size:10px;}
+.sm{text-align:center;color:var(--sub);font-size:11px;padding:3px 0;}
+.ia{padding:9px 13px;border-top:1px solid var(--bd);background:var(--c1);flex-shrink:0;}
+.tb{display:flex;gap:4px;margin-bottom:6px;flex-wrap:wrap;}
+.tbtn{padding:4px 8px;border-radius:6px;border:1px solid var(--bd);background:transparent;color:var(--sub);cursor:pointer;font-size:11px;transition:all 0.2s;}
+.tbtn:hover{border-color:var(--red);color:var(--red);}
+.tbtn.on{background:rgba(233,69,96,0.12);border-color:var(--red);color:var(--red);}
+.ir{display:flex;gap:6px;align-items:flex-end;}
+.mta{flex:1;padding:9px 12px;border-radius:10px;border:1.5px solid var(--bd);background:#0f172a;color:var(--txt);font-size:14px;resize:none;max-height:90px;min-height:38px;line-height:1.5;font-family:inherit;transition:border-color 0.2s;}
+.mta:focus{outline:none;border-color:var(--red);}
+.mta.code{font-family:monospace;font-size:12px;border-color:#3b82f6;}
+.sbtn{width:38px;height:38px;border-radius:10px;border:none;background:var(--red);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;transition:all 0.2s;}
+.sbtn:hover{background:#c0392b;transform:scale(1.05);}
+.sbtn:disabled{opacity:0.5;cursor:not-allowed;}
+
+/* FEED */
+#fv{flex:1;overflow-y:auto;padding:12px;display:none;}
+#fv::-webkit-scrollbar{width:3px;}
+#fv::-webkit-scrollbar-thumb{background:var(--bd);}
+.comp{background:var(--c1);border-radius:12px;padding:13px;border:1px solid var(--bd);margin-bottom:11px;}
+.ctop{display:flex;gap:8px;margin-bottom:8px;}
+.cav2{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:bold;color:#fff;flex-shrink:0;}
+.cinp{flex:1;background:var(--c2);border-radius:8px;padding:8px 12px;border:1px solid var(--bd);color:var(--txt);font-size:13px;resize:none;min-height:60px;font-family:inherit;transition:border-color 0.2s;}
+.cinp:focus{outline:none;border-color:var(--red);}
+.cbot{display:flex;justify-content:space-between;align-items:center;}
+.psbtn{background:var(--red);color:#fff;border:none;padding:7px 16px;border-radius:16px;font-size:12px;font-weight:700;cursor:pointer;}
+.pcard{background:var(--c1);border-radius:12px;padding:13px;border:1px solid var(--bd);margin-bottom:10px;}
+.phdr{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
+.pav{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:bold;color:#fff;}
+.pau{font-size:12px;font-weight:700;}
+.ptm{font-size:10px;color:var(--sub);margin-top:1px;}
+.ptxt{font-size:13px;line-height:1.7;margin-bottom:10px;}
+.pcode{background:#0f172a;border:1px solid var(--bd);border-radius:8px;padding:10px 12px;font-family:monospace;font-size:12px;color:#7dd3fc;white-space:pre-wrap;margin-bottom:10px;overflow-x:auto;}
+.pacts{display:flex;gap:6px;border-top:1px solid var(--bd);padding-top:8px;flex-wrap:wrap;}
+.pact{display:flex;align-items:center;gap:4px;padding:4px 10px;border-radius:6px;border:none;background:transparent;color:var(--sub);cursor:pointer;font-size:11px;transition:all 0.2s;}
+.pact:hover{background:var(--c2);color:var(--txt);}
+.pact.lk{color:#f43f5e;}
+.cmts{margin-top:8px;border-top:1px solid var(--bd);padding-top:8px;}
+.cmti{display:flex;gap:6px;margin-bottom:6px;}
+.cmtav{width:24px;height:24px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:bold;color:#fff;flex-shrink:0;}
+.cmtb{background:var(--c2);border-radius:8px;padding:6px 10px;flex:1;font-size:12px;line-height:1.5;}
+.cmtnm{font-weight:700;font-size:10px;margin-bottom:1px;}
+.acmt{display:flex;gap:5px;margin-top:6px;}
+.cmtinp{flex:1;background:var(--c2);border-radius:16px;border:1px solid var(--bd);padding:5px 11px;color:var(--txt);font-size:12px;outline:none;}
+.cmtinp:focus{border-color:var(--red);}
+.cmtsnd{width:28px;height:28px;border-radius:50%;border:none;background:var(--red);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;}
+
+/* MODALS */
+.mbg{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.7);z-index:2000;align-items:center;justify-content:center;padding:14px;}
+.mbg.show{display:flex;}
+.mbox{background:var(--c1);border-radius:16px;padding:20px;width:100%;max-width:420px;border:1px solid var(--bd);box-shadow:0 20px 60px rgba(0,0,0,0.4);max-height:88vh;overflow-y:auto;}
+.mbox::-webkit-scrollbar{width:3px;}
+.mbox::-webkit-scrollbar-thumb{background:var(--bd);}
+.mtit{font-size:15px;font-weight:700;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--bd);display:flex;justify-content:space-between;align-items:center;}
+.mcls{background:none;border:none;color:var(--sub);font-size:17px;cursor:pointer;}
+.mcls:hover{color:var(--red);}
+.ssec{margin-bottom:16px;}
+.ssec h4{font-size:10px;font-weight:700;color:var(--sub);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;}
+.srow{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:var(--c2);border-radius:9px;margin-bottom:4px;cursor:pointer;}
+.srow:hover{background:var(--bd);}
+.sl{display:flex;align-items:center;gap:9px;}
+.snm{font-size:12px;}
+.sd{font-size:11px;color:var(--sub);margin-top:1px;}
+.tgl{width:34px;height:19px;border-radius:9px;background:var(--bd);position:relative;cursor:pointer;transition:background 0.2s;flex-shrink:0;}
+.tgl.on{background:var(--red);}
+.tgl::after{content:'';position:absolute;top:3px;left:3px;width:13px;height:13px;border-radius:50%;background:#fff;transition:left 0.2s;}
+.tgl.on::after{left:18px;}
+.dbtn{width:100%;padding:9px;border-radius:9px;border:none;background:rgba(239,68,68,0.12);color:#f87171;font-size:12px;font-weight:600;cursor:pointer;margin-top:4px;}
+.dbtn:hover{background:rgba(239,68,68,0.22);}
+.otag{background:linear-gradient(135deg,#e94560,#c0392b);color:#fff;padding:1px 6px;border-radius:6px;font-size:9px;font-weight:700;margin-left:4px;}
+.atag{background:linear-gradient(135deg,#f59e0b,#d97706);color:#fff;padding:1px 6px;border-radius:6px;font-size:9px;font-weight:700;margin-left:4px;}
+.ri{display:flex;align-items:center;gap:8px;padding:10px;background:var(--c2);border-radius:10px;margin-bottom:6px;}
+.rbtns{display:flex;gap:4px;margin-left:auto;}
+.abtn2{background:var(--grn);color:#fff;border:none;padding:4px 9px;border-radius:6px;cursor:pointer;font-size:11px;}
+.rbtn{background:rgba(239,68,68,0.15);color:#f87171;border:none;padding:4px 9px;border-radius:6px;cursor:pointer;font-size:11px;}
+.afbtn{padding:5px 12px;border-radius:16px;border:none;background:var(--red);color:#fff;font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap;margin-left:auto;}
+.afbtn.sent{background:var(--grn);}
+.afbtn.ch{background:#3b82f6;}
+.pcov{height:70px;border-radius:10px;background:linear-gradient(135deg,#e94560,#0f3460);margin-bottom:-22px;}
+.pbig{width:52px;height:52px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:bold;color:#fff;margin-left:12px;border:3px solid var(--c1);position:relative;z-index:1;}
+.pdet{padding:10px 13px 0;}
+.pnm{font-size:16px;font-weight:900;}
+.pbi{color:var(--sub);font-size:12px;margin-top:2px;}
+.pct{font-size:11px;color:var(--sub);margin-top:3px;}
+.psts{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-top:10px;}
+.pst{background:var(--c2);border-radius:8px;padding:9px;text-align:center;}
+.pst .pn{font-size:18px;font-weight:900;color:var(--red);}
+.pst .pl{font-size:10px;color:var(--sub);margin-top:1px;}
+.adsts{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;margin-bottom:12px;}
+.adst{background:var(--c2);border-radius:8px;padding:10px;text-align:center;}
+.adst .n{font-size:20px;font-weight:900;color:var(--red);}
+.adst .l{font-size:10px;color:var(--sub);margin-top:1px;}
+.uw{display:flex;align-items:center;gap:8px;padding:9px;background:var(--c2);border-radius:8px;margin-bottom:4px;}
+.banbtn{margin-left:auto;background:rgba(239,68,68,0.12);border:none;color:#f87171;padding:4px 8px;border-radius:5px;cursor:pointer;font-size:10px;flex-shrink:0;}
+.unbanbtn{margin-left:auto;background:rgba(34,197,94,0.12);border:none;color:#22c55e;padding:4px 8px;border-radius:5px;cursor:pointer;font-size:10px;flex-shrink:0;}
+.toast{position:fixed;bottom:16px;right:16px;background:#1f2937;color:var(--txt);padding:10px 15px;border-radius:9px;font-size:12px;z-index:9999;display:none;box-shadow:0 8px 24px rgba(0,0,0,0.3);border:1px solid var(--bd);max-width:250px;}
+.toast.show{display:block;animation:tIn 0.3s ease;}
+@keyframes tIn{from{transform:translateY(8px);opacity:0;}to{transform:translateY(0);opacity:1;}}
+#ov{display:none;position:fixed;top:52px;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);z-index:499;}
+#ov.show{display:block;}
+@media(max-width:640px){
+  #sb{position:fixed;top:52px;left:0;bottom:0;z-index:500;transform:translateX(-250px);transition:transform 0.3s;width:250px;}
+  #sb.open{transform:translateX(0);}
+  .bub{max-width:82%;}
+  .tbrand small{display:none;}
+}
+@media(max-width:380px){.acard{padding:22px 14px;}.tnm{display:none;}}
+</style>
+</head>
+<body>
+<div class="toast" id="toast"></div>
+<div id="ov" onclick="closeSb()"></div>
+
+<!-- AUTH -->
+<div id="auth">
+<div class="acard">
+  <div class="ahead">
+    <div class="alogo">💬</div>
+    <h1>ZakaYo Chat</h1>
+    <p>Connect • Code • Collaborate</p>
+    <div class="dbadge">👨‍💻 By Zakayo Maloloi Malogo</div>
+  </div>
+  <div class="atabs">
+    <button class="atab on" onclick="swTab('login',this)">Ingia</button>
+    <button class="atab" onclick="swTab('signup',this)">Sajili</button>
+  </div>
+  <div class="aerr" id="ae"></div>
+  <div id="lf">
+    <label class="fl">Email</label>
+    <input class="fi" id="le" type="email" placeholder="email@mfano.com" autocomplete="email">
+    <label class="fl">Nywila</label>
+    <input class="fi" id="lp" type="password" placeholder="Nywila yako" autocomplete="current-password">
+    <button class="abtn" id="lb" onclick="doLogin()">🔐 Ingia</button>
+  </div>
+  <div id="sf" style="display:none">
+    <label class="fl">Jina lako</label>
+    <input class="fi" id="sn" type="text" placeholder="Mfano: Zakayo" autocomplete="name">
+    <label class="fl">Nambari ya Simu</label>
+    <input class="fi" id="sp" type="tel" placeholder="+255 712 345 678">
+    <label class="fl">Email</label>
+    <input class="fi" id="se" type="email" placeholder="email@mfano.com" autocomplete="email">
+    <label class="fl">Nywila (herufi 6+)</label>
+    <input class="fi" id="sw" type="password" placeholder="Nywila yako" autocomplete="new-password">
+    <button class="abtn" id="sb2" onclick="doSignup()">✅ Unda Akaunti</button>
+  </div>
+</div>
+</div>
+
+<!-- APP -->
+<div id="app" style="display:none;height:100vh;flex-direction:column;">
+  <div class="topbar">
+    <div class="tl">
+      <button class="ibtn" id="mbb" onclick="togSb()" style="display:none;">☰</button>
+      <div class="tlogo">💬</div>
+      <div class="tbrand">ZakaYo Chat<small>By Zakayo Maloloi Malogo</small></div>
+    </div>
+    <div class="tr">
+      <button class="ibtn nb" id="nb" onclick="openReqs()" title="Arifa">🔔</button>
+      <button class="ibtn" onclick="openAF()" title="Ongeza rafiki">➕</button>
+      <button class="ibtn" onclick="showFeed()" title="Feed">📰</button>
+      <div class="tuser" onclick="openMP()">
+        <div class="av" id="tav" style="background:#e94560;">?</div>
+        <span class="tnm" id="tnm">...</span>
+      </div>
+      <button class="ibtn" onclick="openSt()" title="Mipangilio">⚙️</button>
+    </div>
+  </div>
+  <div class="abody">
+    <div id="sb">
+      <div class="sbtop">
+        <div class="sbox">
+          <span style="color:var(--sub)">🔍</span>
+          <input type="text" placeholder="Tafuta..." id="si" oninput="filterL()">
+        </div>
+      </div>
+      <div class="stabs">
+        <div class="stab on" onclick="setTab('chats',this)">💬 Chats</div>
+        <div class="stab" onclick="setTab('friends',this)">👥 Marafiki</div>
+        <div class="stab" onclick="setTab('requests',this)" id="rtab">📩 Ombi</div>
+      </div>
+      <div class="slist" id="sl">
+        <div class="empty"><div class="ei">👋</div><p>Ongeza marafiki na uanze kuzungumza!</p></div>
+      </div>
+    </div>
+    <div id="main">
+      <div id="wv">
+        <div style="font-size:52px;margin-bottom:12px;">💬</div>
+        <h2>Karibu ZakaYo Chat!</h2>
+        <p>Chagua mazungumzo au ongeza marafiki wapya</p>
+        <div class="wbtns">
+          <button class="wbtn wbr" onclick="openAF()">➕ Ongeza Rafiki</button>
+          <button class="wbtn wbg" onclick="showFeed()">📰 Angalia Feed</button>
+        </div>
+      </div>
+      <div id="cv" style="flex:1;display:none;flex-direction:column;">
+        <div class="chdr">
+          <div class="chl">
+            <div class="chav" id="chav" style="background:#e94560;">?</div>
+            <div>
+              <div class="chnm" id="chnm">...</div>
+              <div class="chst" id="chst" style="color:var(--grn);">● Online</div>
+            </div>
+          </div>
+          <div class="chacts">
+            <button class="ibtn" onclick="viewFP()" title="Profaili">👤</button>
+            <button class="ibtn" onclick="clearChat()" title="Futa chat">🗑️</button>
+          </div>
+        </div>
+        <div class="mwrap" id="mwrap"><div class="sm">Anza kuzungumza! 💬</div></div>
+        <div class="ia">
+          <div class="tb">
+            <button class="tbtn" id="cbtn" onclick="togCode()">💻 Code</button>
+            <button class="tbtn" onclick="addE('😊')">😊</button>
+            <button class="tbtn" onclick="addE('👍')">👍</button>
+            <button class="tbtn" onclick="addE('🔥')">🔥</button>
+            <button class="tbtn" onclick="addE('❤️')">❤️</button>
+            <button class="tbtn" onclick="addE('✅')">✅</button>
+            <button class="tbtn" onclick="addE('🤣')">🤣</button>
+          </div>
+          <div class="ir">
+            <textarea class="mta" id="mta" placeholder="Andika ujumbe..." rows="1"
+              onkeydown="hKey(event)" oninput="aH(this)"></textarea>
+            <button class="sbtn" id="sndbtn" onclick="sendMsg()">➤</button>
+          </div>
+        </div>
+      </div>
+      <div id="fv" style="flex:1;overflow-y:auto;padding:12px;display:none;">
+        <div class="comp">
+          <div class="ctop">
+            <div class="cav2" id="cav2" style="background:#e94560;">?</div>
+            <textarea class="cinp" id="pi" placeholder="Shiriki kitu... au code yako!" rows="3"></textarea>
+          </div>
+          <div class="cbot">
+            <div style="display:flex;gap:4px;">
+              <button class="tbtn" id="pcbtn" onclick="togPC()">💻 Code</button>
+            </div>
+            <button class="psbtn" onclick="makePost()">📤 Chapisha</button>
+          </div>
+        </div>
+        <div id="pw"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODALS -->
+<div class="mbg" id="afm">
+  <div class="mbox">
+    <div class="mtit">➕ Ongeza Rafiki<button class="mcls" onclick="closeM('afm')">✕</button></div>
+    <label class="fl">Tafuta kwa Email</label>
+    <input class="fi" id="fs" type="email" placeholder="email@mfano.com" onkeypress="if(event.key==='Enter')searchU()">
+    <button class="abtn" style="margin-bottom:13px;" onclick="searchU()">🔍 Tafuta</button>
+    <div id="sr"></div>
+    <div style="border-top:1px solid var(--bd);padding-top:11px;margin-top:5px;">
+      <h4 style="font-size:10px;color:var(--sub);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;">👥 Marafiki Wangu</h4>
+      <div id="mfd"></div>
+    </div>
+  </div>
+</div>
+<div class="mbg" id="rqm">
+  <div class="mbox">
+    <div class="mtit">📩 Maombi ya Marafiki<button class="mcls" onclick="closeM('rqm')">✕</button></div>
+    <div id="rql"></div>
+  </div>
+</div>
+<div class="mbg" id="prm">
+  <div class="mbox" style="padding:0;overflow:hidden;">
+    <div class="pcov"></div>
+    <div style="display:flex;align-items:flex-end;">
+      <div class="pbig" id="prav" style="background:#e94560;">Z</div>
+      <button class="mcls" onclick="closeM('prm')" style="margin-left:auto;margin-right:12px;margin-bottom:5px;">✕</button>
+    </div>
+    <div class="pdet">
+      <div class="pnm" id="prnm">...</div>
+      <div class="pbi" id="prbi">Member</div>
+      <div class="pct" id="prph">📱 —</div>
+      <div class="pct" id="prem">📧 —</div>
+      <div class="pct" id="prjn">📅 —</div>
+      <div class="psts">
+        <div class="pst"><div class="pn" id="ps1">0</div><div class="pl">Machapisho</div></div>
+        <div class="pst"><div class="pn" id="ps2">0</div><div class="pl">Marafiki</div></div>
+        <div class="pst"><div class="pn" id="ps3">0</div><div class="pl">Ujumbe</div></div>
+      </div>
+      <div style="padding:11px 0;">
+        <button id="prchbtn" class="abtn" onclick="chatFP()" style="margin-bottom:0;">💬 Zungumza</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="mbg" id="stm">
+  <div class="mbox">
+    <div class="mtit">⚙️ Mipangilio<button class="mcls" onclick="closeM('stm')">✕</button></div>
+    <div class="ssec">
+      <h4>👤 Akaunti Yangu</h4>
+      <div style="background:var(--c2);border-radius:10px;padding:12px;margin-bottom:6px;">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+          <div class="av" id="stav" style="background:#e94560;width:40px;height:40px;border-radius:10px;font-size:15px;">?</div>
+          <div><div id="stnm" style="font-weight:700;font-size:13px;"></div><div id="stem" style="font-size:11px;color:var(--sub);"></div></div>
+        </div>
+        <label class="fl">Badilisha Jina</label>
+        <input class="fi" id="nnm" placeholder="Jina jipya" style="margin-bottom:6px;">
+        <label class="fl">Nambari ya Simu</label>
+        <input class="fi" id="nph" placeholder="+255 712 345 678" style="margin-bottom:6px;">
+        <label class="fl">Kuhusu Mimi</label>
+        <input class="fi" id="nbi" placeholder="Mfano: Full Stack Developer" style="margin-bottom:9px;">
+        <button class="abtn" onclick="savePr()" style="padding:9px;">💾 Hifadhi</button>
+      </div>
+    </div>
+    <div class="ssec">
+      <h4>🔔 Arifa</h4>
+      <div class="srow" onclick="this.querySelector('.tgl').classList.toggle('on')">
+        <div class="sl"><span style="font-size:16px;">💬</span><div><div class="snm">Arifa za Ujumbe</div></div></div>
+        <div class="tgl on"></div>
+      </div>
+    </div>
+    <div class="ssec">
+      <h4>🔒 Faragha</h4>
+      <div class="srow" onclick="this.querySelector('.tgl').classList.toggle('on')">
+        <div class="sl"><span style="font-size:16px;">👁️</span><div><div class="snm">Onyesha Hali Online</div></div></div>
+        <div class="tgl on"></div>
+      </div>
+    </div>
+    <div class="ssec" id="adsec" style="display:none;">
+      <h4>👑 Usimamizi (Owner)</h4>
+      <div class="srow" onclick="openAdm()">
+        <div class="sl"><span style="font-size:16px;">⚙️</span><div><div class="snm">Admin Panel</div><div class="sd">Simamia watumiaji wote</div></div></div>
+        <span style="color:var(--sub);">›</span>
+      </div>
+    </div>
+    <div class="ssec">
+      <h4>⚠️ Hatari</h4>
+      <button class="dbtn" onclick="doLogout()">🚪 Toka kwenye Akaunti</button>
+    </div>
+  </div>
+</div>
+<div class="mbg" id="adm">
+  <div class="mbox">
+    <div class="mtit">👑 Admin Panel<button class="mcls" onclick="closeM('adm')">✕</button></div>
+    <div class="adsts" id="adsts"></div>
+    <h4 style="font-size:10px;color:var(--sub);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;">👥 Watumiaji Wote</h4>
+    <div id="adul"></div>
+  </div>
+</div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged, updateProfile as fbUp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { getDatabase, ref, set, get, push, onValue, off, update, remove } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+
+// ✅ CONFIG YAKO KAMILI
+const FC = {
+  apiKey: "AIzaSyA7irFBrSvxGfVj8jazj4G0vRms5FQ1bpA",
+  authDomain: "zakayo-chat-1f1c4.firebaseapp.com",
+  databaseURL: "https://zakayo-chat-1f1c4-default-rtdb.firebaseio.com",
+  projectId: "zakayo-chat-1f1c4",
+  storageBucket: "zakayo-chat-1f1c4.firebasestorage.app",
+  messagingSenderId: "381739248517",
+  appId: "1:381739248517:web:504e4540ae189230ff32ec"
+};
+
+const OWNER = "zakayomalogo@gmail.com";
+const app = initializeApp(FC);
+const auth = getAuth(app);
+const db = getDatabase(app);
+
+// STATE
+let me=null,md=null,cfid=null,ccid=null,mref=null,cm=false,pm=false,pt=null,tab="chats";
+
+// HELPERS
+const G=id=>document.getElementById(id);
+const ini=n=>(n||"?").substring(0,2).toUpperCase();
+function col(s){const cs=["#e94560","#3b82f6","#22c55e","#f59e0b","#8b5cf6","#06b6d4","#ec4899","#f97316"];let h=0;for(let c of(s||""))h=(h<<5)-h+c.charCodeAt(0);return cs[Math.abs(h)%cs.length];}
+function ago(ts){const d=Date.now()-ts;if(d<60000)return"Sasa";if(d<3600000)return~~(d/60000)+"m";if(d<86400000)return~~(d/3600000)+"h";return new Date(ts).toLocaleDateString("sw-TZ");}
+function cid(a,b){return[a,b].sort().join("_");}
+function esc(s){return(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/\n/g,"<br>");}
+function toast(m){const el=G("toast");el.textContent=m;el.className="toast show";setTimeout(()=>el.className="toast",3000);}
+function showE(m){const el=G("ae");el.textContent=m;el.style.display="block";}
+function errM(c){const m={"auth/user-not-found":"Hakuna akaunti na email hii!","auth/wrong-password":"Nywila si sahihi!","auth/invalid-credential":"Email au nywila si sahihi!","auth/email-already-in-use":"Email hii tayari inatumika!","auth/invalid-email":"Email si sahihi!","auth/network-request-failed":"Hakuna mtandao!","auth/too-many-requests":"Majaribio mengi. Jaribu baadaye.","auth/weak-password":"Nywila ni dhaifu — tumia herufi 6+!"};return m[c]||("Kosa: "+c);}
+
+// AUTH TABS
+window.swTab=(t,btn)=>{document.querySelectorAll(".atab").forEach(b=>b.classList.remove("on"));btn.classList.add("on");G("lf").style.display=t==="login"?"block":"none";G("sf").style.display=t==="signup"?"block":"none";G("ae").style.display="none";};
+
+// LOGIN
+window.doLogin=async()=>{
+  const em=G("le").value.trim(),pw=G("lp").value,btn=G("lb");
+  if(!em||!pw){showE("Jaza email na nywila!");return;}
+  btn.disabled=true;btn.textContent="Inaingia...";
+  try{await signInWithEmailAndPassword(auth,em,pw);}
+  catch(e){btn.disabled=false;btn.textContent="🔐 Ingia";showE(errM(e.code));}
+};
+
+// SIGNUP
+window.doSignup=async()=>{
+  const nm=G("sn").value.trim(),ph=G("sp").value.trim(),em=G("se").value.trim(),pw=G("sw").value,btn=G("sb2");
+  if(!nm||!em||!pw){showE("Jaza sehemu zote!");return;}
+  if(pw.length<6){showE("Nywila lazima iwe herufi 6+!");return;}
+  btn.disabled=true;btn.textContent="Inaunda...";
+  try{
+    const cr=await createUserWithEmailAndPassword(auth,em,pw);
+    await fbUp(cr.user,{displayName:nm});
+    await set(ref(db,"users/"+cr.user.uid),{uid:cr.user.uid,name:nm,email:em,phone:ph||"",bio:"",createdAt:Date.now(),isOwner:em===OWNER,isAdmin:em===OWNER,online:true,msgCount:0,postCount:0});
+    toast("✅ Akaunti imeundwa! Karibu!");
+  }catch(e){btn.disabled=false;btn.textContent="✅ Unda Akaunti";showE(errM(e.code));}
+};
+
+// LOGOUT
+window.doLogout=async()=>{
+  if(!confirm("Unataka kutoka?"))return;
+  if(me)await update(ref(db,"users/"+me.uid),{online:false}).catch(()=>{});
+  if(mref){off(mref);mref=null;}
+  await signOut(auth);closeAM();
+};
+
+// AUTH STATE
+onAuthStateChanged(auth,async u=>{
+  if(u){G("auth").style.display="none";G("app").style.display="flex";me=u;await loadMe();initApp();}
+  else{G("auth").style.display="flex";G("app").style.display="none";me=null;md=null;if(mref){off(mref);mref=null;}}
+});
+
+async function loadMe(){
+  const sn=await get(ref(db,"users/"+me.uid));md=sn.val()||{};
+  if(!md.name){md={uid:me.uid,name:me.displayName||"User",email:me.email,phone:"",bio:"",createdAt:Date.now(),isOwner:me.email===OWNER,isAdmin:me.email===OWNER,online:true,msgCount:0,postCount:0};await set(ref(db,"users/"+me.uid),md);}
+  await update(ref(db,"users/"+me.uid),{online:true,lastSeen:Date.now()});
+  const c=col(md.name),i=ini(md.name);
+  G("tav").textContent=i;G("tav").style.background=c;
+  G("tnm").textContent=md.name;
+  G("cav2").textContent=i;G("cav2").style.background=c;
+  if(md.isOwner)G("adsec").style.display="block";
+  if(window.innerWidth<=640)G("mbb").style.display="flex";
+}
+
+function initApp(){
+  loadSb();loadPosts();showFeed();
+  onValue(ref(db,"friendReqs/"+me.uid),sn=>{
+    const d=sn.val(),cnt=d?Object.keys(d).length:0;
+    cnt>0?G("nb").classList.add("has"):G("nb").classList.remove("has");
+    G("rtab").textContent="📩 Ombi"+(cnt>0?" ("+cnt+")":"");
+  });
+}
+
+// SIDEBAR
+window.setTab=(t,btn)=>{tab=t;document.querySelectorAll(".stab").forEach(b=>b.classList.remove("on"));btn.classList.add("on");loadSb();};
+window.filterL=()=>loadSb(G("si").value);
+
+async function loadSb(f=""){
+  const el=G("sl");el.innerHTML="<div style='text-align:center;padding:16px;color:var(--sub);font-size:11px;'>Inapakia...</div>";
+  if(tab==="chats"){
+    const sn=await get(ref(db,"userFriends/"+me.uid));const fr=sn.val()||{};
+    if(!Object.keys(fr).length){el.innerHTML="<div class='empty'><div class='ei'>💬</div><p>Ongeza marafiki na uanze kuzungumza!</p></div>";return;}
+    let h="";
+    for(const fid of Object.keys(fr)){
+      const us=await get(ref(db,"users/"+fid));const u=us.val();if(!u)continue;
+      if(f&&!u.name.toLowerCase().includes(f.toLowerCase()))continue;
+      const c=col(u.name),i=ini(u.name),cdi=cid(me.uid,fid);
+      let lm="Bonyeza kuzungumza",lt="";
+      const cs=await get(ref(db,"chats/"+cdi+"/msgs"));
+      if(cs.val()){const ms=Object.values(cs.val());const la=ms[ms.length-1];lm=la.code?"[Code]":la.text.substring(0,30)+(la.text.length>30?"...":"");lt=ago(la.ts);}
+      h+=`<div class="ci ${ccid===cdi?"on":""}" onclick="openChat('${fid}')">
+        <div class="cav" style="background:${c}">${i}${u.online?'<div class="odot"></div>':''}</div>
+        <div class="ci-info"><div class="cnm">${esc(u.name)}${u.isOwner?'<span class="otag">Owner</span>':u.isAdmin?'<span class="atag">Admin</span>':''}</div><div class="clast">${esc(lm)}</div></div>
+        <div class="ctime">${lt}</div>
+      </div>`;
+    }
+    el.innerHTML=h||"<div class='empty'><div class='ei'>💬</div><p>Anza kuzungumza!</p></div>";
+  } else if(tab==="friends"){
+    const sn=await get(ref(db,"userFriends/"+me.uid));const fr=sn.val()||{};
+    if(!Object.keys(fr).length){el.innerHTML="<div class='empty'><div class='ei'>👥</div><p>Bado huna marafiki.</p></div>";return;}
+    let h="";
+    for(const fid of Object.keys(fr)){
+      const us=await get(ref(db,"users/"+fid));const u=us.val();if(!u)continue;
+      if(f&&!u.name.toLowerCase().includes(f.toLowerCase()))continue;
+      const c=col(u.name),i=ini(u.name);
+      h+=`<div class="ci" onclick="openChat('${fid}')">
+        <div class="cav" style="background:${c}">${i}${u.online?'<div class="odot"></div>':''}</div>
+        <div class="ci-info"><div class="cnm">${esc(u.name)}</div><div class="clast">${u.phone||u.email}</div></div>
+        <button onclick="event.stopPropagation();rmFr('${fid}')" style="background:rgba(239,68,68,0.1);border:none;color:#f87171;padding:3px 7px;border-radius:5px;cursor:pointer;font-size:10px;flex-shrink:0;">Ondoa</button>
+      </div>`;
+    }
+    el.innerHTML=h;
+  } else {
+    const sn=await get(ref(db,"friendReqs/"+me.uid));const rq=sn.val()||{};
+    if(!Object.keys(rq).length){el.innerHTML="<div class='empty'><div class='ei'>📩</div><p>Hakuna maombi.</p></div>";return;}
+    let h="";
+    for(const [fid] of Object.entries(rq)){
+      const us=await get(ref(db,"users/"+fid));const u=us.val();if(!u)continue;
+      const c=col(u.name),i=ini(u.name);
+      h+=`<div class="ri">
+        <div class="cav" style="background:${c};width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:bold;color:#fff;">${i}</div>
+        <div><div style="font-size:12px;font-weight:600;">${esc(u.name)}</div><div style="font-size:10px;color:var(--sub);">${u.email}</div></div>
+        <div class="rbtns"><button class="abtn2" onclick="accR('${fid}')">✅</button><button class="rbtn" onclick="rejR('${fid}')">✕</button></div>
+      </div>`;
+    }
+    el.innerHTML=h;
+  }
+}
+
+// OPEN CHAT
+window.openChat=async fid=>{
+  if(mref){off(mref);mref=null;}
+  cfid=fid;ccid=cid(me.uid,fid);
+  const us=await get(ref(db,"users/"+fid));const u=us.val()||{name:"User"};
+  const c=col(u.name),i=ini(u.name);
+  G("wv").style.display="none";G("fv").style.display="none";G("cv").style.display="flex";
+  G("chav").textContent=i;G("chav").style.background=c;
+  G("chnm").innerHTML=esc(u.name)+(u.isOwner?'<span class="otag">Owner</span>':u.isAdmin?'<span class="atag">Admin</span>':"");
+  G("chst").textContent=u.online?"● Online":"● Offline";G("chst").style.color=u.online?"var(--grn)":"var(--sub)";
+  const wrap=G("mwrap");wrap.innerHTML="<div class='sm'>Inapakia...</div>";
+  mref=ref(db,"chats/"+ccid+"/msgs");
+  onValue(mref,sn=>{
+    wrap.innerHTML="";const data=sn.val();
+    if(!data){wrap.innerHTML="<div class='sm'>Anza kuzungumza! 💬</div>";return;}
+    const list=Object.entries(data).sort((a,b)=>a[1].ts-b[1].ts);
+    let ld="";
+    list.forEach(([,msg])=>{
+      const dt=new Date(msg.ts).toLocaleDateString("sw-TZ");
+      if(dt!==ld){ld=dt;const d=document.createElement("div");d.className="dd";d.innerHTML=`<span>${dt}</span>`;wrap.appendChild(d);}
+      const mine=msg.uid===me.uid,mc=col(msg.name||"U");
+      const div=document.createElement("div");div.className="mr "+(mine?"me":"");
+      div.innerHTML=`<div class="mav" style="background:${mc}">${ini(msg.name||"U")}</div><div><div class="bub ${mine?"me":"them"} ${msg.code?"code":""}">${esc(msg.text)}</div><div class="mt ${mine?"r":""}">${ago(msg.ts)}</div></div>`;
+      wrap.appendChild(div);
+    });
+    wrap.scrollTop=wrap.scrollHeight;
+  });
+  loadSb();if(window.innerWidth<=640)closeSb();
+};
+
+// SEND MSG
+window.sendMsg=async()=>{
+  const ta=G("mta"),text=ta.value.trim();if(!text||!ccid)return;
+  ta.value="";aH(ta);G("sndbtn").disabled=true;
+  try{
+    await push(ref(db,"chats/"+ccid+"/msgs"),{uid:me.uid,name:md?.name||"User",text,code:cm,ts:Date.now()});
+    md.msgCount=(md.msgCount||0)+1;await update(ref(db,"users/"+me.uid),{msgCount:md.msgCount});
+  }catch(e){toast("Kosa: "+e.message);}
+  G("sndbtn").disabled=false;
+};
+window.hKey=e=>{if(e.key==="Enter"&&!e.shiftKey&&!cm){e.preventDefault();sendMsg();}};
+window.aH=el=>{el.style.height="auto";el.style.height=Math.min(el.scrollHeight,90)+"px";};
+window.togCode=()=>{cm=!cm;const ta=G("mta"),btn=G("cbtn");ta.className="mta"+(cm?" code":"");ta.placeholder=cm?"// Code hapa...":"Andika ujumbe...";btn.className="tbtn"+(cm?" on":"");};
+window.togPC=()=>{pm=!pm;G("pcbtn").className="tbtn"+(pm?" on":"");};
+window.addE=e=>{G("mta").value+=e;G("mta").focus();};
+window.clearChat=async()=>{if(!ccid||!confirm("Futa mazungumzo yote?"))return;await remove(ref(db,"chats/"+ccid+"/msgs"));toast("🗑️ Imefutwa!");};
+
+// FEED
+window.showFeed=()=>{G("cv").style.display="none";G("wv").style.display="none";G("fv").style.display="block";};
+window.makePost=async()=>{
+  const text=G("pi").value.trim();if(!text){toast("Andika kitu kwanza!");return;}
+  await push(ref(db,"posts"),{uid:me.uid,name:md?.name||"User",text,code:pm,ts:Date.now(),likes:{},comments:{},likeCount:0});
+  md.postCount=(md.postCount||0)+1;await update(ref(db,"users/"+me.uid),{postCount:md.postCount});
+  G("pi").value="";pm=false;G("pcbtn").className="tbtn";toast("✅ Umechapisha!");
+};
+function loadPosts(){
+  onValue(ref(db,"posts"),sn=>{
+    const posts=sn.val();const el=G("pw");
+    if(!posts){el.innerHTML="<div class='empty'><div class='ei'>📝</div><p>Hakuna machapisho. Kuwa wa kwanza!</p></div>";return;}
+    const list=Object.entries(posts).sort((a,b)=>b[1].ts-a[1].ts);
+    el.innerHTML=list.map(([pid,p])=>{
+      const c=col(p.name),i=ini(p.name),lc=p.likeCount||0,liked=p.likes&&p.likes[me?.uid];
+      const cmts=p.comments?Object.entries(p.comments).map(([,cm])=>`<div class="cmti"><div class="cmtav" style="background:${col(cm.name)}">${ini(cm.name)}</div><div class="cmtb"><div class="cmtnm">${esc(cm.name)}</div>${esc(cm.text)}</div></div>`).join(""):"";
+      return `<div class="pcard">
+        <div class="phdr">
+          <div class="pav" style="background:${c}">${i}</div>
+          <div><div class="pau">${esc(p.name)}${p.uid===me?.uid?'<span class="otag">Mimi</span>':''}</div><div class="ptm">${ago(p.ts)}</div></div>
+          ${p.uid===me?.uid?`<button onclick="delP('${pid}')" style="margin-left:auto;background:none;border:none;color:var(--sub);cursor:pointer;font-size:14px;">🗑️</button>`:''}
+        </div>
+        ${p.code?`<div class="pcode">${esc(p.text)}</div>`:`<div class="ptxt">${esc(p.text)}</div>`}
+        <div class="pacts">
+          <button class="pact ${liked?"lk":""}" onclick="likeP('${pid}')">❤️ ${lc}</button>
+          <button class="pact" onclick="togC('${pid}')">💬 ${Object.keys(p.comments||{}).length}</button>
+          <button class="pact" onclick="shareP()">↗️</button>
+        </div>
+        <div class="cmts" id="cm-${pid}" style="display:none">
+          <div id="cl-${pid}">${cmts}</div>
+          <div class="acmt">
+            <input class="cmtinp" id="ci-${pid}" placeholder="Andika maoni..." onkeypress="if(event.key==='Enter')addC('${pid}')">
+            <button class="cmtsnd" onclick="addC('${pid}')">➤</button>
+          </div>
+        </div>
+      </div>`;
+    }).join("");
+  });
+}
+window.likeP=async pid=>{const lr=ref(db,"posts/"+pid+"/likes/"+me.uid);const sn=await get(lr);const cnt=(await get(ref(db,"posts/"+pid+"/likeCount"))).val()||0;if(sn.val()){await remove(lr);await update(ref(db,"posts/"+pid),{likeCount:Math.max(0,cnt-1)});}else{await set(lr,true);await update(ref(db,"posts/"+pid),{likeCount:cnt+1});}};
+window.togC=pid=>{const el=G("cm-"+pid);el.style.display=el.style.display==="none"?"block":"none";};
+window.addC=async pid=>{const inp=G("ci-"+pid);const text=inp.value.trim();if(!text)return;inp.value="";await push(ref(db,"posts/"+pid+"/comments"),{uid:me.uid,name:md?.name||"User",text,ts:Date.now()});};
+window.delP=async pid=>{if(!confirm("Futa?"))return;await remove(ref(db,"posts/"+pid));toast("🗑️ Imefutwa!");};
+window.shareP=()=>{navigator.clipboard?.writeText(location.href);toast("✅ Link imenakiliwa!");};
+
+// ADD FRIEND
+window.openAF=()=>{G("fs").value="";G("sr").innerHTML="";loadMF();G("afm").className="mbg show";};
+async function loadMF(){
+  const sn=await get(ref(db,"userFriends/"+me.uid));const fr=sn.val()||{};const el=G("mfd");
+  if(!Object.keys(fr).length){el.innerHTML="<p style='color:var(--sub);font-size:11px;'>Bado huna marafiki.</p>";return;}
+  let h="";
+  for(const fid of Object.keys(fr)){const us=await get(ref(db,"users/"+fid));const u=us.val();if(!u)continue;const c=col(u.name),i=ini(u.name);h+=`<div class="ri"><div class="cav" style="background:${c};width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:bold;color:#fff;">${i}</div><div><div style="font-size:12px;font-weight:600;">${esc(u.name)}</div><div style="font-size:10px;color:var(--sub);">${u.phone||u.email}</div></div><button class="afbtn ch" onclick="openChat('${fid}');closeM('afm')">💬</button></div>`;}
+  el.innerHTML=h;
+}
+window.searchU=async()=>{
+  const q=G("fs").value.trim().toLowerCase();const el=G("sr");
+  if(!q){el.innerHTML="<p style='color:var(--sub);font-size:11px;'>Andika email ya kutafuta.</p>";return;}
+  el.innerHTML="<p style='color:var(--sub);font-size:11px;'>Inatafuta...</p>";
+  const sn=await get(ref(db,"users"));const all=sn.val()||{};
+  const found=Object.entries(all).filter(([uid,u])=>uid!==me.uid&&(u.email?.toLowerCase()===q||u.name?.toLowerCase().includes(q)));
+  if(!found.length){el.innerHTML="<p style='color:var(--sub);font-size:11px;'>Hakuna mtumiaji aliyepatikana.</p>";return;}
+  const fs=await get(ref(db,"userFriends/"+me.uid));const mf=fs.val()||{};
+  el.innerHTML=found.map(([uid,u])=>{const isFr=!!mf[uid];const c=col(u.name),i=ini(u.name);return `<div class="ri"><div class="cav" style="background:${c};width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:bold;color:#fff;">${i}</div><div><div style="font-size:12px;font-weight:600;">${esc(u.name)}${u.isOwner?'<span class="otag">Owner</span>':''}</div><div style="font-size:10px;color:var(--sub);">${u.phone||u.email}</div></div>${isFr?`<button class="afbtn ch" onclick="openChat('${uid}');closeM('afm')">💬</button>`:`<button class="afbtn" id="ab-${uid}" onclick="sendR('${uid}',this)">➕</button>`}</div>`;}).join("");
+};
+window.sendR=async(toUid,btn)=>{btn.disabled=true;btn.textContent="...";await set(ref(db,"friendReqs/"+toUid+"/"+me.uid),{from:me.uid,name:md?.name||"User",email:me.email,ts:Date.now()});btn.textContent="✅";btn.style.background="var(--grn)";toast("✅ Ombi limetumwa!");};
+window.accR=async fid=>{await set(ref(db,"userFriends/"+me.uid+"/"+fid),true);await set(ref(db,"userFriends/"+fid+"/"+me.uid),true);await remove(ref(db,"friendReqs/"+me.uid+"/"+fid));toast("✅ Marafiki sasa!");loadSb();};
+window.rejR=async fid=>{await remove(ref(db,"friendReqs/"+me.uid+"/"+fid));toast("✕ Omesha kukataliwa.");loadSb();};
+window.rmFr=async fid=>{if(!confirm("Ondoa rafiki huyu?"))return;await remove(ref(db,"userFriends/"+me.uid+"/"+fid));await remove(ref(db,"userFriends/"+fid+"/"+me.uid));toast("🗑️ Ameondolewa.");loadSb();};
+window.openReqs=()=>{G("rqm").className="mbg show";loadRQL();};
+async function loadRQL(){
+  const sn=await get(ref(db,"friendReqs/"+me.uid));const rq=sn.val()||{};const el=G("rql");
+  if(!Object.keys(rq).length){el.innerHTML="<p style='color:var(--sub);text-align:center;padding:18px;font-size:12px;'>Hakuna maombi.</p>";return;}
+  let h="";
+  for(const [fid] of Object.entries(rq)){const us=await get(ref(db,"users/"+fid));const u=us.val();if(!u)continue;const c=col(u.name),i=ini(u.name);h+=`<div class="ri"><div class="cav" style="background:${c};width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:bold;color:#fff;">${i}</div><div><div style="font-size:12px;font-weight:600;">${esc(u.name)}</div><div style="font-size:10px;color:var(--sub);">${u.email}</div></div><div class="rbtns"><button class="abtn2" onclick="accR('${fid}');closeM('rqm')">✅</button><button class="rbtn" onclick="rejR('${fid}')">✕</button></div></div>`;}
+  el.innerHTML=h;
+}
+
+// PROFILE
+window.openMP=()=>viewP(me.uid);
+window.viewFP=()=>{if(cfid)viewP(cfid);};
+async function viewP(uid){
+  pt=uid;const sn=await get(ref(db,"users/"+uid));const u=sn.val()||{};const c=col(u.name||"U");
+  G("prav").textContent=ini(u.name||"U");G("prav").style.background=c;
+  G("prnm").innerHTML=esc(u.name||"User")+(u.isOwner?'<span class="otag">Owner</span>':u.isAdmin?'<span class="atag">Admin</span>':"");
+  G("prbi").textContent=u.bio||"ZakaYo Chat Member";G("prph").textContent="📱 "+(u.phone||"—");G("prem").textContent="📧 "+(u.email||"—");
+  G("prjn").textContent="📅 "+(u.createdAt?new Date(u.createdAt).toLocaleDateString("sw-TZ"):"—");
+  G("ps1").textContent=u.postCount||0;G("ps3").textContent=u.msgCount||0;
+  const fs=await get(ref(db,"userFriends/"+uid));G("ps2").textContent=Object.keys(fs.val()||{}).length;
+  G("prchbtn").style.display=uid===me.uid?"none":"block";G("prm").className="mbg show";
+}
+window.chatFP=()=>{if(pt&&pt!==me.uid){closeM("prm");openChat(pt);}};
+
+// SETTINGS
+window.openSt=()=>{
+  const u=md||{},c=col(u.name||"U");
+  G("stav").textContent=ini(u.name||"U");G("stav").style.background=c;
+  G("stnm").textContent=u.name||"";G("stem").textContent=u.email||"";
+  G("nnm").value=u.name||"";G("nph").value=u.phone||"";G("nbi").value=u.bio||"";
+  G("stm").className="mbg show";
+};
+window.savePr=async()=>{
+  const nm=G("nnm").value.trim(),ph=G("nph").value.trim(),bi=G("nbi").value.trim();
+  if(!nm){toast("⚠️ Jina haliwezi kuwa tupu!");return;}
+  await update(ref(db,"users/"+me.uid),{name:nm,phone:ph,bio:bi});
+  await fbUp(me,{displayName:nm});
+  if(md){md.name=nm;md.phone=ph;md.bio=bi;}
+  G("tnm").textContent=nm;G("tav").textContent=ini(nm);G("tav").style.background=col(nm);
+  G("cav2").textContent=ini(nm);G("cav2").style.background=col(nm);
+  toast("✅ Profaili imesasishwa!");closeM("stm");
+};
+
+// ADMIN
+window.openAdm=async()=>{
+  closeM("stm");
+  const us=await get(ref(db,"users")),ps=await get(ref(db,"posts"));
+  const users=us.val()||{},posts=ps.val()||{};let mt=0;Object.values(users).forEach(u=>{mt+=(u.msgCount||0);});
+  G("adsts").innerHTML=`<div class="adst"><div class="n">${Object.keys(users).length}</div><div class="l">Watumiaji</div></div><div class="adst"><div class="n">${Object.keys(posts).length}</div><div class="l">Machapisho</div></div><div class="adst"><div class="n">${mt}</div><div class="l">Ujumbe</div></div>`;
+  G("adul").innerHTML=Object.entries(users).map(([uid,u])=>`<div class="uw"><div class="cav" style="background:${col(u.name)};width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:bold;color:#fff;">${ini(u.name)}</div><div style="flex:1;min-width:0;"><div style="font-size:11px;font-weight:600;">${esc(u.name||"User")}${u.isOwner?'<span class="otag">Owner</span>':''}</div><div style="font-size:10px;color:var(--sub);">${u.email}${u.phone?" | "+u.phone:""}</div><div style="font-size:9px;color:var(--sub);">${u.online?"🟢":"⚫"} | ${u.msgCount||0} ujumbe${u.banned?" | 🚫":""}</div></div>${uid!==me.uid?u.banned?`<button class="unbanbtn" onclick="banU('${uid}',false)">✅</button>`:`<button class="banbtn" onclick="banU('${uid}',true)">🚫</button>`:'<span style="font-size:10px;color:#f59e0b;">👑</span>'}</div>`).join("");
+  G("adm").className="mbg show";
+};
+window.banU=async(uid,ban)=>{if(!confirm(ban?"Zuia?":"Ruhusu?"))return;await update(ref(db,"users/"+uid),{banned:ban});toast(ban?"🚫 Amezuiwa!":"✅ Ameruhusiwa!");openAdm();};
+
+// MODALS & SIDEBAR
+window.closeM=id=>G(id).className="mbg";
+function closeAM(){document.querySelectorAll(".mbg").forEach(m=>m.className="mbg");}
+window.togSb=()=>{G("sb").classList.toggle("open");G("ov").classList.toggle("show");};
+window.closeSb=()=>{G("sb").classList.remove("open");G("ov").classList.remove("show");};
+window.addEventListener("resize",()=>{const b=G("mbb");if(b)b.style.display=window.innerWidth<=640?"flex":"none";if(window.innerWidth>640){G("sb").classList.remove("open");G("ov").classList.remove("show");}});
+document.addEventListener("keypress",e=>{if(e.key==="Enter"){if(G("le")===document.activeElement||G("lp")===document.activeElement)doLogin();if(G("sw")===document.activeElement)doSignup();}});
+</script>
+</body>
+</html>
